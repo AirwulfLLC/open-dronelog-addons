@@ -4,13 +4,14 @@ Optional add-ons for **Open DroneLog**, the free desktop program that keeps and 
 
 | Add-on | What it adds | Installer file |
 |---|---|---|
-| **Thermal Analysis Studio** | A **Thermal** tab: a temperature for every pixel of a thermal (radiometric) drone photo, hot and cold spot detection, heat-flow modelling and inspection reports | `OpenDroneLog-Thermal-Addon_<version>_x64-setup.exe` |
-| **Photogrammetry** | A **Photogrammetry** tab: one library for survey photos, videos and Agisoft Metashape outputs, with measuring tools and survey reports | `OpenDroneLog-Photogrammetry-Addon_<version>_x64-setup.exe` |
+| **Thermal Analysis Studio** | A **Thermal** tab: a temperature for every pixel of a thermal (radiometric) drone photo, hot and cold spot detection, heat-flow modelling and inspection reports, an analysis boundary, side-by-side documents, temperature exports and claim packages | `OpenDroneLog-Thermal-Addon_<version>_x64-setup.exe` |
+| **Photogrammetry** | A **Photogrammetry** tab: one library for survey photos, videos and Agisoft Metashape outputs, with measuring tools and survey reports, orthomosaic and linework export, volume tickets and claim packages | `OpenDroneLog-Photogrammetry-Addon_<version>_x64-setup.exe` |
 
 The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the original Open DroneLog project.
 
 **Contents**
 
+- [What's new in 1.0.1](#whats-new-in-101)
 - [Before you start](#before-you-start)
 - [Install an add-on, step by step](#install-an-add-on-step-by-step)
 - [Activate your license](#activate-your-license)
@@ -20,6 +21,35 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 - [Troubleshooting](#troubleshooting)
 - [Help with the add-ons](#help-with-the-add-ons)
 - [Licenses and source code](#licenses-and-source-code)
+
+---
+
+## What's new in 1.0.1
+
+Version 1.0.1 of both add-ons is still built for **Open DroneLog 3.3.2**. If you already have 1.0.0, get the new version as described in [Update an add-on](#update-an-add-on).
+
+**Thermal**
+
+- Draw an outline with **⛶ Boundary** around the item you want to analyse. The statistics, the isotherm figures, the palette range and the AI analysis then read only inside it. See [The analysis boundary](HELP.md#thermal-boundary).
+- Read every spot and ΔT mark of a picture, with its pixel position, in the **Spot readings** section of the Analysis panel. See [Spot readings](HELP.md#thermal-deliverables-spot-readings).
+- Build a document with the visual and the thermal picture side by side, one page per picture, with **📄 Side-by-side…**. See [Side-by-side](HELP.md#thermal-deliverables-side-by-side).
+- Export the temperature of every pixel as a TIFF or CSV file with **🌡 Export temperatures…**. See [Temperature export](HELP.md#thermal-deliverables-temperature-export).
+- Link each thermal picture to its visual twin, by itself on import or with **⇄ Pair pictures**. See [Pairing thermal and visual pictures](HELP.md#thermal-start-pairing-thermal-and-visual-pictures).
+
+**Photogrammetry**
+
+- Export an orthomosaic as a JPG with its world file and a presentation copy with **🗺 Export orthomosaic…**. See [Exporting an orthomosaic](HELP.md#mapping-deliverables-exporting-an-orthomosaic).
+- Print a numbered ticket for one measured volume with **🧾 Volume ticket…**. See [Printing a volume ticket](HELP.md#mapping-deliverables-printing-a-volume-ticket).
+
+**Both add-ons**
+
+- Search the library by name, filter it, and delete many pictures at once with **Select all** and **Delete selected…**. See the [Thermal library](HELP.md#thermal-start-the-asset-library) and the [Photogrammetry library](HELP.md#photo-start-the-library).
+- Export the measurements and drawings of a picture as DXF, GeoJSON or ODL XML with **📐 Export linework…**. See [Exporting linework](HELP.md#mapping-deliverables-exporting-linework).
+- Turn a measurement into a material order, with waste and prices, in the **🧮 Material Takeoff** strip. See [Material take-offs](HELP.md#materials-takeoff-steps).
+- Hand a report over as a claim package (original pictures, portal copies and a custody sheet in one folder) with **📦 Claim package…** in the report builder. See [Delivering a claim package](HELP.md#claim-package).
+- Import a whole camera folder with **📂 Import folder…**. See [Import folder](HELP.md#claim-package-import-folder).
+- Put your logo, company name and Part 107 number on every report in **Settings** → **Branding**, and save clients to pick them in later reports. See [Branding your reports](HELP.md#settings-branding) and [Saving clients](HELP.md#clients).
+- Some licenses are tied to one computer. Move such a license to another computer with **Deactivate this PC**. See [Licenses tied to this computer](HELP.md#addon-license-licenses-tied-to-this-computer) and [Deactivating this computer](HELP.md#addon-license-deactivating-this-computer).
 
 ---
 
@@ -93,7 +123,7 @@ When the install is done, a message says the add-on is installed. Click **OK**, 
 
 1. Start Open DroneLog.
 2. Click the **🧩 Add-ons** button (next to **Settings** in the sidebar).
-3. Click **↻ Refresh**. Your add-on appears in the list.
+3. Click **↻ Refresh**. The window always lists both add-ons. The one you installed now shows its version, for example **Enabled · v\<version\>**. An add-on that is not installed shows **Not installed** and a **Download installer…** button.
 4. Make sure **Enabled** is ticked.
 5. Close the Add-ons window. A new **Thermal** or **Photogrammetry** tab appears in the sidebar.
 6. Open the new tab:
@@ -124,6 +154,18 @@ If you entered your key in the installer, Open DroneLog activates it the next ti
 
 Subscriptions renew by themselves. To change your card, see invoices or cancel, click **Manage subscription** in the add-on's row. Each license covers one add-on: a Thermal key does not unlock Photogrammetry.
 
+**No internet on this computer?** The thank-you page also has a **Download license file** button. Download the file on a computer with internet, carry it over (for example on a USB stick), and click **Import license file…** on the lock panel or in the **🧩 Add-ons** window. See [Offline computers](HELP.md#addon-license-offline-computers).
+
+**Refresh:** click **Refresh** on the lock panel or in the add-on's row to check the license again, for example after the computer is back online.
+
+**To move a license to another computer:** some licenses are tied to the computer they were activated on. For such a license, the lock panel and the add-on's row show a **Deactivate this PC** button.
+
+1. On the old computer, click **Deactivate this PC**.
+2. Click **Copy** to keep the key, then click **Deactivate**.
+3. On the new computer, activate the key as above.
+
+See [Licenses tied to this computer](HELP.md#addon-license-licenses-tied-to-this-computer) and [Deactivating this computer](HELP.md#addon-license-deactivating-this-computer).
+
 The help file has the full details, including offline computers and renewal warnings: [Buying, activating and renewing an add-on license](HELP.md#addon-license).
 
 ---
@@ -136,6 +178,11 @@ Open DroneLog checks for add-on updates by itself about once a day. To check now
 2. If a newer version exists, the add-on's row shows **Update to v\<version\> (\<size\> MB)**. Click it.
 3. A progress bar fills while the update downloads and is verified.
 4. The row reads **Restarting to apply…**. Open DroneLog closes, installs the update and starts again.
+
+Instead of the update button, the row may show one of these lines:
+
+- **Update v\<version\> cannot be installed on this computer yet**, followed by the reason. When your Open DroneLog is newer than the one the update was built for, wait for an add-on release built for your version.
+- **Update check failed:** followed by the reason. Check the internet connection and click **Check for updates** again.
 
 **No internet on that computer?** Download the newest installer from the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) on another computer, copy it over (for example on a USB stick), and run it. You do not need to enter your key again.
 
@@ -164,6 +211,7 @@ What happens next:
 
 - Your imported pictures, measurements and reports stay in your Open DroneLog profile.
 - Your license stays on the computer, so a later reinstall finds it.
+- Removing an add-on does not free a license that is registered to this computer. If the license should move to another computer, click **Deactivate this PC** first (see [Activate your license](#activate-your-license)).
 - If it was the **last** add-on installed, Open DroneLog restarts with your original program put back. If another add-on is still installed, the host program stays.
 - If putting the original back cannot finish, the row reads **Removing … failed**, with **Retry** and **Keep add-on** buttons.
 
@@ -177,11 +225,13 @@ When the installer stops, it says why, and it has changed nothing. Find the mess
 |---|---|---|
 | **Open DroneLog was not found. Install Open DroneLog first** | Open DroneLog is not installed for your Windows account | Do [Step 1](#step-1-install-open-dronelog-skip-if-you-already-have-it), then run the add-on installer again |
 | **An all-users (MSI) install of Open DroneLog was found. It is not supported** | Open DroneLog was installed with the `.msi` | Uninstall it from **Installed apps**, install the `_x64-setup.exe` (Step 1), then run the add-on installer again |
-| **Open DroneLog \<version\> is newer than this add-on's build** | Your Open DroneLog is newer than this add-on release supports | Get a newer add-on release from the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases), if there is one |
+| **Open DroneLog \<version\> is newer than this add-on's build** | Your Open DroneLog is newer than this add-on release supports | Download the current add-on installer from the address the message gives; it opens this repository's [latest release](https://github.com/AirwulfLLC/open-dronelog-addons/releases/latest). If no release is built for your Open DroneLog yet, wait for one |
 | **Open DroneLog is still running** | The program was open | Close Open DroneLog (check the taskbar) and run the installer again |
 | **Another add-on installer or uninstaller is running** | Two installers were started at once | Let the first one finish, then try again |
+| **The installed program could not be read (is it locked?)** | The installer could not read the Open DroneLog program file | Close Open DroneLog and run the installer again |
 | **Open DroneLog could not be replaced (the program file is locked)** | Another program is using the Open DroneLog file | Close Open DroneLog, wait a minute or restart the computer, then try again |
 | **Windows protected your PC** | SmartScreen warning for a new download | Click **More info → Run anyway** (see [Step 4](#step-4-run-the-installer)) |
+| **Repair needed: run the add-on installer** at the bottom of the **🧩 Add-ons** window | An earlier install or removal was interrupted | Run the add-on installer again (Steps 3 to 6) |
 | The add-on tab doesn't appear after installing | Open DroneLog has not re-read its add-ons folder | In **🧩 Add-ons**, click **↻ Refresh** and tick **Enabled** |
 | **DJI SDK unavailable** on the Thermal tab | The thermal camera library files are missing | Run the Thermal installer again |
 | A license key shows as **Rejected** | The licensing service refused the key | Check the key, then click **Retry**; see the [license help](HELP.md#addon-license) |
@@ -200,7 +250,7 @@ When the installer stops, it says why, and it has changed nothing. Find the mess
 
 ## Help with the add-ons
 
-**[HELP.md](HELP.md)** holds every help guide built into the add-ons (the **?** buttons in the program) in one file with a table of contents: getting started, thermal analysis, measuring, reports, settings and licensing.
+**[HELP.md](HELP.md)** holds every help guide built into the add-ons (the **?** buttons in the program) in one file with a table of contents: getting started, thermal analysis, the analysis boundary, side-by-side documents and temperature exports, measuring, material take-offs, reports, claim packages, orthomosaic and linework export, volume tickets, settings, branding, clients and licensing.
 
 For the main Open DroneLog program (importing flight logs, maps, charts, battery tracking and so on), see the original project's [user manual](https://github.com/arpanghosh8453/open-dronelog/blob/main/docs/manual.md).
 
