@@ -4,9 +4,9 @@ This file collects every help guide built into the Open DroneLog add-ons (the **
 
 New to the add-ons? Install them first with the step-by-step guide in the [README](README.md), then start with [Thermal Studio: getting started](#thermal-start) or [Photogrammetry: getting started](#photo-start).
 
-> **Version:** written for add-ons 1.0.0 on Open DroneLog 3.3.2. Two guides, [Branding your reports](#settings-branding) and [Saving clients](#clients), describe features coming in the next add-on update; they are marked where they appear.
+> **Version:** written for add-ons 1.0.1 on Open DroneLog 3.3.2.
 
-> **Source and license:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog (`src/help/content`), with only the links between guides changed so they work in one file. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license. The complete source of the program, help included, is attached to every [add-on release](https://github.com/AirwulfLLC/open-dronelog-addons/releases).
+> **Source and license:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog (`src/help/content`). Only what a single file needs is changed: headings sit one level lower, links between guides point inside this file, and every section has an anchor. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license. The complete source of the program, help included, is attached to every [add-on release](https://github.com/AirwulfLLC/open-dronelog-addons/releases).
 
 For the main Open DroneLog program (flight logs, maps, charts, batteries), see the original project's [user manual](https://github.com/arpanghosh8453/open-dronelog/blob/main/docs/manual.md).
 
@@ -18,15 +18,19 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Reading temperatures: statistics, palette and scale, emissivity and distance](#thermal-analysis)
 - [Isolating a temperature range (isotherm)](#thermal-isotherm)
+- [Analysing part of a thermal picture: the analysis boundary](#thermal-boundary)
 - [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
 - [Heat flow network: nodes, conductors, solving](#thermal-network)
 - [Vegetation indices from multispectral orthomosaics](#thermal-vegetation)
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
 
 **Photogrammetry**
 
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
+- [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 **Pictures: annotating and measuring**
 
@@ -40,8 +44,8 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 **Settings**
 
 - [Editing the material catalogue: presets, units, packages, waste, prices](#settings-material-presets)
-- [Branding your reports: logo, company and Part 107 number](#settings-branding) *(next update)*
-- [Saving clients and claim details for reuse](#clients) *(next update)*
+- [Branding your reports: logo, company and Part 107 number](#settings-branding)
+- [Saving clients and claim details for reuse](#clients)
 
 **Add-ons**
 
@@ -58,6 +62,32 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 
 
 The Thermal Studio turns radiometric drone pictures into a temperature for every pixel. You read the temperatures, isolate a range, find hot and cold spots, model heat flow, and put the findings into an inspection report. This topic covers switching the studio on, bringing pictures in, and managing the library.
+
+<a id="thermal-start-what-this-studio-does"></a>
+
+### What this studio does
+
+Each row names a feature, where you find it, and the walkthrough that explains it.
+
+| Feature | Where | Walkthrough |
+|---|---|---|
+| Import pictures, videos and Metashape exports | **+ Import photos / videos**, **📂 Import folder…** and **🌡 Radiometric file…** in the top bar, or drop files on the studio | [Importing](#thermal-start-importing), [Import folder](#claim-package-import-folder) |
+| The library: search, filters, select all, delete, rename | The left column, headed `Assets (N)` | [The asset library](#thermal-start-the-asset-library) |
+| Pairing thermal and visual pictures | **⇄ Pair pictures** in the top bar, the ⇄ badge on a library row, the **Visual twin** row under the picture | [Pairing](#thermal-start-pairing-thermal-and-visual-pictures) |
+| Temperature statistics, palette and scale | **Temperature Statistics** and **Palette & Scale** in the **Analysis** panel | [Reading temperatures](#thermal-analysis-steps) |
+| Emissivity and distance | **Measurement Parameters** in the **Analysis** panel | [Measurement parameters](#thermal-analysis-measurement-parameters) |
+| Spot temperatures and differences | **Spot** (🌡) and **ΔT** (±) at the end of the toolbar's **Measure** group; the readings in **Spot readings** in the **Analysis** panel | [Spot readings](#thermal-deliverables-spot-readings), [Drawing them](#annotate-draw-annotations) |
+| Material take-offs | **🧮 Material Takeoff** after **🧭 Scale** in the toolbar | [Take-offs](#materials-takeoff-steps) |
+| Isolating a temperature range | **Range Isolation (Isotherm)** in the **Analysis** panel | [Isotherm](#thermal-isotherm-steps) |
+| Analysing part of a picture | **⛶ Boundary** in the toolbar's **Measure** group; the boundary line in the **Analysis** panel | [The analysis boundary](#thermal-boundary-steps) |
+| AI variance analysis and narrative | **AI Variance Analysis** in the **Analysis** panel | [Detecting anomalies](#thermal-anomalies-detecting-anomalies) |
+| Heat flow network | **Node** (⬤) and **Link** (⌁) in the toolbar, **Heat Flow Network (Radiation Exchange)** in the **Analysis** panel | [Heat flow](#thermal-network-steps) |
+| Vegetation indices | **Vegetation Index (Multispectral)** at the top of the **Analysis** panel, with a multispectral orthomosaic selected | [Vegetation indices](#thermal-vegetation-steps) |
+| Side-by-side documents | **📄 Side-by-side…** in the top bar | [Side-by-side](#thermal-deliverables-side-by-side) |
+| Temperature export (TIFF, CSV) | **🌡 Export temperatures…** in the top bar | [Temperature export](#thermal-deliverables-temperature-export) |
+| Claim package | **📦 Claim package…** in the report builder's header | [Claim package](#claim-package-steps) |
+| Thermal inspection report and inspection bundles | **📄 Report** in the top bar, then **Open report builder…** or **Import inspection bundle…** | [Thermal report](#thermal-report-steps) |
+| Linework export (DXF, GeoJSON, ODL XML) | **📐 Export linework…** in the top bar | [Exporting linework](#mapping-deliverables-exporting-linework) |
 
 <a id="thermal-start-before-you-start"></a>
 
@@ -78,18 +108,18 @@ The Thermal Studio turns radiometric drone pictures into a temperature for every
   - **DJI Thermal SDK ready** (green): DJI R-JPEGs can be measured. **DJI SDK unavailable** (red) means the SDK runtime from the add-on is missing; hover the badge to read why. Run the add-on installer again.
   - **FLIR · Skydio · Autel built in** (blue): FLIR-format R-JPEGs (Teledyne FLIR, Skydio X10, Autel 640R), Autel 640T TIFFs and temperature CSVs are read without any SDK.
 5. Look at the layout:
-  - Left: the library, headed **Assets (N)**.
-  - Centre, top: the toolbar with the annotation tools, **📝 Note**, the **Measure** group and **🧭 Scale**. Under it the Scale strip opens when you click **🧭 Scale**.
-  - Centre: the viewer with the picture, the zoom strip (**Fit**), the cursor readout and the min and max markers. Under it the info strip.
-  - Right: the **Analysis** panel with its sections (statistics, palette, isotherm, measurement parameters, variance analysis, heat flow).
-  - Top right: **+ Import photos / videos**, **🌡 Radiometric file…** and **📄 Report**.
+  - Left: the library, headed `Assets (N)`, with the search box and **Filters** above the rows.
+  - Centre, top: the toolbar with the annotation tools, **📝 Note**, and the **Measure** group with **🧭 Scale**, **🧮 Material Takeoff**, **Spot**, **ΔT** and **⛶ Boundary**. Under it the Scale strip opens when you click **🧭 Scale**, and the Material Takeoff strip when you click **🧮 Material Takeoff** (under the Scale strip when both are open).
+  - Centre: the viewer with the picture, the zoom strip (**Fit**), the cursor readout and the min and max markers. Under it the info strip and, for a thermal picture, the **Visual twin** row.
+  - Right: the **Analysis** panel with its sections (statistics, spot readings, palette, isotherm, measurement parameters, variance analysis, heat flow).
+  - Top right: **+ Import photos / videos**, **📂 Import folder…**, **🌡 Radiometric file…**, **⇄ Pair pictures**, **📄 Side-by-side…**, **🌡 Export temperatures…**, **📐 Export linework…** and **📄 Report**.
 
 <a id="thermal-start-importing"></a>
 
 ### Importing
 
 1. Click **+ Import photos / videos** (or **Import photos / videos** in the empty viewer). The file dialog opens.
-2. Pick one or more files and confirm. While they are imported the button reads **Importing…**. Accepted: pictures `.jpg`, `.jpeg`, `.png`; videos `.mp4`, `.mov`, `.avi`; Metashape exports `.tif`, `.tiff`, `.pdf`, `.xml`, `.csv`, `.las`, `.laz`, `.ply`, `.obj`, `.kml`, `.kmz`.
+2. Pick one or more files and confirm. While they are imported the button reads `Importing 3 of 10…`. Accepted: pictures `.jpg`, `.jpeg`, `.png`; videos `.mp4`, `.mov`, `.avi`; Metashape exports `.tif`, `.tiff`, `.pdf`, `.xml`, `.csv`, `.las`, `.laz`, `.ply`, `.obj`, `.kml`, `.kmz`.
 3. Or drag files from your file manager onto the studio. The overlay reads "Drop thermal photos/videos or Metashape exports to import". Dropped `.csv` files are skipped, so flight logs dropped by mistake are not filed as pictures.
 4. Wait for the list. The first new file is selected and its temperatures load (**Processing…** shows in the top bar).
 5. Check the subtitle under the name. R-JPEGs are recognised from their content, whoever made them: the row reads, for example, `FLIR R-JPEG 640×480` or `DJI R-JPEG 640×512`. A plain photo reads `Image`, a video `Video`.
@@ -105,12 +135,38 @@ A video plays in the viewer. To work on one moment, pause it and click **Capture
 ### The asset library
 
 1. Click a row to select it. The viewer and the **Analysis** panel load that picture; the row's **✏️** and **🗑** buttons stay visible on the selected row (on other rows they appear on hover).
-2. Rename a picture: double-click its name, or click **✏️**. Type the new name and press Enter (Esc cancels). The extension is kept and shown beside the box; the name is the one printed in reports, the stored file keeps its own name.
-3. Delete a picture: click **🗑** on the row, or **🗑 Delete** in the info strip. Confirm `Delete "<name>" from the thermal library? The file, its annotations and measurements are removed.`
-4. Read the info strip under the picture: the file name, the camera model, for FLIR files `S/N …` and `lens …`, how a TIFF or CSV was read, the format in green (or `Not radiometric`), `📍` with the GPS position, and the capture time.
-5. Add a note: click **📝 Note** in the toolbar. Type the observed condition, context or follow-up into the box. The note is saved with the picture, printed under it in reports, and the button shows ` ●` while a note exists.
+2. Find pictures by name: type part of a name into the search box (`Search by name`) under the `Assets (N)` header. The list keeps the rows whose name contains the text, whatever the case.
+3. Click **Filters** for more criteria. Each one you set narrows the list further:
+  - the type chips, one per type in the library with its count, for example `JPG (12)`, `GeoTIFF (2)` or a Metashape kind such as `Orthomosaic (GeoTIFF) (1)`; click several to show any of them, click a chip again to drop it;
+  - **Size (MB)**: a `min`, a `max` or both; a picture whose file cannot be found has no size and is hidden while a size is set;
+  - **Captured**: a from date and, under it, a to date, both days included; a picture without a capture time counts by the day it was imported, and one with neither is hidden while a date is set;
+  - **Camera** and **Dimensions**: pick one of the cameras or picture sizes in the library, for example `FLIR SC660 (3)` or `640 × 480 (3)`; `Any` drops the criterion. Each list is there only when the library has such values.
+4. Read `Showing N of M` at the bottom of the filter bar, for example `Showing 12 of 140`. While the search box or a filter is set, **Clear filters** appears beside it; click it to empty both and see every row again. The filter is not saved: it starts empty each time you open the studio.
+5. Tick the checkbox of each picture you want to delete; every row has one, documents included. Ticking does not open the picture. Or tick **Select all** under the filter bar: it ticks only the rows the filter shows. It shows a dash while only some of them are ticked; a click then ticks them all, and a click on a full tick clears them. `3 selected` beside it counts the ticks. When you change the filter, the ticks on rows it hides are dropped, so a delete never touches a picture you cannot see.
+6. Click **Delete selected…** under it (greyed out while nothing is ticked). One question names the count, the pictures queued in the report (they leave the queue) and the Metashape files among them, for example `Delete 5 pictures from the library? Their files, annotations and measurements are removed. 1 is queued in the report and leaves the queue. 1 is a Metashape file shared with the Photogrammetry Studio.` Cancelling it deletes nothing.
+7. Wait while the line under the button reads `Deleting 120 of 357…`. Meanwhile **Select all**, **Delete selected…**, the import buttons, **⇄ Pair pictures**, the note, renaming and the 🗑 buttons are greyed out, and dropped files are not taken. When it is done the ticks are cleared, the list reloads and the line reads `Deleted 357 of 357`. If some could not be deleted it reads `Deleted 355 of 357; 2 failed: <first error>`: the others are gone, the failed ones stay in the list. The row checkboxes stay live, but the delete takes the ticks you confirmed; ticks you change meanwhile are cleared when it ends. When some files of the deleted pictures could not be removed, the line ends `; 2 files were left in the app's data folder` (`; 1 file was left …` for one). A bulk delete that is refused because an import is still running reads `Nothing was deleted: another delete or an import is running.`
+8. Rename a picture: double-click its name, or click **✏️**. Type the new name and press Enter (Esc cancels). The extension is kept and shown beside the box; the name is the one printed in reports, the stored file keeps its own name. If a filter hides the picture, renaming it from the info strip's **✏️** clears the filter first.
+9. Delete one picture: click **🗑** on the row, or **🗑 Delete** in the info strip. Confirm `Delete "<name>" from the thermal library? The file, its annotations and measurements are removed.` When the picture is queued in the report, the question reads `Delete "<name>" from the thermal library? The file, its annotations and measurements are removed, and it leaves the report figure queue.` If files could not be removed or the queue could not be saved, the studio's error banner says so after the delete, for example `Deleted. 1 file could not be removed from the app's data folder (<name>); another program may be using it.` or `Deleted, but the report figure queue could not be saved: <error>`.
+10. Read the info strip under the picture: the file name, the camera model, for FLIR files `S/N …` and `lens …`, how a TIFF or CSV was read, the format in green (or `Not radiometric`), `📍` with the GPS position, and the capture time.
+11. Add a note: click **📝 Note** in the toolbar. Type the observed condition, context or follow-up into the box. The note is saved with the picture, printed under it in reports, and the button shows ` ●` while a note exists.
 
 The row icons tell you the kind: 🌡️ radiometric, 🖼️ plain picture, 🎬 video, 🗺️ Metashape raster, 📄 Metashape document.
+
+<a id="thermal-start-pairing-thermal-and-visual-pictures"></a>
+
+### Pairing thermal and visual pictures
+
+A drone that shoots a thermal frame also shoots a visual twin: a wide picture, a zoom picture, or both. The studio can link each thermal picture to its twins, so reports and side-by-side documents show the right pair.
+
+1. Import the thermal and the visual pictures together, by any import button or by dropping them on the studio. Pairing runs at the end of the import, and the notice gains "· N pairs". If the pairing fails, the notice says "Pairing failed" and the pictures stay imported.
+2. Or click **⇄ Pair pictures** in the top bar at any time. The notice reads "Paired N thermal pictures; M have no twin". The button is greyed out while an import, a pairing or a bulk delete runs, and while the capture tags of the pictures are being read (its tooltip then says so).
+3. A picture with a twin shows a ⇄ badge after its name in the library; hover it to read, for example, "Paired with DJI_0001_W.JPG (wide)". Select the thermal picture: the **Visual twin** row under the info strip names the twin the documents show and its slot, for example `DJI_0001_W.JPG · wide`.
+4. With no twin the row reads "No visual twin". Click **Pair with…**: a list titled `Pair <name> with…` opens. Type into `Filter by name…` and click the visual picture. The pictures taken closest in time to the thermal picture come first.
+5. When there are two twins, **Use zoom** or **Use wide** chooses which one the documents show. **Change…** picks a different picture for the shown slot. **Unpair** removes the link.
+
+The rules, in plain words: first the file names (`DJI_0001_T` goes with `DJI_0001_W` as wide and `DJI_0001_Z` as zoom); then the capture time, when the pictures were taken within about two seconds of each other and by the same camera; the zoom is the picture with the longer focal length. A picture is the twin of only one thermal picture.
+
+> **Tip** A pair you made or removed by hand never changes on its own, not on the next import and not on **⇄ Pair pictures**. A twin imported later is not added to it. To give such a picture a new twin, click **Unpair**, then **Pair with…**; **Change…** only replaces the picture in the slot the row shows.
 
 <a id="thermal-start-example-a-flir-picture-from-import-to-findings"></a>
 
@@ -131,7 +187,7 @@ You import the public FLIR SC660 sample `IR_2412.jpg` with **+ Import photos / v
 - An Autel TIFF or CSV that lands as `Orthomosaic (GeoTIFF)` or `Camera Reference (CSV)` went through the normal import. Delete it and import it again with **🌡 Radiometric file…**.
 - The same file cannot be imported twice: files are recognised by their content, not their name. Renaming a file on disk does not get around this, and you do not need to.
 - A frame captured from a DJI thermal video has no temperatures. For measurements, take R-JPEG stills in flight.
-- Deleting removes the annotations, measurements, note and heat-flow network of that picture as well. There is no undo.
+- Deleting removes the annotations, measurements, note and heat-flow network of that picture as well. There is no undo, for **Delete selected…** either: check `Showing N of M` before you tick **Select all**.
 
 > **Under the hood**
 > Imported files are copied into the active profile's data folder and deduplicated by their SHA-256 hash; the original on your disk is not touched. EXIF GPS position, capture time and camera model are read from every picture, and FLIR files add the camera model, serial number and lens from their FLIR data. DJI R-JPEGs are measured by the DJI Thermal SDK (`dirp_measure_ex`); FLIR-format files by a native Planck model of the raw counts; Autel 640T TIFFs are 16-bit values in tenths of a kelvin (°C = value × 0.1 − 273.15); CSV matrices are read as °C (header lines, a row-index column and missing cells are handled; decimal commas only with `;` or tab delimiters; kelvin values are converted only when you import through **🌡 Radiometric file…**). For TIFF and CSV imports the temperatures are kept as a raster beside the file and a palette-rendered preview is shown. Everything stays on your computer; only the AI narrative and AI drafts send data out, and only when you click them.
@@ -146,6 +202,7 @@ You import the public FLIR SC660 sample `IR_2412.jpg` with **+ Import photos / v
 - [Heat flow network: nodes, conductors, solving](#thermal-network)
 - [Vegetation indices from multispectral orthomosaics](#thermal-vegetation)
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
 - [Viewing and annotating pictures](#annotate)
 - [Giving a picture a scale](#measure-scale)
 
@@ -175,9 +232,10 @@ The **Analysis** panel shows the temperature statistics of the selected picture,
 3. Look at the histogram under them: the bars run from the coldest to the hottest pixel. Hover a bar to see its temperature and how many pixels fall in it (`<temperature>: <count> px`). A tall narrow peak is a uniform surface; a second peak is a second material or a warm area.
 4. Move the mouse over the picture. The readout at the bottom left shows `(x, y) · temperature`, plus the position when the picture is georeferenced.
 5. Find the markers on the picture: the red `+` with its temperature is the hottest pixel, the blue `+` the coldest.
-6. Open **Palette & Scale** and click a palette: **Iron Red**, **White Hot**, **Black Hot**, **Rainbow**, **Arctic** or **Medical**. The colour bar under the buttons shows the palette with its low and high end.
-7. Set the scale. **Auto** spreads the palette from the picture's min to its max. To fix it, type a low and a high value into the two boxes beside **Auto** (the greyed placeholders show the auto values). Pixels below the low end take the coldest colour, pixels above the high end the hottest. Click **Auto** to go back.
-8. Change the unit if you need it: open Settings, then **Units**, and set **Temperature** to °C or °F. Every temperature in the panel, the readout, the markers and the reports follows; typed scale values are read in the unit shown.
+6. To keep a reading on the picture, pick **Spot** (🌡) at the end of the toolbar's **Measure** group and click a point, or pick **ΔT** (±) and click two points (or drag from one to the other). The labels read `S1 34.2 °C` and `ΔT1 +6.2 °C`, the second point minus the first, and the **Spot readings** section under **Temperature Statistics** lists them with their pixel coordinates (see [Spot readings](#thermal-deliverables-spot-readings)).
+7. Open **Palette & Scale** and click a palette: **Iron Red**, **White Hot**, **Black Hot**, **Rainbow**, **Arctic** or **Medical**. The colour bar under the buttons shows the palette with its low and high end.
+8. Set the scale. **Auto** spreads the palette from the picture's min to its max. To fix it, type a low and a high value into the two boxes beside **Auto** (the greyed placeholders show the auto values). Pixels below the low end take the coldest colour, pixels above the high end the hottest. Click **Auto** to go back.
+9. Change the unit if you need it: open Settings, then **Units**, and set **Temperature** to °C or °F. Every temperature in the panel, the readout, the markers and the reports follows; typed scale values are read in the unit shown.
 
 <a id="thermal-analysis-measurement-parameters"></a>
 
@@ -190,7 +248,9 @@ These are the inputs of the camera's temperature model. Change them when the cam
 3. Type the **Emissivity** of the surface, between 0.1 and 1 in steps of 0.01. The box starts with the value stored in the file, or the value you last typed in this session.
 4. Type the camera-to-object **Distance (m)**, or **Distance (ft)** when your distance unit is imperial. You can write `12`, `12 m` or `40 ft`.
 5. Read **Humidity:** and **Reflection:** under the boxes. They are the values stored in the file and cannot be changed here.
-6. Click **Re-measure**. The temperatures are computed again; the statistics, histogram, markers and readout update, and any anomaly results are cleared because they belonged to the old temperatures.
+6. Click **Re-measure** (the section is offered only for pictures with measurement parameters). The temperatures are computed again; the statistics, histogram, markers and readout update, and any anomaly results are cleared because they belonged to the old temperatures.
+
+Spot and ΔT values follow the emissivity and distance you set here. Side-by-side documents and temperature exports for a batch of pictures use each picture's own parameters unless you tick **Apply the current parameters (e, d, r, h, ambient) to every picture**. The thermal report's box of that name starts ticked, so a report uses these parameters unless you untick it. See [Side-by-side documents and temperature exports](#thermal-deliverables-spot-readings).
 
 <a id="thermal-analysis-example-a-flir-sc660-picture"></a>
 
@@ -215,9 +275,10 @@ Switch **Temperature** to °F and the same Max reads 35.3 × 9/5 + 32 = 95.5 °F
 
 - Shiny metal (bare aluminium, galvanised steel, polished pipes) has an emissivity of about 0.1 to 0.3 and mostly reflects the sky or nearby warm objects. A reading on it with the default 0.95 is far too low or simply wrong. Put matt tape or paint on the spot, or measure a painted part nearby.
 - Reflections move when you move: if a hot spot shifts between two pictures taken from different angles, it is a reflection, not a defect.
-- **Auto** stretches the palette over the whole picture. A hot chimney or the sun on a skylight then squeezes the wall into a few colours and hides small differences. Set the scale by hand around the temperatures of the surface you inspect.
+- **Auto** stretches the palette over the whole picture (or over the working area when an analysis boundary is set). A hot chimney or the sun on a skylight then squeezes the wall into a few colours and hides small differences. Set the scale by hand around the temperatures of the surface you inspect.
 - Emissivity and distance typed here stay in force for the next pictures you open in this session; they are not saved with the picture. They also apply to the anomaly detection and to every picture pair of an exported thermal report. Check the box values when you change to a different surface.
 - **Std Dev** and **Δ (max−min)** are differences. In °F they are multiplied by 9/5 without the 32 offset, so do not convert them like temperatures.
+- With an analysis boundary on the picture, the statistics, the histogram, the markers and the automatic palette range come from inside its outlines only; see [the analysis boundary](#thermal-boundary).
 
 > **Under the hood**
 > DJI R-JPEGs are measured by the DJI Thermal SDK (`dirp_measure_ex`), which applies the emissivity, distance, humidity and reflected temperature; FLIR-format files go through a native Planck model of the raw counts with the camera's calibration constants, plus the same object parameters and the atmosphere between camera and object. The values are refused outside the model's range (emissivity 0.1 to 1). TIFF and CSV imports are stored as final °C values. The statistics are computed over every valid pixel: the mean and the standard deviation over all of them, the median from every n-th pixel with n = ⌊pixels ÷ 65,536⌋ (65,536 to 131,071 samples; pictures smaller than that use every pixel), the histogram in 96 equal bins from min to max. The temperatures are kept in °C and metres internally; only what is shown or typed follows Settings → Units. For the accuracy see the camera's data sheet (and expect worse when the emissivity or the reflected temperature are wrong).
@@ -228,6 +289,7 @@ Switch **Temperature** to °F and the same Max reads 35.3 × 9/5 + 32 = 95.5 °F
 
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Isolating a temperature range (isotherm)](#thermal-isotherm)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
 - [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
 - [Heat flow network: nodes, conductors, solving](#thermal-network)
 
@@ -281,11 +343,12 @@ The FLIR sample `IR_2412.jpg` has **Min** 22.7 °C, **Max** 35.3 °C and **Mean*
 - The isotherm is reset each time you select another picture: the checkbox goes off and **Low** and **High** start again at that picture's mean and max. Write down the limits if you want the same range on several pictures.
 - The share `(x%)` is of all pixels of the picture, sky and background included. Crop the scene in flight, or compare counts rather than percentages between pictures.
 - With the isotherm on, **Detect anomalies** only looks at pixels inside the range. A cold spot below **Low** is not found. Turn the isotherm off for a full search.
-- Highlight and Solo change only the display. The statistics boxes above still describe the whole picture.
+- Highlight and Solo change only the display. The statistics boxes above still describe the whole picture, or the working area when an analysis boundary is set.
 - The limits follow Settings → Units → Temperature. In °F the slider steps are still 0.1 of the shown unit.
+- With an analysis boundary, `Pixels in range` counts and divides inside its outlines only, and bounds you set stay when you change it; see [the analysis boundary](#thermal-boundary).
 
 > **Under the hood**
-> A pixel is in range when Low ≤ T ≤ High (both ends included). The count, the min, the max and the mean are computed over those pixels only; the share is count ÷ (width × height) × 100. In Highlight mode an out-of-range pixel gets a grey level of 30 + 120 × its position on the colour scale (0 to 1), so warmer pixels stay lighter grey; in Solo mode it is drawn near black. The histogram has 96 bins; a bin is coloured when its centre lies in the range. When the anomaly search is restricted, the baseline (median) and σ are still those of the whole picture: only the pixels that may form a region are limited to the range. Nothing is saved: the range lives only while the picture is selected.
+> A pixel is in range when Low ≤ T ≤ High (both ends included). The count, the min, the max and the mean are computed over those pixels only; the share is count ÷ (width × height) × 100, or, with an analysis boundary, count ÷ the pixels of the working area that hold a value × 100. In Highlight mode an out-of-range pixel gets a grey level of 30 + 120 × its position on the colour scale (0 to 1), so warmer pixels stay lighter grey; in Solo mode it is drawn near black. The histogram has 96 bins; a bin is coloured when its centre lies in the range. When the anomaly search is restricted, the baseline (median) and σ are still those of the whole picture: only the pixels that may form a region are limited to the range. Nothing is saved: the range lives only while the picture is selected.
 
 <a id="thermal-isotherm-see-also"></a>
 
@@ -295,6 +358,134 @@ The FLIR sample `IR_2412.jpg` has **Min** 22.7 °C, **Max** 35.3 °C and **Mean*
 - [Reading temperatures: statistics, palette and scale, emissivity and distance](#thermal-analysis)
 - [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
 - [Vegetation indices from multispectral orthomosaics](#thermal-vegetation)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="thermal-boundary"></a>
+
+## Analysing part of a thermal picture: the analysis boundary
+
+
+An analysis boundary is an outline drawn on a thermal picture around the item or items you want to analyse. The statistics, the isotherm's pixel count and range figures, the palette range and the AI analysis then read only inside it, so a hot sky or a warm roof next door no longer decides the numbers. You can draw one outline or several: their union is the working area. There are no exclusion outlines, so to leave something out, outline what is around it.
+
+<a id="thermal-boundary-before-you-start"></a>
+
+### Before you start
+
+- You are in the **Thermal** tab of the desktop app with the Thermal add-on enabled.
+- A still radiometric picture (or an index raster) is selected and has loaded. On any other picture **⛶ Boundary** is greyed out; hover it to read why. On a video it reads `Measurements need a still picture (annotations are per asset, not per video frame)`. On a still picture without a loaded temperature matrix it reads `Spot, ΔT and Boundary read temperatures: they need a radiometric picture (or an index raster) that has loaded`.
+- The picture's annotations have loaded. While they load, or when they could not be read, the picture is read-only and the tools fall back to pan and zoom.
+
+<a id="thermal-boundary-steps"></a>
+
+### Steps
+
+1. Click **⛶ Boundary** in the **Measure** group of the toolbar. Hover it to read `Boundary — outline the item or items to analyse: statistics, isotherm, palette range and the AI analysis read only inside the outlines`. The shape chooser, the same as for **⬠ Area**, appears beside it.
+2. Choose the shape with the three icon buttons of the chooser, ⬠ (polygon), ▭ (rectangle) and ◯ (circle). Hover a button to read what it does: `Polygon — click the corners`, `Rectangle — click two opposite corners, or drag (sides along the picture's edges)` or `Circle — click the centre, then a point on the rim, or drag from the centre`.
+3. For a polygon, click the first corner on the picture. A hint above the cursor readout reads `Click the next corner · click the first corner, double-click or press Enter to finish · Backspace removes the last · Esc cancels`.
+4. Click the other corners one by one. **Backspace** removes the last corner you placed; **Esc** cancels the outline.
+5. Finish the polygon by clicking its first corner, by double-clicking, or by pressing **Enter**. A dashed outline stays, labelled `Boundary 1`, and everything outside it is shaded.
+6. For a rectangle, click two opposite corners (the hint reads `Click the opposite corner · Esc cancels`) or drag from one corner to the other. For a circle, click the centre and then a point on the rim (the hint reads `Click a point on the rim · Esc cancels`), or drag from the centre.
+7. Read the line at the top of **Temperature Statistics** (on an index raster the section is headed **Index Statistics**) in the **Analysis** panel, for example `Inside the analysis boundary: 1 outline, 30,000 px (9.8 % of the picture)`. While the picture is measured again, `Updating…` shows and the statistics, the palette labels and the isotherm box are dimmed until the new numbers arrive.
+8. To add another item, draw another outline with the same tool. The next one is labelled `Boundary 2`, and the line then reads `2 outlines`. Outlines that overlap or sit inside each other count once.
+9. To move an outline, click **Select** (↖), click the outline itself (a click inside it still selects the spot or measurement under the cursor), and drag it.
+10. To remove one, click **Select** (↖), click the outline and press Delete, or drag the **Erase** tool (⌫) across its line (it only catches the outline, not the inside of the shape). The whole outline goes.
+11. Click **↩ Undo** to remove the last annotation you drew, boundary or not. It does not bring back an outline you erased. With no boundary left, the numbers are those of the whole picture again.
+
+A shape that is too small is dropped when you finish it: a rectangle less than 1 pixel wide or high, or a circle with a radius under 2 pixels. A polygon is dropped only when it has fewer than three distinct corners or no area at all; a thin hand-drawn sliver is kept. Nothing is stored and the picture is unchanged.
+
+Drawing, moving or erasing a boundary clears the detected anomalies and retires the AI narrative, which then reads `The analysis changed; write the narrative again.` Run **Detect anomalies** and write the narrative again afterwards.
+
+If measuring again fails, the numbers of the earlier outline are not shown. The statistics are replaced by `The analysis could not be updated; use Try again in the Analysis panel.`, the palette labels are blank, `Pixels in range` reads `—`, and the studio's error banner above the picture says why. The same line and **Try again** also appear when the very first analysis of a picture fails, for example one that arrives with more outlines than the limit. Click **Try again** (hover it to read `Run the analysis again`) under that line; it is there for every kind of picture and runs the analysis again for the boundary as it is. If the banner says the boundary itself was refused (for example too many outlines or corners), **Try again** fails again until you change the boundary; changing or erasing an outline starts a new analysis by itself.
+
+<a id="thermal-boundary-what-follows-the-boundary"></a>
+
+### What follows the boundary
+
+With at least one outline, the working area is every pixel whose centre lies inside an outline. These follow it:
+
+| What | With a boundary |
+|---|---|
+| **Temperature Statistics** (**Index Statistics** on an index raster), the histogram and the min and max positions | Computed over the working area only |
+| The min and max markers on the picture | Lie inside it, because they follow the statistics |
+| The isotherm's `Pixels in range` and its range min, mean and max | Counted over the working area only; the share is divided by the working area's pixels that hold a value, not by every pixel of the picture |
+| The isotherm's starting **Low** and **High** | Set from the working area's mean and max when the picture is first analysed with the boundary already on it; a boundary drawn later leaves them where they are |
+| The automatic palette range | The working area's min and max, in the viewer, the report figure and the side-by-side colour bar. Pixels outside clamp to the ends of the palette; reports and the side-by-side then print `≤` and `≥` on the colour bar's end labels and end the scale line with ` (inside the analysis boundary)`. A range you typed still wins |
+| **Detect anomalies** | Baseline and σ from inside the outlines; findings only inside |
+| The AI narrative | The picture the AI sees is grey outside the outlines, and it is told the numbers were taken inside a boundary |
+| Anomaly entries brought into the thermal report with **⚡ Import detected** | Each one printed with `Detected inside the analysis boundary (14.7 % of the picture)`; an entry added with **+ Manual entry** carries no such line |
+| The side-by-side Min, Max and Mean rows, on a picture with spots or ΔT | Labelled `(inside the analysis boundary)` |
+
+The outline is also drawn on report figures, side-by-side sheets and claim-package figures whenever annotations are drawn there. Whether it is drawn or not, it governs the numbers.
+
+<a id="thermal-boundary-what-does-not"></a>
+
+### What does not
+
+- **Spot** and **ΔT** readings, and the cursor readout, stay where you place them: a spot outside the outline still reads its own temperature.
+- The Heat Flow Network is solved as you built it. Its nodes are placed by you, and an outdoor or sky reference usually sits outside the building, so the boundary does not limit them. The AI is told the nodes are placed by you.
+- The **Highlight** and **Solo** display of the isotherm still covers every pixel of the picture that is in the range, outside the outlines too; only the figures are limited.
+- **🌡 Export temperatures…** writes the whole picture: it is a copy of the data, not a calculation.
+- A vegetation index you compute makes a new picture with its own annotations; it does not inherit the boundary.
+
+<a id="thermal-boundary-when-nothing-is-inside"></a>
+
+### When nothing is inside
+
+Two cases leave nothing to measure. In both, no statistics, histogram or markers appear, `Pixels in range` reads `—`, and **Detect anomalies** and the narrative are greyed out (hover **Detect anomalies** to read why).
+
+- The outline holds no data but the picture does, for example an outline drawn off the picture, or an index raster with only nodata inside. The panel says `No data inside the analysis boundary`. The palette and its labels use the whole picture, and the side-by-side prints the same sentence instead of its Min, Max and Mean rows.
+- The picture has no valid value at all, with or without a boundary. The panel says `No data in this picture`, and the report figure and the side-by-side show a grey placeholder with no numbers on its colour bar.
+
+<a id="thermal-boundary-a-damaged-or-unreadable-boundary"></a>
+
+### A damaged or unreadable boundary
+
+A stored boundary can be damaged (fewer than three valid corners), or the picture's annotations can fail to load. Calculations are then refused rather than guessed, and the panel says why:
+
+- `1 analysis boundary on this picture is damaged (fewer than three valid corners)`, or `2 analysis boundaries on this picture are damaged (fewer than three valid corners)` for two. Click **Remove damaged boundaries** under the sentence to delete them; valid outlines stay.
+- `This picture's annotations could not be read, so its analysis boundary is not known: <reason>`, or `The picture's annotations are still loading.` while they load.
+
+A notice under the studio's error banner also tells you. When the last changes are not saved it reads `The last changes to this picture are not saved: <reason>`; when the annotations could not be read it reads `This picture is read-only until its annotations load: <reason>`. Click **Retry** to try again. When changes are unsaved, **Discard my unsaved changes** shows the stored copy instead.
+
+In a report or a side-by-side, a picture whose boundary cannot be read is not printed full-frame. It is printed as stored, without its temperatures, with the note `The analysis boundary of this picture could not be read, so its temperatures were left out.` or, for unsaved changes, `The last changes to this picture's annotations are not saved, so its temperatures were left out.` When the last changes to a pair's visual picture are not saved, the pair carries `The last changes to the visual picture's annotations are not saved; it is printed as stored.`
+
+<a id="thermal-boundary-example-a-house-and-a-shed-on-a-flir-picture"></a>
+
+### Example: a house and a shed on a FLIR picture
+
+A FLIR picture is 640 × 480 pixels, 307,200 in all. The temperatures below are illustrative; the pixel counts follow from the rule and hold for corners on whole pixels, so a rectangle drawn by hand gives nearby numbers.
+
+1. You click **⛶ Boundary**, choose the rectangle and outline the house from (100, 120) to (300, 270): 200 × 150 = 30,000 pixels. The line reads `Inside the analysis boundary: 1 outline, 30,000 px (9.8 % of the picture)`, because 30,000 ÷ 307,200 = 9.8 %.
+2. You outline the shed from (400, 200) to (460, 250): 60 × 50 = 3,000 pixels. The line reads `Inside the analysis boundary: 2 outlines, 33,000 px (10.7 % of the picture)`, because 33,000 ÷ 307,200 = 10.7 %.
+3. **Temperature Statistics** now describe those 33,000 pixels only. Say they read Min 21.0 °C, Max 41.0 °C, Mean 29.5 °C (illustrative); the sky and the lawn no longer pull them.
+4. You tick **Isolate a temperature range** and the box reads `Pixels in range: 1,650 (5.0%)` (illustrative): 1,650 ÷ 33,000 = 5.0 %, a share of the working area, not of the 307,200 pixels (all 33,000 hold a value on a FLIR picture).
+5. You click **Detect anomalies**. A finding it imports into the thermal report prints `Detected inside the analysis boundary (10.7 % of the picture)`.
+
+<a id="thermal-boundary-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Draw the outline a little inside the item's edge: a pixel counts when its centre is inside, so the edge pixels that blend with the background stay out of the numbers.
+- A boundary is stored with the picture's annotations and stays when you reselect the picture. Remove it to analyse the whole picture again.
+- The share in the boundary line is of the whole picture; the share in `Pixels in range` is of the working area's pixels that hold a value. They are different denominators.
+- You cannot exclude a hole from an outline. To leave a window out of a wall, draw outlines around the wall pieces instead.
+- Spots and ΔT lines are not limited by the boundary: check that the ones you quote lie where you mean.
+- If the numbers do not change after an edit, wait for `Updating…` to go; if it never does, read the studio's error banner.
+
+> **Under the hood**
+> A pixel is inside when its centre lies inside an outline (even-odd rule for each outline), and the working area is the union of the outlines. A boundary may have 1 to 64 outlines, at most 20,000 corners in all and at most 250,000 runs. The image sent to the AI is the picture grey (`rgb(128, 128, 128)`) outside the working area, re-encoded as a JPEG when the stored preview is a JPEG and sent as a PNG when it is a PNG (an index raster, a TIFF or a CSV import). Statistics, the isotherm and the palette read the same working area, so the colours and the scale labels agree. An older build of the app keeps the boundary in the picture's annotations but computes full-frame values and labels them as full-frame.
+
+<a id="thermal-boundary-see-also"></a>
+
+### See also
+
+- [Reading temperatures: statistics, palette and scale, emissivity and distance](#thermal-analysis)
+- [Isolating a temperature range (isotherm)](#thermal-isotherm)
+- [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
+- [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
+- [Heat flow network: nodes, conductors, solving](#thermal-network)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -373,8 +564,9 @@ Raising **Sensitivity (z-score)** to `2.5` and **Min region (px)** to `50` leave
 - Sky, open windows and shiny roofing are classic false cold or hot spots. Frame the surface you inspect, or isolate its temperature band first.
 - With the isotherm on, only pixels inside the range can form regions. A cold spot below **Low** is not found.
 - Severity is the higher of a fixed step (4 °C for `medium`, 8 °C for `high`) and a multiple of σ (3.5σ, 6σ). The size of the region plays no part, so a large, mildly cool area can be `low` while a small one is `high`.
-- Results are not saved with the picture. Run the detection again after reopening a picture or after **Re-measure**, which clears them.
+- Results are not saved with the picture. Run the detection again after reopening a picture or after **Re-measure**, which clears them. Drawing, moving or erasing an analysis boundary clears them too and retires the AI narrative, which then reads `The analysis changed; write the narrative again.`
 - An AI key costs money per request at the provider. Generating a narrative for every picture of a large survey adds up.
+- With an analysis boundary, **Detect anomalies** takes its baseline and σ from inside the outlines and reports findings only there, and the AI narrative is sent the picture grey outside them; see [the analysis boundary](#thermal-boundary).
 - The narrative can be wrong. It is a draft for a qualified thermographer to check, not a diagnosis.
 
 > **Under the hood**
@@ -556,7 +748,7 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 - The Thermal add-on is enabled and the Thermal Studio is open. See [Thermal Studio: getting started](#thermal-start).
 - Your radiometric pictures are imported. For the anomaly log, run the detection first; see [AI variance analysis](#thermal-anomalies).
 - For flight data, import the DJI flight logs in the main logbook.
-- For take-offs in the report, add materials in the Scale strip; see [Material take-offs](#materials-takeoff).
+- For take-offs in the report, add materials in the **🧮 Material Takeoff** strip; see [Material take-offs](#materials-takeoff).
 - For AI drafts, add a provider key in Settings → **AI Thermal Analysis**. Everything else works without it.
 
 <a id="thermal-report-steps"></a>
@@ -589,6 +781,8 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 | 9 | Action Plan & Repair Prioritization | Work orders by severity. |
 | 10 | Follow-Up & Re-inspection | Verification scans and the re-inspection interval. |
 | 11 | Limitations, Definitions & Disclaimer | Prefilled standard text; edit it, or put it back with **↺ Standard text**. |
+
+In section 5, a pair whose thermal picture carries spots or ΔT marks prints a two-column table, **Reading** and **Value**, with the parameters line under it. Two checkboxes in the section control the pictures: **Colour bar under thermal pictures** adds a temperature scale under each thermal figure (on for new reports), and **Apply the current parameters (e, d, r, h, ambient) to every picture** decides whether the figures and readings use the parameters from the Analysis panel or each file's own. See [Side-by-side documents and temperature exports](#thermal-deliverables-spot-readings).
 
 The materials section works as described in [Material take-offs: In the report](#materials-takeoff-in-the-report). Its From column names the pair and the picture, such as `Pair 2 (thermal)` or `Pair 2 (visual)`, because the two pictures of a pair are separate figures.
 
@@ -639,6 +833,7 @@ The PDF opens with the title and the line `Generated by Airwulf, LLC · Thermal 
 - **↻ Fill from flight logs** stays greyed out until a flight is ticked. It overwrites the header fields the logs fill.
 - **⚡ Import detected** reads the detection result of the picture selected in the studio. The builder covers the studio, so close it, select the next picture, run **Detect anomalies**, then reopen the saved report and import again.
 - Materials come only from pictures used in imaging pairs. Add the pair first, then **📦 Add materials from pictures**; rows already added are skipped.
+- An anomaly imported while a boundary was set prints `Detected inside the analysis boundary (14.7 % of the picture)`, and a picture whose boundary cannot be read is printed without its temperatures; see [the analysis boundary](#thermal-boundary).
 - Export a bundle, not just a PDF, when someone else will continue the inspection.
 
 > **Under the hood**
@@ -651,10 +846,114 @@ The PDF opens with the title and the line `Generated by Airwulf, LLC · Thermal 
 
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
 - [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
 - [Saving clients and claim details for reuse](#clients)
+- [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="thermal-deliverables"></a>
+
+## Side-by-side documents and temperature exports
+
+
+Three buttons in the Thermal Studio's top bar turn the pictures you have already read into files you can hand over. **📄 Side-by-side…** builds a document with one page per picture: the visual twin on the left, the thermal picture on the right, the spot readings under them. **🌡 Export temperatures…** writes the temperature of every pixel as a TIFF or a CSV that other tools, and this app, can read back. **📐 Export linework…** writes the measurements and drawings of the selected picture as a DXF, GeoJSON or ODL XML file; it works as in the Photogrammetry tab and is explained in [Exporting linework](#mapping-deliverables-exporting-linework).
+
+<a id="thermal-deliverables-before-you-start"></a>
+
+### Before you start
+
+- Pair the thermal pictures with their visual twins first. See [Pairing thermal and visual pictures](#thermal-start-pairing-thermal-and-visual-pictures). A picture without a twin still gets a page, with the placeholder "No visual twin".
+- Place the spots and ΔT marks you want on the thermal pictures with the **🌡 Spot** and **± ΔT** tools. See [Viewing and annotating pictures](#annotate).
+- **📄 Side-by-side…** and **🌡 Export temperatures…** need at least one radiometric picture in the library. Index rasters (vegetation) are not offered. **📐 Export linework…** needs a still picture with a measurement or drawing on it.
+
+<a id="thermal-deliverables-steps"></a>
+
+### Steps
+
+<a id="thermal-deliverables-side-by-side"></a>
+
+#### Side-by-side
+
+1. Select a thermal picture and click **📄 Side-by-side…**. The dialog **📄 Side-by-side** opens.
+2. Under **Pictures** choose **Selected picture**, **All thermal pictures with a twin (N)** or **All thermal pictures (N)**. A batch is in capture order.
+3. For a batch, set the range **Pictures** [1] to [100]. A document holds at most 100 pictures. A range that is not the whole set adds `_<from>-<to>` to the file name.
+4. Type the **Title** and pick a **Client** (or **No client**). The palette is the studio's; when the studio shows the vegetation palette of an index raster, the thermal pictures print in Iron. The **Selected picture** is printed with the studio's current scale and parameters; in a batch the scale is automatic for each picture.
+5. Tick what to print:
+  - **Readings**: the table of spots and ΔT, then Min, Max and Mean and the parameters line.
+  - **Annotations**: your arrows, text and measurements on both pictures.
+  - **Colour bar**: a temperature scale strip under each thermal picture.
+  - **Apply the current parameters (e, d, r, h, ambient) to every picture**, batch only. Left unticked, each picture keeps the parameters stored in its own file. (The export's **Selected picture** also uses the current parameters.)
+6. Pick the **Format**: PDF, Word (.docx) or RTF, then click **Build…**. The line "Rendering 12 of 100…" counts the pictures; **Cancel** stops the build and writes nothing.
+7. Choose where to save. The message "Side-by-side saved: \<path\>" ends the job; "Not saved." means you dismissed the save dialog. A file you named is replaced when you confirm the dialog's own overwrite question. If the app had to change the extension of the name you typed and a file of the new name exists, the build ends with "A file named \<name\> already exists in that folder; choose another name" instead of replacing it.
+
+One picture takes one page. The image is made as large as the page allows, within a 92 mm height cap and the shape of the two pictures. The text under it gets room first, but if the page is too full the image shrinks first. Only then are the notes cut, from six lines to two each, and the readings from nine rows to three plus "and N more readings". If the image would still fall under 40 mm, the build stops with "\<name\> does not fit on one page even at the smallest size; shorten its notes or rename it", naming the picture, and nothing is written. If a build would pass the document size limit it stops before rendering with "This selection would exceed the document limit; choose a smaller range".
+
+<a id="thermal-deliverables-temperature-export"></a>
+
+#### Temperature export
+
+1. Click **🌡 Export temperatures…**. The dialog **🌡 Export temperatures** opens.
+2. Choose **Selected picture** or **All thermal pictures (N)**.
+3. Tick the formats: **TIFF (32-bit float, °C)** and **CSV**.
+4. For a batch you can tick **Apply the current parameters to every picture**. Unticked, the box reads "Values use each picture's own parameters".
+5. Click **Export…**. One picture in one format opens a save dialog. Anything else opens a folder chooser.
+6. If files with the same names already exist, the dialog says "N files exist" and offers **Replace all**, **Skip existing** or **Cancel**. Cancel writes nothing.
+7. Read the result line: "Exported N files to \<folder\>", and one line per output that failed or was skipped, such as `name: exists`.
+
+A line below the result names an output that failed or was skipped (`name: exists`), a warning from an output (`name: <warning>`), and a leftover temporary file from an earlier export: "a leftover part file from an earlier export: \<name\>". Delete that file yourself; the app never removes it.
+
+Names are `<picture>_temperatures.tif` and `<picture>_temperatures.csv`; a clash inside the batch gets a number.
+
+| File | Holds | Precision |
+|---|---|---|
+| TIFF | one band of 32-bit float °C, NaN where there is no data; the parameters are written in its description | exact |
+| CSV | `#` header lines (source, capture time, width, height, parameters), then one row per pixel row | three decimals, `NaN` for no data |
+
+Both files import again with **🌡 Radiometric file…**. The app recognises its own files and reads them as written, without guessing kelvin, for pictures up to 2048 pixels a side.
+
+<a id="thermal-deliverables-spot-readings"></a>
+
+### Spot readings
+
+The **Spot readings** section of the Analysis panel lists the spots and ΔT marks of the selected picture: `S1 34.2 °C · (12, 48)` and `ΔT1 +6.2 °C · (12, 48) → (40, 51)`, with the pixel coordinates. Under them is the parameters line, marked "(overridden)" when you changed emissivity or distance in this session. "…" means the temperatures are still loading; "Readings use the last successful analysis" means the latest re-measure failed. In documents the Δ is written `dT`, and the thermal report prints the same readings as a two-column table, **Reading** and **Value**, under each pair.
+
+<a id="thermal-deliverables-example-an-h20t-flight-over-a-roof"></a>
+
+### Example: an H20T flight over a roof
+
+You flew a roof with an H20T. The library holds 3 thermal pictures, each with a wide twin and the ⇄ badge (plus their zoom pictures and a screenshot, which stay out of the documents).
+
+1. On `DJI_0001_T.JPG` you click **🌡 Spot** on a vent (S1, 52.4 °C) and on the clean membrane beside it (S2, 31.0 °C). Then you drag a **± ΔT** from the membrane to the vent: ΔT1 +21.4 °C (the second point minus the first; dragging the other way reads -21.4). A third spot goes on a seam.
+2. You choose **All thermal pictures with a twin (3)**, leave **Readings** ticked and build a PDF. It has 3 pages. The first carries the letterhead and title.
+3. You select the vent picture, click **🌡 Export temperatures…**, tick both formats and click **Export…**. The folder chooser writes `DJI_0001_T_temperatures.tif` and `DJI_0001_T_temperatures.csv`.
+
+<a id="thermal-deliverables-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- A picture with no spots prints no readings table. It prints the palette and scale instead.
+- The values in a batch follow the pictures' own parameters. If a number differs from the studio, either tick the parameters box or compare the parameters line.
+- Edits you made a moment ago are saved before the build starts. If saving a picture's annotations fails, the build still runs: that picture is printed as stored, without temperatures, with the note `The last changes to this picture's annotations are not saved, so its temperatures were left out.` The same happens, with the note `The analysis boundary of this picture could not be read, so its temperatures were left out.`, for a picture whose boundary cannot be read. When the last changes to a pair's visual picture are not saved, the pair carries the note `The last changes to the visual picture's annotations are not saved; it is printed as stored.`
+- DOCX and RTF are laid out by Word or your reader when opened, so a page may break differently from the PDF.
+- Open the CSV in a text editor first: the `#` lines are part of the format, and a spreadsheet may reformat them.
+
+> **Under the hood**
+> The values come from one preparation per picture: the same temperature matrix feeds the spot labels, the readings and the document. The side-by-side builder estimates the size of the pictures it embeds and stops at 120 MB for PDF and DOCX and 80 MB for RTF. Nothing reaches the folder half-written: each file is encoded to a temporary part and moved into place, and without permission to replace, an existing file is never overwritten. The TIFF is little-endian baseline with a 32-bit float sample and a `NaN` no-data tag. The CSV is UTF-8, CRLF, `.` decimal.
+
+<a id="thermal-deliverables-see-also"></a>
+
+### See also
+
+- [Thermal Studio: getting started, importing, the library](#thermal-start)
+- [Reading temperatures: statistics, palette and scale, emissivity and distance](#thermal-analysis)
+- [Viewing and annotating pictures](#annotate)
+- [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Delivering a claim package](#claim-package)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -669,6 +968,28 @@ The PDF opens with the title and the line `Generated by Airwulf, LLC · Thermal 
 
 
 The Photogrammetry tab collects the imagery and the Agisoft Metashape outputs of a survey and turns them into a survey report. You import photos, videos and Metashape deliverables into one library, annotate and measure the pictures, and queue the ones you want as report figures. This topic covers setting up, importing and the library.
+
+<a id="photo-start-what-this-studio-does"></a>
+
+### What this studio does
+
+Each row names a feature, where you find it, and the walkthrough that explains it.
+
+| Feature | Where | Walkthrough |
+|---|---|---|
+| Import photos, videos and Metashape exports | **+ Import photos / videos** or **📂 Import folder…** in the top bar, or drop files on the window | [Steps](#photo-start-steps), [Import folder](#claim-package-import-folder) |
+| The library: kind tabs, search, filters, select all, delete, rename | The left column, headed `Library (N)` | [The library](#photo-start-the-library) |
+| The figure queue | **+ Add to report** in the top bar or **+** on a library row; the right column, headed `Report images (N)` | [The figure queue](#photo-report-the-figure-queue) |
+| Metashape deliverables (orthomosaics, elevation models, reports, point clouds) | Imported like photos and listed under the **Metashape** tab; a document opens as a card with **Open in default application** | [What is recognised](#photo-start-steps), [In the report](#photo-report-deliverables) |
+| Scale and measurements | **🧭 Scale** and the tools of the toolbar's **Measure** group | [Giving a picture a scale](#measure-scale-steps), [Measuring](#measure-tools-measure) |
+| Positions and ground control points | **GCP** (🎯) and **Position** (⌖) in the **Measure** group | [GCP](#measure-geo-gcp), [Position](#measure-geo-position) |
+| Elevation models, slopes and volumes | An elevation-model GeoTIFF that pairs with the orthomosaic; **Slope** (⟋) and the areas in the Scale strip | [Pair the elevation model](#measure-elevation-pair-the-elevation-model), [Volume inside an area](#measure-elevation-volume-inside-an-area) |
+| Material take-offs | **🧮 Material Takeoff** after **🧭 Scale** in the toolbar, then **+ Material…** on a measurement or area row | [Take-offs](#materials-takeoff-steps) |
+| Orthomosaic export (JPG with world file) | **🗺 Export orthomosaic…** in the top bar | [Exporting an orthomosaic](#mapping-deliverables-exporting-an-orthomosaic) |
+| Linework export (DXF, GeoJSON, ODL XML) | **📐 Export linework…** in the top bar | [Exporting linework](#mapping-deliverables-exporting-linework) |
+| Volume ticket | **🧾 Volume ticket…** in the top bar | [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket) |
+| Survey report | **📄 Report** in the top bar, then **Open report builder…** | [Survey report](#photo-report-steps) |
+| Claim package | **📦 Claim package…** in the report builder's header | [Claim package](#claim-package-steps) |
 
 <a id="photo-start-before-you-start"></a>
 
@@ -685,7 +1006,7 @@ The Photogrammetry tab collects the imagery and the Agisoft Metashape outputs of
 
 1. Open the Photogrammetry tab. The top bar shows the 📷 Photogrammetry title; the library is on the left, the viewer in the middle and the report queue on the right.
 2. Click **+ Import photos / videos** and pick the files. Or drag them onto the window: the overlay reads `Drop photos, videos or Metashape exports to import`.
-3. Wait while the button reads `Importing…`. The new items appear in the library.
+3. Wait while the button reads `Importing 3 of 10…`. The new items appear in the library.
 4. Click a photo in the library. It opens in the viewer with the annotation toolbar above it.
 5. Annotate it, add a **📝 Note** for the report, or open **🧭 Scale** to measure. See [Viewing and annotating pictures](#annotate) and [Giving a picture a scale](#measure-scale).
 6. Queue it for the report with **+ Add to report** (see "The report queue" below).
@@ -707,17 +1028,29 @@ The import accepts JPG, JPEG, PNG, MP4, MOV, AVI, TIF, TIFF, PDF, XML, LAS, LAZ,
 
 ### The library
 
-The library lists everything you imported, with its count in the header (`Library (N)`).
+The library lists everything you imported, with its count in the header (`Library (N)`). The kind tabs sit under the title and wrap onto a second row when the panel is narrow; the search box and **Filters** are below them.
 
-1. Click **All**, **Photos**, **Videos** or **Metashape** to filter the list.
-2. Read the rows. The icon says what it is: 📷 photo, 🎬 video, 🗺️ Metashape image, 📄 Metashape document. The line below reads `Photo`, `Video` or the Metashape kind. A queued item shows `In report`, or `In report ×N` when it is queued more than once.
-3. Tick the checkboxes of several photos, videos or orthomosaics to add them in one go. Documents have no checkbox.
-4. Hover a row for its buttons: **+** adds it to the report, **✏️** renames it, **🗑** deletes it.
-5. To rename, double-click the name or click **✏️**, type, and press Enter (Esc cancels). The name is printed in the report; the stored file keeps its name.
-6. To delete, click **🗑** and confirm. The file, its annotations and its measurements are removed, and it leaves the report queue. For a Metashape file the question warns that it is shared with the Thermal Studio, so it goes there too.
-7. Click a document (a processing report, a camera file, a point cloud) to see its card: size, cameras, markers, coordinate system and format when known, and **Open in default application**. A document is not a figure, but it travels in the report's bundle when you tick it as a deliverable in the report builder.
+1. Click **All**, **Photos**, **Wide**, **Zoom**, **Videos** or **Metashape** to show one kind. **Wide** and **Zoom** are the photos whose file name, as imported, ends in `_W` (or `_V`) and `_Z`, the way a DJI camera names its wide and zoom pictures.
+2. Read the rows. The icon says what it is: 📷 photo, 🎬 video, 🗺️ Metashape image, 📄 Metashape document. The line below reads `Photo`, `Video` or the Metashape kind, then the capture date and, for a photo, its orientation (for example `Roof, nadir` or `Untagged`). A queued item shows `In report`, or `In report ×N` when it is queued more than once.
+3. Find items by name: type part of a name into the search box (`Search by name`). The list keeps the rows whose name contains the text, whatever the case.
+4. Click **Filters** for more criteria. Each one you set narrows the list further, inside the kind tab you chose:
+  - the type chips, one per type in the tab with its count, for example `JPG (340)`, `MP4 (12)` or a Metashape kind such as `Point Cloud (1)`; click several to show any of them, click a chip again to drop it;
+  - **Size (MB)**: a `min`, a `max` or both; an item whose file cannot be found has no size and is hidden while a size is set;
+  - **Captured**: a from date and, under it, a to date, both days included; an item without a capture time counts by the day it was imported, and one with neither is hidden while a date is set;
+  - **Camera** and **Dimensions**: pick one of the cameras or picture sizes in the tab, for example `FC6310 (340)` or `5472 × 3648 (340)`; `Any` drops the criterion. Each list is there only when the tab has such values.
+5. Read `Showing N of M` at the bottom of the filter bar, for example `Showing 40 of 357`; M counts the rows of the tab. While the search box or a filter is set, **Clear filters** appears beside it; click it to empty both and see every row of the tab again. The filter is not saved: it starts empty each time you open the Photogrammetry tab, and switching between the kind tabs keeps it.
+6. Tick the checkbox of each item you want; every row has one, documents included. Ticking does not open the item. Or tick **Select all** under the filter bar: it ticks only the rows the tab and the filters show. It shows a dash while only some of them are ticked; a click then ticks them all, and a click on a full tick clears them. `3 selected` beside it counts the ticks. When you change the tab or the filter, the ticks on rows it hides are dropped, so nothing you cannot see is added or deleted.
+7. To queue the ticked items, click **+ Add to report** in the top bar. It adds only the ticked rows that can be figures (photos, videos, orthomosaics) and skips ticked documents; its count, for example `+ Add to report (4)`, is the number of ticked rows that can be figures; one already in the queue is not added again. Then the ticks are cleared and a notice such as `Added 4 to the report (9 total).` says what happened, plus `1 document(s) skipped — only photos, videos and orthomosaics can be figures.` when a document was ticked.
+8. To delete the ticked items, click **Delete selected…** under **Select all** (greyed out while nothing is ticked). One question names the count, how many are queued in the report (they leave the queue) and how many are Metashape files shared with the Thermal Studio (they go there too), for example `Delete 357 pictures from the library? Their files, annotations and measurements are removed. 12 are queued in the report and leave the queue. 2 are Metashape files shared with the Thermal Studio.` Cancelling it deletes nothing.
+9. Wait while the line under the button reads `Deleting 120 of 357…`. Meanwhile **Select all**, **Delete selected…**, the import buttons, the note, renaming and the 🗑 buttons are greyed out, and dropped files are not taken. When it is done the ticks are cleared, the list reloads and the line reads `Deleted 357 of 357`. If some could not be deleted it reads `Deleted 355 of 357; 2 failed: <first error>`: the others are gone, the failed ones stay in the list. The row checkboxes stay live, but the delete takes the ticks you confirmed; ticks you change meanwhile are cleared when it ends. When some files of the deleted pictures could not be removed, the line ends `; 2 files were left in the app's data folder` (`; 1 file was left …` for one). A bulk delete that is refused because an import is still running reads `Nothing was deleted: another delete or an import is running.`
+10. Hover a row for its buttons: **+** adds it to the report, **✏️** renames it, **🗑** deletes it.
+11. To rename, double-click the name or click **✏️**, type, and press Enter (Esc cancels). The name is printed in the report; the stored file keeps its name. If the kind tab or a filter hides the item, renaming it from the info strip's **✏️** clears the kind tab and the filter first.
+12. To delete one item, click **🗑** and confirm. The file, its annotations and its measurements are removed, and it leaves the report queue. For a Metashape file the question warns that it is shared with the Thermal Studio, so it goes there too.
+13. Click a document (a processing report, a camera file, a point cloud) to see its card: size, cameras, markers, coordinate system and format when known, and **Open in default application**. A document is not a figure, but it travels in the report's bundle when you tick it as a deliverable in the report builder.
 
 The Metashape files are shared with the Thermal Studio: an orthomosaic imported here can be analysed and annotated there, and the other way round. Photos and videos you import here stay in the Photogrammetry library.
+
+To hand a survey over as files, use the buttons in the top bar after **📂 Import folder…**: **🗺 Export orthomosaic…** writes the selected orthomosaic as a JPG with its world file and a presentation copy, **📐 Export linework…** writes the measurements of the selected picture as DXF, GeoJSON or ODL XML (also in the Thermal Studio), and **🧾 Volume ticket…** prints a numbered document for one measured volume. See [Orthomosaic export, linework files and volume tickets](#mapping-deliverables).
 
 <a id="photo-start-the-report-queue"></a>
 
@@ -742,8 +1075,8 @@ You flew a warehouse roof and processed it in Metashape.
 ### Tips and common mistakes
 
 - Name the DEM so it pairs: a one-band GeoTIFF that overlaps the orthomosaic in the same coordinate system pairs automatically only when it has one numeric band and its name has the word DEM, DSM, DTM, elev, elevation, height or heights.
-- Documents cannot be figures. They have no checkbox, and with a document selected **+ Add to report** is greyed out (tooltip `Documents cannot be report figures — photos, videos and orthomosaics can`).
-- Deleting a Metashape file here deletes it from the Thermal Studio too.
+- Documents cannot be figures. **+ Add to report** skips a ticked document, and with a document selected **+ Add to report** is greyed out (tooltip `Documents cannot be report figures — photos, videos and orthomosaics can`).
+- Deleting a Metashape file here deletes it from the Thermal Studio too. There is no undo, for **Delete selected…** either: check `Showing N of M` before you tick **Select all**.
 - Rename before you export: the name, not the file name on disk, is printed in the report.
 - Queue order is figure order. Fix it in the queue, not in the library.
 
@@ -760,6 +1093,8 @@ You flew a warehouse roof and processed it in Metashape.
 - [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
+- [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -884,6 +1219,315 @@ Sections 1, 2, 6, 12 and 13 have a **✨ AI draft** checkbox. Tick it to fill th
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
 - [Saving clients and claim details for reuse](#clients)
+- [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="claim-package"></a>
+
+## Delivering a claim package: originals, portal copies, custody sheet
+
+
+A claim package is one folder an adjuster or contractor can use as delivered: the report's pictures as untouched originals renamed by what they show, JPEG copies small enough for an upload portal, the videos, a branded chain-of-custody sheet, a manifest and a checksum file.
+
+<a id="claim-package-before-you-start"></a>
+
+### Before you start
+
+- The desktop app, with the Thermal or the Photogrammetry add-on enabled, and a report open in its builder: **📄 Report ▼** → **Open report builder…**.
+- The report's client, address and date name the package folder; its client and claim details fill the cover sheet (see [Saving clients and claim details for reuse](#clients)).
+- For your letterhead, save your company in **Settings** → **Branding**.
+
+<a id="claim-package-steps"></a>
+
+### Steps
+
+1. Click **📦 Claim package…** in the builder's header, after **Export Bundle**. It shows the package name and lines such as `Pictures: 12 elevations, 8 roof slopes, 4 nadir, 2 untagged`, `Thermal: 6` and `Videos: 2`.
+2. If pictures the report names were deleted from the library, it says `N pictures the report refers to are no longer in the library and are left out.`
+3. Click **Choose folder…** and pick where the package goes; the package folder is created inside it.
+4. Check **Portal copy size (MB)**. It starts at your setting and accepts 1 to 5; changing it here applies to this package only.
+5. Choose what to write: **Originals** (on), **Portal copies** (on), **Videos** (on, when the report has videos) and **Metashape files** (off; it shows how many). **Build** stays greyed out until a folder is chosen and something would be written; hover it to see why.
+6. Click **Build**. The dialog reads `Copying 7 of 31…`; **Cancel** stops after the current file. If that name or its `.building` already exists there, nothing is written and the dialog proposes `<name>_2`; click **Build** again. A leftover `<name>.building` keeps the name taken until deleted.
+7. When it is done, a summary such as `31 files, 184.2 MB; 2 portal copies above the target, 1 copied unchanged (camera data)` shows. Click **Open folder** to see it in Explorer.
+8. If the build is stopped, cancelled or fails, the dialog asks **Delete the incomplete package folder?** **Yes** removes it. **No** keeps it: the app lets go of the folder and says `<name>.building` can be deleted in Explorer.
+9. If only the last step failed (every file is written, but renaming the folder did not work, often because antivirus software held it), choose **Retry**, **Delete** or **Leave it**. **Retry** is not offered when a folder with the final name appeared meanwhile or your license lapsed; after any other error only **Leave it** is. If deleting fails part-way, choose **Retry deletion** or **Leave it**; otherwise only **Leave it** is offered, or, when the app no longer holds the folder, the path to delete in Explorer.
+
+To set the default size, open **Settings** → **Claim packages**, enter **Portal copy size (MB)** (1 to 5, 3 by default) and click **Save**.
+
+<a id="claim-package-what-the-folder-holds"></a>
+
+### What the folder holds
+
+The folder is named `<client>_<address>_<date>`, with the project or report name for a blank client and `Claim_package_<today>` when all are blank; spaces and punctuation become `_`, at most 80 characters. It holds `Originals/` (byte-for-byte copies, renamed), `Portal/` (the upload copies, same names), `Videos/`, `Metashape/`, `Custody.pdf`, `manifest.json` and `checksums.sha256`; only folders that receive a file are created. While being written it is called `<name>.building`.
+
+The imaging rows of the thermal report start from the library's twins (see [Pairing thermal and visual pictures](#thermal-start-pairing-thermal-and-visual-pictures)), and the package names pictures after the rows.
+
+<a id="claim-package-naming"></a>
+
+### Naming
+
+Each picture is named from its camera pitch and heading, read from the file, or from your correction in the Scale strip when you made one.
+
+| Pitch | Name |
+|---|---|
+| −75° or below | `Roof_Nadir_01` |
+| above −75°, up to and including −20° | `Roof_Slope_East_01` |
+| above −20° | `North_Elevation_01` |
+| unknown, or no heading for a slope or elevation | `Photo_01` |
+
+The direction is the side of the building the picture shows, the opposite of where the camera points. By camera heading (0° north, 90° east):
+
+- 135° to under 225°: `North`
+- 225° to under 315°: `East`
+- 315° and up, or under 45°: `South`
+- 45° to under 135°: `West`
+
+A camera looking south (180°) photographs the north elevation, `North_Elevation_01`; at 100° or 140° the picture shows the west or the north side. A nadir picture needs no direction.
+
+Numbers run in capture order, separately for each name: `North_Elevation_01`, `North_Elevation_02`, `East_Elevation_01`; a name with 100 or more pictures uses three digits. A thermal picture paired with a visual one in an imaging row takes the visual's name with `_Thermal` added, and takes no number of its own; a second and third thermal of the same visual get `_Thermal_2` and `_Thermal_3`. An unpaired thermal picture is named from its own tags and counts with the visual ones: `Roof_Nadir_03_Thermal` is the third nadir picture of the package, a thermal one.
+
+<a id="claim-package-import-folder"></a>
+
+### Import folder
+
+1. In either studio, click **📂 Import folder…**, next to **+ Import photos / videos**, and pick the card's folder.
+2. The app looks three folder levels deep for jpg, jpeg, png, mp4, mov and avi files and asks, for example, `Import 427 files? 300 wide, 60 zoom, 60 thermal, 7 videos.` Deeper folders are reported as skipped, dotted names ignored, TIFF files left to the single-file import.
+3. Confirm. **+ Import photos / videos** reads `Importing 57 of 427…`, and at the end a notice says `Imported N, skipped K already in the library, E failed.`
+
+Each studio files the pictures in its own library. A folder with more than 5,000 pictures and videos is refused: `The folder holds more than 5,000 files; import a subfolder.`
+
+In the Photogrammetry library the **Wide** and **Zoom** chips filter by the file name's ending (`_W` or `_V` wide, `_Z` zoom); **Photos** shows every photo. Each card shows a badge such as `North elevation`, `Roof slope, east side`, `Roof, nadir` or `Untagged`, from the file's own tags (not your corrections); the Thermal library shows it on every picture except radiometric ones.
+
+<a id="claim-package-example-riverside-holdings-llc-12-main-st"></a>
+
+### Example: Riverside Holdings LLC, 12 Main St
+
+1. A photogrammetry report for `Riverside Holdings LLC`, site `12 Main St`, surveyed 2026-11-03, holds 26 figures: 19 wide photos at −2° to −8° (five each facing about 180°, 90° and 0°, four about 270°); 4 roof slopes at −45° facing about 270°; 2 nadir at −89°; one video frame.
+2. **📦 Claim package…** proposes `Riverside_Holdings_LLC_12_Main_St_2026-11-03` and lists `Pictures: 19 elevations, 4 roof slopes, 2 nadir` and `Videos: 1`.
+3. After **Build**, `Originals/` holds `North_Elevation_01…05.jpg`, `West_Elevation_01…05.jpg`, `South_Elevation_01…05.jpg`, `East_Elevation_01…04.jpg`, `Roof_Slope_East_01…04.jpg` and `Roof_Nadir_01…02.jpg`.
+4. `Portal/` holds 25 copies under 3 MB, two of them reduced to 4000 pixels. `Videos/Video_01.mp4`, `Custody.pdf` with your letterhead, `manifest.json` and `checksums.sha256` complete it.
+
+<a id="claim-package-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Videos are copied byte for byte into `Videos/`; they get no portal copy.
+- Thermal R-JPEG portal copies are never shrunk; one over the size stays above the target.
+- After a finished build or **Leave it** there is no **Build** button; close and reopen the dialog to build again.
+
+> **Under the hood**
+>
+> One MB is 1,000,000 bytes. A portal copy is re-encoded only when the file's own bytes show a plain photo: radiometric pictures, files with camera-maker data (DJI thermal R-JPEGs among them), PNG and anything unusual are copied unchanged; the sheet counts them, and one larger than the size is counted above the target. A photo at or under the size is copied; otherwise the highest quality from 92 to 62 that fits is used; failing that, the longest edge is reduced to 4000, 3000 and 2400 pixels at quality 78; if nothing fits, the smallest copy is kept and counted above the target. EXIF and XMP are carried over unchanged; a reduced copy keeps the original's EXIF pixel size and thumbnail.
+>
+> Each original is checked against the SHA-256 digest recorded when it was imported; if the library copy changed, the build stops. The sheet then states `The N originals are byte-for-byte copies of the files as imported into Open DroneLog; each was verified against the SHA-256 recorded at import.`, or says how many have no recorded digest. The sheet lists the media files' digests; the manifest lists them and the sheet's; the checksum file lists every file, the manifest included. The checksums show the files match the manifest; they do not prove the capture data genuine, nor any custody outside the package.
+
+<a id="claim-package-see-also"></a>
+
+### See also
+
+- [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
+- [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
+- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Saving clients and claim details for reuse](#clients)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
+- [Branding your reports: logo, company and Part 107 number](#settings-branding)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="mapping-deliverables"></a>
+
+## Orthomosaic export, linework files and volume tickets
+
+
+Three buttons turn a measured survey into files other people can use. **🗺 Export orthomosaic…** writes a Metashape orthomosaic as a JPG with its world file, so a GIS or CAD program places it on the map, plus an optional presentation copy with a scale bar, a north arrow, the title and your letterhead. **📐 Export linework…** writes the measurements and drawings of a picture as DXF, GeoJSON and ODL XML. **🧾 Volume ticket…** prints a numbered, signable document for one measured volume: cut, fill and net with their ±, the sources, a figure and, with a material, the tonnage.
+
+<a id="mapping-deliverables-before-you-start"></a>
+
+### Before you start
+
+- Use the desktop app with the Photogrammetry add-on. The three buttons are in the top bar of the Photogrammetry tab, after **📂 Import folder…**; **📐 Export linework…** is also in the Thermal Studio's top bar.
+- For an orthomosaic export: a Metashape orthomosaic GeoTIFF in the library with three or four bands of 8- or 16-bit colour. Otherwise the button is greyed out and its tooltip says why, for example `A one-band or float raster (thermal or elevation) has no colours to export` or `Select an orthomosaic to export it`.
+- For linework: a still picture with at least one measurement or drawing on it (`Select a still picture with a measurement or drawing on it`). Map coordinates need a georeferenced orthomosaic or easting/northing GCPs; see [Positions, ground control points and georeferenced orthomosaics](#measure-geo). Heights need a paired elevation model; see [Elevation models](#measure-elevation).
+- For a ticket: a picture with an **⬠ Area** that has a volume, from the elevation model or a solid (`Select a still picture with an area that has a volume`). See [Volume inside an area](#measure-elevation-volume-inside-an-area).
+- For the letterhead on the presentation copy and the ticket, save your company in **Settings** → **Branding**; for a client line, save the client first (see [Saving clients and claim details for reuse](#clients)).
+
+<a id="mapping-deliverables-exporting-an-orthomosaic"></a>
+
+### Exporting an orthomosaic
+
+1. Select the orthomosaic in the Photogrammetry library and click **🗺 Export orthomosaic…**. The dialog **🗺 Export orthomosaic** opens.
+2. Under **Resolution** choose **Full (the raster as stored, up to 120 megapixels)** or **Web (up to 24 megapixels)**. The line below gives the size of the JPG, for example `4000 × 3000 px · 0.04 m per pixel · about 4.5 MB`. A raster larger than the budget is reduced by a whole factor: each output pixel is the average of a square block of source pixels.
+3. Leave **Presentation copy (scale bar, north arrow, title and letterhead; web resolution)** ticked to get a second JPG for people, or untick it for the georeferenced files alone.
+4. Check the **Title**. It starts as the orthomosaic's name without its extension and names the files: spaces and punctuation become `_`, so `Smith quarry, May` gives `Smith_quarry_May.jpg`. An empty title gives `Orthomosaic`.
+5. Pick a **Client** for the presentation copy, or leave **None**. The box is greyed out while the presentation copy is unticked: the georeferenced JPG carries no text.
+6. Click **Export…** and choose the folder. The dialog reads `Writing <name>.jpg… (large orthomosaics take a minute)`, then `Composing the presentation copy…`.
+7. If files of this export already exist in the folder, the dialog says, for example, `3 files will be replaced, 1 removed`, and lists them; a file marked "(an earlier export's file, removed)" is a sidecar this export would not write again, such as a `.wld` written by another program, or the `.crs.txt` of a different orthomosaic exported under the same title. Click **Replace all** or **Cancel**. There is no "skip": a JPG and its world file are replaced together or not at all.
+8. Read the result: `Exported to <folder>`, then one line per file written with its size (and, when the raster was reduced, how many source pixels were averaged), a line for each sidecar, and any warning. A line naming a leftover part file or recovery copy from an earlier export points at a file the app did not remove; delete it yourself once the export is fine. Click **Done**.
+
+The folder then holds:
+
+| File | Holds | Read by |
+|---|---|---|
+| `<title>.jpg` | the picture, clean (no text, no arrow) | everything; placed on the map only with its world file |
+| `<title>.jgw` | the world file: pixel size and the map position of the top-left pixel's centre | QGIS, ArcGIS Pro, AutoCAD Map 3D, Civil 3D |
+| `<title>.prj` | the coordinate system as ESRI WKT | ArcGIS Pro |
+| `<title>.jpg.aux.xml` | the coordinate system for GDAL | QGIS and other GDAL programs |
+| `<title>.crs.txt` | instead of the two above, for any other coordinate system: `EPSG:<code> (<name>): set it in your GIS when loading` | you: set the CRS by hand when loading |
+| `<title>_presentation.jpg` | the presentation copy | any picture viewer, a report, an email |
+
+The `.prj` and `.jpg.aux.xml` are written for WGS 84 / UTM zones and for WGS 84 latitude/longitude. An orthomosaic without georeferencing (no tiepoint or pixel size, or a rotated GeoTIFF) is written as the JPG alone, with the line `No georeferencing in this file: no world file`.
+
+If the presentation copy's name belongs to a georeferenced JPG already in the folder (there is a `<title>_presentation.jgw` beside it), nothing is written and the dialog says `A georeferenced JPG is already called <title>_presentation.jpg: choose another title`. Any other failure reads `Could not export the orthomosaic: …` and says whether the earlier files were left unchanged.
+
+<a id="mapping-deliverables-the-white-collar"></a>
+
+#### The white collar
+
+A Metashape orthomosaic is a rotated patch of ground inside a rectangle; the corners outside the survey have no data. JPG has no transparency, so the export paints them white (255, 255, 255). An output pixel at the edge of the patch is the average of the source pixels that have data, so the edge is not darkened.
+
+To hide the collar in QGIS, open the layer's *Properties*, go to *Transparency*, and under *Custom transparency options* add a row to the transparent pixel list with red 255, green 255 and blue 255 at 100 % transparency. JPEG compression leaves a few near-white pixels along the edge; they show as a thin fringe. In ArcGIS Pro, set the layer's background value to 255, 255, 255 in its symbology.
+
+<a id="mapping-deliverables-the-presentation-copy"></a>
+
+#### The presentation copy
+
+The presentation copy is the web-size picture with a white band below it: your logo, company and operator line on the left; the title, the client and the date in the middle; the coordinate system and pixel size along the bottom, for example `CRS WGS 84 / UTM zone 16N · 0.04 m per pixel (source 0.02 m) · 4000 × 3000 px`; the scale bar and the north arrow on the right. It has no world file and is not for a GIS: it is the picture for a report or an email.
+
+- The scale bar is a round length (1, 2 or 5 × a power of ten, in metres or kilometres, or feet or miles under imperial units) of about a fifth of the picture's width, in black and white halves, measured at the picture's centre.
+- The north arrow labelled `True north` points to true north as it runs through the raster at the picture's centre. On a UTM orthomosaic it leans off vertical by the grid convergence: east of the zone's central meridian in the northern hemisphere it turns to the left (counter-clockwise), by about the longitude difference × sin(latitude), so 1.3° at 2° from the meridian and 41° N.
+- The arrow labelled `Grid north` points straight up. It appears when the coordinate system cannot be turned into latitude and longitude (a projected system other than WGS 84 / UTM, such as a state plane or NAD83 / UTM). Up is then the grid's north, not true north.
+- A picture without georeferencing has no arrow, and a scale bar only when the orthomosaic states a pixel size.
+
+<a id="mapping-deliverables-exporting-linework"></a>
+
+### Exporting linework
+
+1. Select the picture (an orthomosaic or a photo) and click **📐 Export linework…**. The dialog **📐 Export linework** opens with the picture's name.
+2. Under **Formats** tick **DXF (AutoCAD R12)**, **GeoJSON (WGS 84)** and **ODL XML**, any of them. GeoJSON is greyed out with the reason `needs a WGS 84 position (a WGS 84 UTM or geographic orthomosaic, GCPs with latitude/longitude, or a camera position)` when the picture has none.
+3. Under **Coordinates** choose the frame for the DXF and XML (see "Coordinate frames" below). The choices name their axes, for example `Map coordinates (metres, x east, y grid north)`, `Reference plane (x right, y forward)` or `Pixels (the orthomosaic's own pixels)`. A frame the picture cannot give is greyed out with its reason.
+4. Tick **Heights from the elevation model** to write elevations. It is greyed out with `Needs an elevation model paired with the orthomosaic` otherwise.
+5. Click **Export…**. With one format ticked, a save dialog proposes `<picture>.dxf`, `.geojson` or `.odl.xml`; with several, choose a folder and the files get those names.
+6. If files of those names exist in the folder, the dialog says, for example, `2 files exist`, and offers **Replace all**, **Skip existing** or **Cancel**.
+7. Read the result: `Wrote 3 files to <folder>: …` with each file's size, then a line for anything the files could not hold, for example `A3 is above the horizon and was left out` or a self-intersecting outline in the GeoJSON. Click **Done**.
+
+Every measurement and drawing goes in: measure lines, references, slopes, angles, areas of any shape, positions, GCPs, lines, arrows, curves, freehand strokes, rectangles, circles and texts. The scale override and the material take-offs do not. Each annotation is one feature on a layer by its kind: `MEASURE`, `REFERENCE`, `SLOPE`, `ANGLE`, `AREA`, `POSITION`, `GCP`, `DRAWING` (the sketches) and `TEXT`. Measured features carry the numbers of their labels: length and bearing, area and perimeter, pitch, cut, fill and net, each with its ±.
+
+| Format | What it is | Open it in |
+|---|---|---|
+| DXF | AutoCAD R12 drawing: polylines, points and texts on the layers above, the measure labels as text with their unit, the units, frame, CRS and vertical reference as comments | AutoCAD, Civil 3D, AutoCAD Map 3D, BricsCAD, QGIS |
+| GeoJSON | the features in WGS 84 longitude and latitude, the measures as properties | QGIS, ArcGIS Pro, geojson.io |
+| ODL XML | Open DroneLog's own documented file: every vertex in the chosen frame and in the picture's pixels, every measure with its unit and ± | your own scripts or a program that reads XML |
+
+Google Earth reads KML and KMZ: it places neither the orthomosaic JPG nor these files. Plain AutoCAD (without Map 3D or Civil 3D) ignores world files: the JPG comes in at the origin at one unit per pixel, so place it by hand or use the DXF alone.
+
+<a id="mapping-deliverables-coordinate-frames"></a>
+
+#### Coordinate frames
+
+| Frame | Origin and axes | Unit |
+|---|---|---|
+| **Map coordinates** | the orthomosaic's coordinate system, or the grid of easting/northing GCPs: x east, y grid north | metres, or the CRS's feet |
+| **Reference plane** | the picture's own measuring plane. A tilted photo: the point under the camera, x right, y forward. An orthomosaic: its centre, x east, y grid north. A flat picture: its centre, x right, y up | metres |
+| **Pixels** | the picture's top-left corner, x right, y down; for an orthomosaic its own raster pixels, which match the Full JPG (divide by the factor for a Web JPG) | pixels |
+
+- Map coordinates are offered with a projected orthomosaic (UTM or another projected system) or with easting/northing GCPs. A latitude/longitude orthomosaic or GCP fit has none: `Map coordinates need a projected CRS; this picture's positions are latitude/longitude`. Use GeoJSON, or the reference plane, instead.
+- The reference plane needs a scale (`The picture has no scale yet`). A point drawn above the horizon of a tilted photo has no place on it: its feature is left out and the result says so.
+- Pixels is always offered. The DXF writes the rows upwards, so the drawing is upright; the XML keeps y down, as its frame says. GeoJSON is always in longitude and latitude, whatever frame you choose.
+
+<a id="mapping-deliverables-heights-and-the-vertical-reference"></a>
+
+#### Heights and the vertical reference
+
+With **Heights from the elevation model** ticked, every vertex of every feature gets the elevation model's height under it. A feature is written in 3D only when **every** vertex has a height; if one falls on a cell without data, the whole feature is written flat and marked `zMissing`. A missing height is never written as 0.
+
+- Heights are in the frame's unit (metres, or the CRS's feet) and in the elevation model's vertical reference, which the file names: the DXF comment `vertical: EPSG:5703 (metre)`, the XML's `verticalEpsg`, the GeoJSON's `verticalEpsg` property. Metashape's heights are usually above the geoid (orthometric), not above the ellipsoid.
+- The GeoJSON never has a third coordinate (RFC 7946 heights would be ellipsoidal); the heights are in each feature's `zM` property, in metres.
+- In the Pixels frame the geometry stays flat in the DXF and the XML; the XML then lists the heights in the feature's `zM` attribute, in metres.
+
+<a id="mapping-deliverables-printing-a-volume-ticket"></a>
+
+### Printing a volume ticket
+
+1. Select the picture in the Photogrammetry library and click **🧾 Volume ticket…**. The dialog **🧾 Volume ticket** opens.
+2. Under **Outline**, pick the area. Each line shows its name, its volume as the take-offs read it and the method (`elevation model` or `solid`); `no volume` means the area has none yet.
+3. Check the **Ticket number**. It is prefilled with the next automatic number, `VT-<yyyymmdd>-<n>` (see "Ticket numbering" below).
+4. Type the **Site / project**. It starts with the site of your last ticket.
+5. Pick a **Client**, or **No client**.
+6. For tonnage, pick a **Material** with a density from your catalogue, or **Other…** and type the density in kg/m³ (lb/ft³ under imperial units). When the area already has a volume take-off with a density, its material and part are preselected. The dialog then shows `Mass before waste: …`.
+7. For an elevation-model volume, pick the **Part**: **Cut (above the base)**, **Fill (below the base)** or **Net |cut − fill|**. The default is the larger of cut and fill, as in the take-offs. A solid has one volume and no part.
+8. Add **Notes** (at most 10 lines; longer notes are cut), keep or untick **Signature lines**, and pick the **Format**: PDF, Word (.docx) or RTF.
+9. Click **Build…**. The number is reserved first, the ticket is rendered, and a save dialog proposes `<ticket number>.pdf`.
+10. Read the line under the form: `Volume ticket VT-… saved: <path>`, or `Not saved: number 4 is used up (a gap); nothing was written` when you dismissed the save dialog. **Build…** stays greyed out while the area has no volume (`The outline has no volume: pair an elevation model or set a solid height`) or the number is empty.
+
+The ticket is one page, two at most. It prints your letterhead, the title `Volume ticket <number>` with the site, client and date, then:
+
+- **Measurement**: the outline, the method and base, the outline and sampled areas, cut, fill and net with their ±, the base elevation and tilt, the cell size, the missing data share, the elevation range and the warnings; for a solid the area, the typed height and the volume. The note `± is 1σ, conservative (the elevation model's error taken as one shift over the area)` explains the ±.
+- **Sources**: the orthomosaic and elevation model with their coordinate system, pixel size, vertical reference and accuracy, the scale source, the stored files' hashes and the calculation time.
+- The figure: the picture with the chosen outline and its label only.
+- **Material**, when chosen: the material, the density, the part and the mass (part × density), in t or short tons. No waste is added: a ticket states what was measured, a take-off what to order.
+- **Notes**, then the signature block `Measured by` and `Verified by`, each with a date line.
+
+<a id="mapping-deliverables-ticket-numbering"></a>
+
+### Ticket numbering
+
+- The automatic number is `VT-<date>-<n>`: the build date and a counter kept in your profile, which counts up by one for every ticket and never starts again at 1 on a new day. The first ticket of a profile, built today, is `VT-20261109-1`.
+- The number is reserved when you press **Build…**, before the document is rendered. If you then dismiss the save dialog or the write fails, the number is used up: the next ticket gets the next one, and the numbers have a gap. A gap is harmless; it shows a ticket was started.
+- If another ticket took the number meanwhile, the ticket uses the reserved one and says so: `Volume ticket VT-20261109-8 saved; 7 was taken meanwhile`.
+- A number you type yourself is used as typed and never touches the counter. If it has the form `VT-…-<n>` and n is not below the next automatic number, the dialog warns, for example `Number 9 is not below the next automatic number (5): this number will collide with a later ticket.`
+- The counter lives in the profile's database. Restoring a database backup brings back the counter as it was then, so the next automatic number can repeat a ticket you already issued. After a restore, open **Settings**, find **Volume tickets**, type a **Next number** above the last ticket you issued and click **Set next number**.
+- If the stored counter cannot be read, **Build…** refuses with `The ticket counter could not be read; set the next number in Settings → Volume tickets`; the **Volume tickets** section says the stored value is kept as a backup, and **Set next number** replaces it.
+
+<a id="mapping-deliverables-limits"></a>
+
+### Limits
+
+- NAD83 / UTM orthomosaics (EPSG 269xx), common in US work, get a `.crs.txt` instead of a `.prj`, a `Grid north` arrow and no GeoJSON. The exports stay in the orthomosaic's own system; nothing is reprojected.
+- Rotated GeoTIFFs (with a model transformation) are not georeferenced in the app: the export writes the JPG without a world file.
+- One-band rasters (grey, thermal, elevation) and float rasters have no colours to export; the button stays greyed out.
+- The linework is the app's own measurements; it cannot be read back in, and the ODL XML has no schema file.
+
+<a id="mapping-deliverables-example-a-stockpile-yard"></a>
+
+### Example: a stockpile yard
+
+`yard_ortho.tif` is a WGS 84 / UTM zone 16N orthomosaic of 8000 × 6000 px at 2 cm per pixel, with `yard_DSM.tif` paired. The DSM holds a pit like the one in [the elevation example](#measure-elevation-example-a-stockpile-and-a-pit): fill 120 m³.
+
+1. **🗺 Export orthomosaic…** with **Full** reads `8000 × 6000 px · 0.02 m per pixel · about 18 MB`. With **Web** it reads `4000 × 3000 px · 0.04 m per pixel · about 4.5 MB`: 48 megapixels is over the 24 MP budget, so the factor is 2 and each output pixel averages 2 × 2 source pixels. 4000 × 3000 × 3 bits ÷ 8 is 4.5 MB.
+2. You choose **Web**, keep the presentation copy and the title `yard_ortho`, and export. The folder holds `yard_ortho.jpg`, `yard_ortho.jgw`, `yard_ortho.prj`, `yard_ortho.jpg.aux.xml` and `yard_ortho_presentation.jpg`. The `.jgw`'s first line is `0.04`, the pixel size in metres.
+3. The presentation copy is 4000 px wide and covers 160 m of ground, so a fifth of it is 32 m. No round length falls between 15 and 25 % of the width (24 to 40 m), so the nearest one, `50 m`, is drawn, 1250 px long. The band is 210 px high (7 % of 3000 px).
+4. **📐 Export linework…** with all three formats, **Map coordinates** (metres, x east, y grid north) and heights writes `yard_ortho.dxf`, `yard_ortho.geojson` and `yard_ortho.odl.xml` into the folder you pick. In QGIS the GeoJSON and the JPG line up.
+5. **🧾 Volume ticket…** on the pit, part **Fill (below the base)**, material crushed stone at 1,600 kg/m³: the dialog shows `Mass before waste: 192 t` (120 m³ × 1.6 t/m³), or `Mass before waste: 212 short tons` under imperial units. The take-off on the same pit orders 233 tons, because it adds 10 % waste and rounds up.
+6. Built today as the profile's first ticket, it is saved as `VT-20261109-1.pdf`.
+
+<a id="mapping-deliverables-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Send the JPG with all its sidecars: without the `.jgw` it is only a picture, and without the `.prj` or `.aux.xml` the GIS asks for the coordinate system.
+- Rename the title, not the files: a JPG renamed in Explorer loses its world file, which must carry the same name.
+- Do not open the presentation copy in a GIS: it has a band of text and no world file.
+- For CAD, export the linework in **Map coordinates**: the DXF and the world file then share one coordinate system. **Pixels** suits a drawing traced over the picture itself.
+- A ticket for a pile: use the cut or the net. The fill ± around a pile can exceed the fill itself.
+
+> **Under the hood**
+>
+> The world file is six lines: the pixel width, two zero rotation terms, the negative pixel height, and the map position of the centre of the output's top-left pixel, all for the export's factor. Coordinates have 6 decimals in a projected system and 12 in degrees. The Full JPG keeps the raster as stored within 120 megapixels and 65,535 px a side; the Web JPG and the presentation copy within 24 megapixels (the presentation copy also within 6,000 px a side). A reduced pixel is the mean of the non-empty pixels of its f × f block; an empty one is white. Both JPGs are written at quality 90.
+>
+> The true-north arrow is found by moving 100 m north along the meridian from the picture's centre and mapping that point back into the raster, so unequal pixel sizes are honoured. The linework's numbers are the labels' numbers. GeoJSON polygons follow the right-hand rule after projection, and nothing crossing the antimeridian is split. A ticket's mass ± is the part's ± × the density.
+
+<a id="mapping-deliverables-see-also"></a>
+
+### See also
+
+- [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
+- [Positions, ground control points and georeferenced orthomosaics](#measure-geo)
+- [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
+- [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
+- [Measuring lengths, angles and areas](#measure-tools)
+- [Branding your reports: logo, company and Part 107 number](#settings-branding)
+- [Saving clients and claim details for reuse](#clients)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -935,6 +1579,14 @@ In the Thermal Studio, on a radiometric picture, a red **+** marks the hottest p
 4. Press **↩ Undo** to take back the last annotation, or **✕ Clear** to remove them all (the app asks first).
 
 In the Thermal Studio the toolbar also has **⬤ Node** and **⌁ Link**, which build a heat-flow network on the picture. The eraser removes nodes and links too. See [Heat flow network: nodes, conductors, solving](#thermal-network).
+
+In the Thermal Studio the **Measure** group ends with **🌡 Spot** and **± ΔT**, after **🧭 Scale**:
+
+1. Pick **🌡 Spot** and click a point. A label such as `S1 34.2 °C` appears at the point.
+2. Pick **± ΔT** and click two points, or drag from one to the other. The label, such as `ΔT1 +6.2 °C`, is the second point's temperature minus the first's, so dragging the other way reads `ΔT1 -6.2 °C`.
+3. Read them in the **Spot readings** section of the **Analysis** panel, one line each with the pixel coordinates: `S1 34.2 °C · (12, 48)` and `ΔT1 +6.2 °C · (12, 48) → (40, 51)`.
+
+Spots are numbered S1, S2… and differences ΔT1, ΔT2… in the order you placed them, so removing S1 makes the next spot S1. The values are in your temperature unit (index values on a vegetation index), follow the picture's measurement parameters, and read "…" while the temperatures load. Both are annotations: **↖ Select** moves them and **⌫ Erase** removes them. The two tools are greyed out until a still picture with temperatures (or a vegetation index) has loaded. See [Spot readings](#thermal-deliverables-spot-readings).
 
 The tools in the **Measure** group, from **📐 Reference** to **⟋ Slope**, and the **🧭 Scale** button are covered in [Giving a picture a scale](#measure-scale) and [Measuring lengths, angles and areas](#measure-tools).
 
@@ -1013,6 +1665,7 @@ When you add the photo to the report, the figure shows the box, the arrow and th
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Photogrammetry survey reports](#photo-report) and [Thermal inspection reports](#thermal-report)
+- [Side-by-side documents and temperature exports](#thermal-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -1171,7 +1824,7 @@ Press **🧭 Scale**. Each tool has its list: **Measurements** (M1, M2…), **An
 - Detail lines: the ± broken down, for example `± 0.062 m = marking 0.007 m · scale 0.061 m` (plus `focal …` when known). An angle adds the angle `on the ground` and the roof pitch; a measurement adds its bearing and height difference when a position source or elevation model gives them.
 - **✕** removes the row and its drawing.
 
-Below the areas a note reads `Plan area on the reference plane; materials with a roof pitch multiply it by √(1 + (x/12)²). …` An area is always seen from straight above. Volumes are covered in [Elevation models](#measure-elevation).
+Below the areas a note reads `Plan area on the reference plane. …` An area is always seen from straight above; materials with a roof pitch multiply it by √(1 + (x/12)²) in the **🧮 Material Takeoff** strip (see [Material take-offs](#materials-takeoff)). Volumes are covered in [Elevation models](#measure-elevation).
 
 <a id="measure-tools-example-a-flat-roof-survey-picture"></a>
 
@@ -1319,6 +1972,7 @@ By comparison, on a DJI photo looking straight down from 60 m, with no GCPs, a p
 - Keep the GCPs of one picture in one kind. Mixing latitude/longitude with easting/northing brings a warning: positions use only one kind, and for the scale GCPs are paired only within their own kind.
 - Camera positions are a few metres off at best. On a picture taken at −45° from 50 m, a 1° gimbal pitch error moves the centre point by about 1.75 m, an error the ± does not include. Use them to find features, not to stake out.
 - Easting/northing GCPs give positions as easting and northing in their own grid (`E …, N …`, bearings marked `(grid)`), not latitude and longitude.
+- Exports follow the same sources. **📐 Export linework…** offers **Map coordinates** with a projected orthomosaic (WGS 84 / UTM or another projected system) or with easting/northing GCPs; a latitude/longitude orthomosaic or GCP fit has none. GeoJSON needs a WGS 84 position: a WGS 84 / UTM or WGS 84 latitude/longitude orthomosaic, GCPs with latitude/longitude, or a camera position. An orthomosaic in another system (NAD83 / UTM, a state plane) gives no GeoJSON, even with latitude/longitude GCPs, because it comes first. See [Exporting linework](#mapping-deliverables-exporting-linework).
 
 > **Under the hood**
 >
@@ -1337,6 +1991,7 @@ By comparison, on a DJI photo looking straight down from 60 m, with no GCPs, a p
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Thermal Studio: getting started](#thermal-start)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -1401,6 +2056,8 @@ When a one-band raster matches but its name says nothing, a blue note reads, for
 
 The result is one volume with its ±; the detail line repeats the factor, the height `(typed, exact)` and the ± breakdown.
 
+To hand a volume over, print it with **🧾 Volume ticket…** in the Photogrammetry library: a numbered PDF, Word or RTF ticket with cut, fill and net and their ±, the base, the sources, a figure of the outline and, with a material, the tonnage. See [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket).
+
 <a id="measure-elevation-example-a-stockpile-and-a-pit"></a>
 
 ### Example: a stockpile and a pit
@@ -1438,6 +2095,7 @@ For the 120 m³ pit, pick `Fill (below the base)`. See [Material take-offs](#mat
 - Trace a pile on bare ground just outside its toe; an outline crossing a fence or vegetation makes the base rough, and a warning says so.
 - For a pile, quote the net or the cut. The fill ± can be larger than the fill itself, because flat ground around the pile dips below the base by noise.
 - Elevations, rises, heights and the DEM accuracy follow **Altitude** in Settings → Units; volumes follow **Distance** (m³, or ft³ below one cubic yard and yd³ above).
+- **📐 Export linework…** can write the elevation model's heights into the DXF and XML (tick **Heights from the elevation model**). A feature gets heights only when every vertex has one, and they are in the elevation model's vertical reference, which the file names; the GeoJSON keeps them in a `zM` property. See [Heights and the vertical reference](#mapping-deliverables-heights-and-the-vertical-reference).
 - A solid assumes its shape: a cone holds a third of a box of the same plan area and height, a dome two thirds. When the shape is uncertain, use the elevation model.
 
 > **Under the hood**
@@ -1460,6 +2118,7 @@ For the 120 m³ pit, pick `Fill (below the base)`. See [Material take-offs](#mat
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Thermal Studio: getting started](#thermal-start)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -1468,7 +2127,7 @@ For the 120 m³ pit, pick `Fill (below the base)`. See [Material take-offs](#mat
 ## Material take-offs: from a measurement to an order, waste, prices
 
 
-A take-off turns a measurement on a picture into an order: how many bundles of shingles, fascia boards or tons of stone to buy. You pick a material under a measurement or an area in the Scale strip; the app adds the waste allowance, rounds up to whole units and, with a price, works out the cost. The same rows go into the report.
+A take-off turns a measurement on a picture into an order: how many bundles of shingles, fascia boards or tons of stone to buy. You pick a material under a measurement or an area in the **🧮 Material Takeoff** strip; the app adds the waste allowance, rounds up to whole units and, with a price, works out the cost. The same rows go into the report.
 
 <a id="materials-takeoff-before-you-start"></a>
 
@@ -1483,14 +2142,14 @@ A take-off turns a measurement on a picture into an order: how many bundles of s
 
 ### Steps
 
-1. Click **🧭 Scale** in the toolbar. Every row under **Measurements** (`M1`…) and **Areas** (`A1`…) has a **Materials** line.
+1. Click **🧮 Material Takeoff** in the toolbar, right after **🧭 Scale**. The strip opens above the picture (under the Scale strip when that is open); every measurement (`M1`…) and area (`A1`…) has a **Materials** line. While the picture is being read the strip says `Reading the picture…`; a picture without a scale and without measurements or areas says `This picture has no scale yet: set it in 🧭 Scale.` (with measurements or areas, each row reads `no scale`); a scaled picture without measurements or areas says `Draw a 📏 Measure line or an ⬠ Area, then add its materials here.`
 2. Open **+ Material…** on that row. Materials are grouped by category: `Roofing`, `Exterior walls, fencing and decking`, `Concrete`, `Masonry`, `Pavement`, `Landscape and drainage`, `Bulk materials`, `Other`.
 3. Pick a material, for example `Asphalt shingles — by roof surface`. The list offers only what the row can give (see the table below). A line appears with the material's fields and, under them, the take-off sentence.
 4. Change **waste** if the job needs another allowance. Blank means the preset's percentage, shown greyed in the box.
 5. For roofing, choose the **pitch**: a slope such as `S1: 6.0:12 (elevation model)`, an angle such as `∠1: 6.0:12 (in the picture)`, or `Typed`. With `Typed`, enter the rise in **x** (`6` for 6:12).
 6. For a volume material on an elevation-model volume, choose `The larger of cut and fill` (the default), `Cut (above the base)`, `Fill (below the base)` or `Net (cut minus fill)`.
 7. Type a **price** per order unit (per bundle, per ton). Blank means the preset's price; the shipped presets have none. The sentence then ends with the cost, such as `× $38.50 = $2,849.00`.
-8. Read the block's footer once a take-off is priced. It reads like `Projected cost: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)` (illustrative figures; the worked example below gives real ones).
+8. Read the block's footer once a take-off is priced. It reads like `Projected cost: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)` (illustrative figures; the worked example below gives real ones). Once a take-off is priced, a line above the strip's notes adds up every take-off of the picture, for example `Projected cost for this picture: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)`.
 9. If **↻ use the catalogue's values** appears, the catalogue's preset has changed since you added the material. Click it to take the new values; the waste, pitch and price you typed stay.
 10. Remove a take-off with **✕** at the end of its line.
 
@@ -1547,6 +2206,7 @@ Stone is sold by weight: 132 m³ (with waste) × 1,600 kg/m³ = 211,200 kg, ÷ 9
 - The currency relabels prices; it never converts them.
 - Re-running **📦 Add materials from pictures** is safe: rows already added are skipped.
 - A notice such as `Asphalt shingles: No roof pitch: type x in x:12.` means the roof line needs a slope, an angle or a typed x.
+- A volume ticket (**🧾 Volume ticket…**) prints the tonnage of one volume from a material's density: the measured part × the density, with its ±, and no waste. It preselects the material and part of the area's volume take-off, so its mass is the take-off's before waste: the 120 m³ fill at 1,600 kg/m³ is 192 t on the ticket, while the take-off orders 233 tons with 10 % waste. See [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket).
 
 > **Under the hood**
 >
@@ -1563,6 +2223,7 @@ Stone is sold by weight: 132 m³ (with waste) × 1,600 kg/m³ = 211,200 kg, ÷ 9
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -1576,14 +2237,13 @@ Stone is sold by weight: 132 m³ (with waste) × 1,600 kg/m³ = 211,200 kg, ÷ 9
 ## Editing the material catalogue: presets, units, packages, waste, prices
 
 
-The material catalogue is the list the **+ Material…** chooser offers in the Scale strip. Each preset says how a material is measured, what it is sold as, what one unit covers, how it is packed, the usual waste and, if you want, a price. You edit it in Settings, so the take-offs match your suppliers and your prices.
+The material catalogue is the list the **+ Material…** chooser offers in the **🧮 Material Takeoff** strip. Each preset says how a material is measured, what it is sold as, what one unit covers, how it is packed, the usual waste and, if you want, a price. You edit it in Settings, so the take-offs match your suppliers and your prices.
 
 <a id="settings-material-presets-before-you-start"></a>
 
 ### Before you start
 
 - The desktop app, with the Thermal or the Photogrammetry add-on enabled. The section shows only then.
-- Open **Settings** and find **Material take-off presets** in the left column.
 - Set Settings → Units first. The form shows numbers in your distance system (ft, ft², yd³ or m, m², m³), and changing the system closes an open form.
 - Wait for the list to load. While `Reading the stored presets…` shows, every control is disabled.
 
@@ -1603,19 +2263,21 @@ The table lists the presets under category headings; the shipped catalogue has 5
 | Waste | Such as `10 %` |
 | Price per order unit | Such as `$38.50 / bundle`, or `—` |
 
-1. Set **Currency** above the table: three letters, such as `USD`, `EUR` or `CAD`. Press Enter or leave the box to apply it; Esc puts it back.
-2. Click **+ Add a material** for a new preset, or **Edit** on a row to change one. A form opens above the table and the row is highlighted.
-3. Type the **Material** name and choose its **Category**: `Roofing`, `Exterior walls, fencing and decking`, `Concrete`, `Masonry`, `Pavement`, `Landscape and drainage`, `Bulk materials` or `Other`.
-4. Choose **Measured by**: `Length or perimeter`, `Area`, `Roof surface (area × pitch factor)` or `Volume`. Switching between length, area and volume resets **One unit covers** to 1.
-5. Choose **Sold as**. The list fits the basis: `ft`, `m`, `ft²`, `m²`, `square / squares`, `sheet / sheets`, `bundle / bundles`, `ft³`, `yd³`, `m³`, `gallon / gallons`, `ton / tons`, `tonne / tonnes`, `lb`, `kg`, then counts such as `piece / pieces`, `board / boards`, `roll / rolls`, `bag / bags`, `pallet / pallets`. For your own word pick `Other…` and fill **Sold as (one)** and **Sold as (many)**.
-6. Check **One unit covers**. Picking a unit fills it when the size is known: a square is 100 ft², a sheet 32 ft² (4 × 8 ft), a bundle 33⅓ ft². Change its unit in the list next to it (`ft`, `in`, `m`, `cm`; `ft²`, `square (100 ft²)`, `m²`; `ft³`, `yd³`, `gal (US)`, `m³`); the number is converted.
-7. For a volume material, picking `ton / tons`, `tonne / tonnes`, `lb` or `kg` ticks **Sold by weight**, fills **Weight per unit** (its unit: `lb`, `ton (2,000 lb)`, `kg`, `tonne (1,000 kg)`) and, when **Density** is blank, fills it with 100 lb/ft³ or 1,600 kg/m³. Check both against the product. Without that tick the field reads **Density (optional, shows the weight)**.
-8. Choose **Waste**: `0 % — exact count (panels, posts, fixtures)`, `5 % — simple gable roof, straight runs`, `10 % — standard`, `15 % — hips and valleys, many cuts`, `20 % — complex roof, patterns, diagonal layouts`, or `Other…`, which adds a small box followed by `%` (named `Waste (custom)` for screen readers) for your own figure.
-9. Under **Package (optional)**, pick `No package` or a package: `bundle / bundles`, `box / boxes`, `carton / cartons`, `case / cases`, `bag / bags`, `roll / rolls`, `pallet / pallets`, `pail / pails`, or `Other…`, which adds two boxes showing `bundle` and `bundles` as placeholders (`Package (one)` and `Package (many)`) for your own words. Next to the package a count box (placeholder `3`, followed by `per unit`; named `Packages per unit`) fills from the convention: 3 bundles or 0.5 box per square. Otherwise it stays blank and the form asks for it.
-10. Type the price in **Price per** (the order unit and currency follow, such as `Price per bundle (USD)`). Leave it blank for `not priced`.
-11. Add a **Note (shown on hover in the strip)**, then click **Save**. `Material presets saved.` confirms it. **Cancel** closes the form.
-12. Click **Delete** on a row to remove a preset. It goes at once, with no question.
-13. Click **Reset to the shipped presets** to start over. The app asks first; your own presets and edits are removed, the currency stays.
+1. Open **Settings**, find **Material take-off presets** in the left column and click **Material take-off presets…**. The catalogue opens in its own window.
+2. Set **Currency** above the table: three letters, such as `USD`, `EUR` or `CAD`. Press Enter or leave the box to apply it; Esc puts it back.
+3. Narrow the table with the **Category** dropdown at the top of the window or by typing part of a name in **Search materials**. The filter only changes what the table shows: **+ Add a material**, **Edit**, **Delete** and **Reset to the shipped presets** still work on the whole catalogue, and a line under the table says how many presets show.
+4. Click **+ Add a material** for a new preset, or **Edit** on a row to change one. A form opens above the table and the row is highlighted.
+5. Type the **Material** name and choose its **Category**: `Roofing`, `Exterior walls, fencing and decking`, `Concrete`, `Masonry`, `Pavement`, `Landscape and drainage`, `Bulk materials` or `Other`.
+6. Choose **Measured by**: `Length or perimeter`, `Area`, `Roof surface (area × pitch factor)` or `Volume`. Switching between length, area and volume resets **One unit covers** to 1.
+7. Choose **Sold as**. The list fits the basis: `ft`, `m`, `ft²`, `m²`, `square / squares`, `sheet / sheets`, `bundle / bundles`, `ft³`, `yd³`, `m³`, `gallon / gallons`, `ton / tons`, `tonne / tonnes`, `lb`, `kg`, then counts such as `piece / pieces`, `board / boards`, `roll / rolls`, `bag / bags`, `pallet / pallets`. For your own word pick `Other…` and fill **Sold as (one)** and **Sold as (many)**.
+8. Check **One unit covers**. Picking a unit fills it when the size is known: a square is 100 ft², a sheet 32 ft² (4 × 8 ft), a bundle 33⅓ ft². Change its unit in the list next to it (`ft`, `in`, `m`, `cm`; `ft²`, `square (100 ft²)`, `m²`; `ft³`, `yd³`, `gal (US)`, `m³`); the number is converted.
+9. For a volume material, picking `ton / tons`, `tonne / tonnes`, `lb` or `kg` ticks **Sold by weight**, fills **Weight per unit** (its unit: `lb`, `ton (2,000 lb)`, `kg`, `tonne (1,000 kg)`) and, when **Density** is blank, fills it with 100 lb/ft³ or 1,600 kg/m³. Check both against the product. Without that tick the field reads **Density (optional, shows the weight)**.
+10. Choose **Waste**: `0 % — exact count (panels, posts, fixtures)`, `5 % — simple gable roof, straight runs`, `10 % — standard`, `15 % — hips and valleys, many cuts`, `20 % — complex roof, patterns, diagonal layouts`, or `Other…`, which adds a small box followed by `%` (named `Waste (custom)` for screen readers) for your own figure.
+11. Under **Package (optional)**, pick `No package` or a package: `bundle / bundles`, `box / boxes`, `carton / cartons`, `case / cases`, `bag / bags`, `roll / rolls`, `pallet / pallets`, `pail / pails`, or `Other…`, which adds two boxes showing `bundle` and `bundles` as placeholders (`Package (one)` and `Package (many)`) for your own words. Next to the package a count box (placeholder `3`, followed by `per unit`; named `Packages per unit`) fills from the convention: 3 bundles or 0.5 box per square. Otherwise it stays blank and the form asks for it.
+12. Type the price in **Price per** (the order unit and currency follow, such as `Price per bundle (USD)`). Leave it blank for `not priced`.
+13. Add a **Note (shown on hover in the strip)**, then click **Save**. `Material presets saved.` confirms it. **Cancel** closes the form. Esc closes the form first, and a second Esc closes the window.
+14. Click **Delete** on a row to remove a preset. It goes at once, with no question.
+15. Click **Reset to the shipped presets** to start over. The app asks first; your own presets and edits are removed, the currency stays.
 
 <a id="settings-material-presets-example-four-bundles-to-the-square"></a>
 
@@ -1660,8 +2322,6 @@ On the 2,000 ft² plan area at 6:12 (2,236.07 ft² of roof): + 15 % = 2,571.48 f
 <a id="settings-branding"></a>
 
 ## Branding your reports: logo, company and Part 107 number
-
-> **Coming in the next update:** this feature is not in add-ons 1.0.0 yet.
 
 
 Branding puts your company on every report the Thermal and Photogrammetry add-ons produce: your logo and company name at the top of the first page, your name and FAA Part 107 certificate number, your contact details, and your company as the publisher under the title. You enter it once in Settings. New reports also start with your name, certificate and contact already filled in.
@@ -1750,8 +2410,6 @@ When **Save branding** cannot save, the notice says why:
 <a id="clients"></a>
 
 ## Saving clients and claim details for reuse
-
-> **Coming in the next update:** this feature is not in add-ons 1.0.0 yet.
 
 
 Enter a client once and pick it by its first letters in every later report, thermal or photogrammetry. Each report also carries its own claim details for insurance work: claim number, policy number, date of loss and adjuster. The Clients screen keeps the list: search, edit, delete, and import or export it as a CSV file.
@@ -1899,6 +2557,32 @@ The other route is the add-on installer: its License key page asks you to paste 
 3. On the offline computer, click **Import license file…** on the lock panel or in the **🧩 Add-ons** window and pick the file. The studio opens.
 
 A license file lasts at most 90 days, and never more than three days past the paid period. Before it runs out, the renewal bar tells you to fetch a new one. When a file has run out, the state line reads `License file expired on <date>: refresh or import a new file`.
+
+<a id="addon-license-licenses-tied-to-this-computer"></a>
+
+### Licenses tied to this computer
+
+Some licenses are tied to the computer they were activated on. After you activate one, the lock panel and the add-on's row in the **🧩 Add-ons** window work as usual. If the same license is used on another computer, or the licensing service no longer lists this computer for it, the state line reads `Not active on this computer: …` followed by the reason, for example that the limit of computers is reached. The add-on stays locked until that is fixed.
+
+- A copied license file does not carry the license to a second computer. Copying the `.lic` file (and its key) to another PC works until that PC first refreshes the license, at the latest about 30 days later; then the licensing service refuses it there if the limit is already used.
+- A computer's place is freed in one of two ways: click **Deactivate this PC** on the old computer (see below), or ask the issuer of the license to free it in the licensing dashboard. This is also the way to move a license when a computer is lost.
+- Computers cloned from one disk image without preparing Windows for cloning (sysprep) look like one computer to the licensing service and share a single place.
+
+Click **Refresh** after the place is freed; the state line updates and the studio opens.
+
+<a id="addon-license-deactivating-this-computer"></a>
+
+### Deactivating this computer
+
+Use this to move a license to another computer, or before you sell or wipe this one.
+
+1. Open the add-on's tab (the lock panel) or the **🧩 Add-ons** window. The button **Deactivate this PC** appears only for a license that is registered to this computer.
+2. Click **Deactivate this PC**. A confirmation names the add-ons the license covers and shows the full key.
+3. Click **Copy** to keep the key: you need it to activate again.
+4. Click **Deactivate** to go ahead, or **Cancel** to leave everything as it is.
+5. The add-ons the license covers lock at once and this computer's place is freed. To use the license here again, click **Enter license key…** and paste the key, or **Import license file…**.
+
+If the licensing service cannot be reached, the message says so and nothing is removed yet. The add-ons the license covers stay locked and the state line reads `Deactivating this computer… Click Refresh when the computer is online to finish.`; when you are online again, click **Refresh** (or restart Open DroneLog) to finish the deactivation. If the key file was already missing from this computer, the license files are still removed, and the message says that the licensing service still lists this computer, so the issuer has to free it.
 
 <a id="addon-license-renewing"></a>
 
