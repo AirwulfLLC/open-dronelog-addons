@@ -43,7 +43,7 @@ Version 1.0.1 of both add-ons is still built for **Open DroneLog 3.3.2**. If you
 
 **Both add-ons**
 
-- Search the library by name, filter it, and delete many pictures at once with **Select all** and **Delete selected…**. See the [Thermal library](HELP.md#thermal-start-the-asset-library) and the [Photogrammetry library](HELP.md#photo-start-the-library).
+- Search the library by name, filter it, and delete multiple pictures at once with **Select all** and **Delete selected…**. See the [Thermal library](HELP.md#thermal-start-the-asset-library) and the [Photogrammetry library](HELP.md#photo-start-the-library).
 - Export the measurements and drawings of a picture as DXF, GeoJSON or ODL XML with **📐 Export linework…**. See [Exporting linework](HELP.md#mapping-deliverables-exporting-linework).
 - Turn a measurement into a material order, with waste and prices, in the **🧮 Material Takeoff** strip. See [Material take-offs](HELP.md#materials-takeoff-steps).
 - Hand a report over as a claim package (original pictures, portal copies and a custody sheet in one folder) with **📦 Claim package…** in the report builder. See [Delivering a claim package](HELP.md#claim-package).
