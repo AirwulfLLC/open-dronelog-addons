@@ -31,7 +31,6 @@ Version 1.0.2 of both add-ons is still built for **Open DroneLog 3.3.2**. If you
 
 - **Add-ons moved into Settings.** Click **Settings** in the sidebar, then **Open Add-ons**. The button next to Settings is gone. (In 1.0.1 and earlier the **🧩 Add-ons** button is still next to Settings: use it to update.)
 - **AI usage.** With an AI provider key saved, a usage bar under each studio shows what your AI runs used and cost, for the customer and project you are working on and for the calendar month. A setting adds that cost to a report. See [AI usage](HELP.md#ai-usage).
-- **Open DroneLog's own supporter badge and GitHub link are back in the program, and its donation banner shows while no add-on is licensed.** The supporter badge supports the original Open DroneLog project and does not unlock the add-ons. On the Thermal and Photogrammetry tabs, the GitHub icon at the bottom of the sidebar opens this page.
 - Fixes in reports, inspection bundles, the library and Settings.
 
 ---
