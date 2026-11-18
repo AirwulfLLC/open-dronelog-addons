@@ -4,9 +4,9 @@ This file collects every help guide built into the Open DroneLog add-ons (the **
 
 New to the add-ons? Install them first with the step-by-step guide in the [README](README.md), then start with [Thermal Studio: getting started](#thermal-start) or [Photogrammetry: getting started](#photo-start).
 
-> **Version:** written for add-ons 1.0.1 on Open DroneLog 3.3.2.
+> **Version:** written for add-ons 1.0.2 on Open DroneLog 3.3.2.
 
-> **Source and license:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog (`src/help/content`). Only what a single file needs is changed: headings sit one level lower, links between guides point inside this file, and every section has an anchor. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license. The complete source of the program, help included, is attached to every [add-on release](https://github.com/AirwulfLLC/open-dronelog-addons/releases).
+> **About this text:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog. Only what a single file needs is changed: headings sit one level lower, links between guides point inside this file, and every section has an anchor. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license.
 
 For the main Open DroneLog program (flight logs, maps, charts, batteries), see the original project's [user manual](https://github.com/arpanghosh8453/open-dronelog/blob/main/docs/manual.md).
 
@@ -45,6 +45,7 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 
 - [Editing the material catalogue: presets, units, packages, waste, prices](#settings-material-presets)
 - [Branding your reports: logo, company and Part 107 number](#settings-branding)
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
 - [Saving clients and claim details for reuse](#clients)
 
 **Add-ons**
@@ -101,7 +102,7 @@ Each row names a feature, where you find it, and the walkthrough that explains i
 
 ### Steps
 
-1. Click **Add-ons** in the sidebar. The **🧩 Add-ons** window lists the **Thermal Analysis Studio**.
+1. Open **Settings** (the gear at the top of the sidebar) and click **Open Add-ons**. The **🧩 Add-ons** window lists the **Thermal Analysis Studio**.
 2. If it reads **Not installed**, click **Download installer…**, run `OpenDroneLog-Thermal-Addon_<version>_x64-setup.exe`, then click **↻ Refresh** in the window.
 3. Make sure **Enabled** is ticked. A **Thermal** tab appears in the sidebar.
 4. Open the **Thermal** tab. The top bar shows **🌡️ Thermal Studio** and two badges:
@@ -543,7 +544,7 @@ A FLIR picture is 640 × 480 pixels, 307,200 in all. The temperatures below are 
 4. Paste it into the box (the placeholder shows the key's shape: `sk-ant-...`, `sk-...` or `AIza...`) and click **Save API Key**. The toast reads "AI analysis API key saved" and the status reads "API key configured".
 5. To replace a key, paste the new one and click **Update API Key**. To remove it, click the **Personal** badge (it turns into **Remove** on hover).
 
-Keys are kept per profile and per provider: switching the provider keeps each key, and another profile needs its own. The same key powers the `✨ AI draft` checkboxes in the report builders.
+Keys are kept per profile and per provider: switching the provider keeps each key, and another profile needs its own. The same key powers the `✨ AI draft` checkboxes in the report builders. Once a key is saved, the AI usage bar appears under the studios and shows what each customer's AI runs cost; see [AI usage](#ai-usage).
 
 <a id="thermal-anomalies-example-a-street-scene-from-the-flir-adas-data"></a>
 
@@ -570,12 +571,13 @@ Raising **Sensitivity (z-score)** to `2.5` and **Min region (px)** to `50` leave
 - The narrative can be wrong. It is a draft for a qualified thermographer to check, not a diagnosis.
 
 > **Under the hood**
-> Every valid pixel gets z = (T − baseline) ÷ σ, where the baseline is the median of the picture and σ its standard deviation. Pixels with z ≥ +threshold are hot, z ≤ −threshold cold; 4-connected neighbours of the same kind form a region, and regions smaller than the minimum are dropped. ΔT is the region's mean minus the baseline. Severity: high when |ΔT| ≥ 8 °C or |ΔT| ≥ 6σ, medium when |ΔT| ≥ 4 °C or ≥ 3.5σ, else low. Classification, hot: |ΔT| ≥ 10 °C on fewer than 900 px is an electrical fault, an elongated box (width to height above 3 or below 1/3) thermal bridging, |ΔT| ≥ 5 °C HVAC leakage, else an insulation void; cold: elongated is air infiltration, |ΔT| ≥ 6 °C moisture intrusion, else missing insulation. Regions are ranked by |ΔT| × (1 + ln area) and at most 24 are kept. The detection runs on your computer. The narrative sends the picture file, its file name, the statistics, the measurement parameters, the anomalies and any heat-flow results to the chosen provider (`claude-opus-5`, `gpt-5` or `gemini-2.5-pro`); nothing else leaves the machine, and nothing is sent until you click. Report drafts send only the text facts of the report, no picture. Keys are stored in the profile's local database and sent only to their provider.
+> Every valid pixel gets z = (T − baseline) ÷ σ, where the baseline is the median of the picture and σ its standard deviation. Pixels with z ≥ +threshold are hot, z ≤ −threshold cold; 4-connected neighbours of the same kind form a region, and regions smaller than the minimum are dropped. ΔT is the region's mean minus the baseline. Severity: high when |ΔT| ≥ 8 °C or |ΔT| ≥ 6σ, medium when |ΔT| ≥ 4 °C or ≥ 3.5σ, else low. Classification, hot: |ΔT| ≥ 10 °C on fewer than 900 px is an electrical fault, an elongated box (width to height above 3 or below 1/3) thermal bridging, |ΔT| ≥ 5 °C HVAC leakage, else an insulation void; cold: elongated is air infiltration, |ΔT| ≥ 6 °C moisture intrusion, else missing insulation. Regions are ranked by |ΔT| × (1 + ln area) and at most 24 are kept. The detection runs on your computer. The narrative sends the picture file, its file name, the statistics, the measurement parameters, the anomalies and any heat-flow results to the chosen provider (`claude-opus-5`, `gpt-6.1-sol` or `gemini-3.8-flash`); nothing else leaves the machine, and nothing is sent until you click. Report drafts send only the text facts of the report, no picture. Keys are stored in the profile's local database and sent only to their provider.
 
 <a id="thermal-anomalies-see-also"></a>
 
 ### See also
 
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Reading temperatures: statistics, palette and scale, emissivity and distance](#thermal-analysis)
 - [Isolating a temperature range (isotherm)](#thermal-isotherm)
@@ -770,7 +772,7 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 
 | # | Section | What you do there |
 |---|---|---|
-| 1 | Header Data & Administrative Information | Property, date, site, inspector and credentials, camera; **📷 Fill camera from imagery** reads the camera from the pictures. Holds the **Executive summary**. |
+| 1 | Header Data & Administrative Information | **Project name**, **Client**, property, date, site, inspector and credentials, camera; **📷 Fill camera from imagery** reads the camera from the pictures. Holds the **Executive summary**. |
 | 2 | Environmental & System Conditions | Weather, ambient temperature, humidity, load; **⚙ Use analysis parameters** copies emissivity, reflected temperature, ambient, humidity and distance from the selected picture. |
 | 3 | Flight Data (DJI) | Tick the flights that produced the imagery; **↻ Fill from flight logs** sets the date, time window, site position and aircraft. |
 | 4 | Orthomosaic (Agisoft Metashape) | Pick an **Embedded orthomosaic image** (or `— none —`) and add a map link. |
@@ -805,8 +807,10 @@ Without a key the box is greyed out, and its tooltip reads `Configure an AI API 
 
 1. Click **Preview & edit**. The **Edit** tab shows the report text: click any text to change it in place. The **PDF** tab shows the exported PDF. **Refresh** re-renders after you change pictures or sections.
 2. Export with the preview's own export buttons (PDF, Word, RTF), or with **Export ▼** in the builder.
-3. Click **Export Bundle** to save the whole inspection as one `.odlbundle` file. `Inspection bundle exported.` confirms it.
-4. On another machine or profile, open **📄 Report ▼** → **Import inspection bundle…** and pick the file. A message reads `Bundle imported: N new asset(s), M already present, report "…"`, sometimes followed by `, N archived flight(s) in the bundle file` (the flights stay archived in the file; they are not added to your logbook). Pictures already in the library are not copied twice, and the report appears under **Saved reports** with its links intact.
+3. Click **Export Bundle** to save the whole inspection as one `.odlbundle` file. `Inspection bundle exported.` confirms it; if a picture had to be left out, the message adds `Not included:` and its name.
+4. On another machine or profile, open **📄 Report ▼** → **Import inspection bundle…** and pick the file. A message reads `Bundle imported: N new asset(s), M already present, report "…"`, sometimes followed by `, N archived flight(s) in the bundle file` (the flights stay archived in the file; they are not added to your logbook). If some pictures could not be imported, a line `N picture(s) could not be imported:` names them. Pictures already in the library are not copied twice, and the report appears under **Saved reports** with its links intact.
+
+With **Add the AI cost to the report's projected cost** ticked in Settings, a report that has a client gets an **AI analysis** row in **Materials and Projected Cost**; see [AI usage](#ai-usage-adding-the-ai-cost-to-a-report). The **Project name** prints under Header Data when it is filled in.
 
 Saved reports appear as chips under **Saved reports**. Click one to load it; hover it and click its **✕** to delete it (the app asks first). **+ New blank** starts a fresh report.
 
@@ -835,6 +839,7 @@ The PDF opens with the title and the line `Generated by Airwulf, LLC · Thermal 
 - Materials come only from pictures used in imaging pairs. Add the pair first, then **📦 Add materials from pictures**; rows already added are skipped.
 - An anomaly imported while a boundary was set prints `Detected inside the analysis boundary (14.7 % of the picture)`, and a picture whose boundary cannot be read is printed without its temperatures; see [the analysis boundary](#thermal-boundary).
 - Export a bundle, not just a PDF, when someone else will continue the inspection.
+- A survey's bundle needs the Photogrammetry add-on: without it, **Import inspection bundle…** answers `Bundle import failed: The Photogrammetry add-on needs a valid license: …` and keeps nothing of the bundle. When a bundle brings pictures that only the Photogrammetry tab lists, a second line of the message says so, such as `3 pictures and the report show in the Photogrammetry tab.`, or `1 picture shows in the Photogrammetry tab, which needs the Photogrammetry add-on.` for a visual picture the inspection's author picked from that tab.
 
 > **Under the hood**
 >
@@ -844,6 +849,7 @@ The PDF opens with the title and the line `Generated by Airwulf, LLC · Thermal 
 
 ### See also
 
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
 - [Side-by-side documents and temperature exports](#thermal-deliverables)
@@ -988,7 +994,7 @@ Each row names a feature, where you find it, and the walkthrough that explains i
 | Orthomosaic export (JPG with world file) | **🗺 Export orthomosaic…** in the top bar | [Exporting an orthomosaic](#mapping-deliverables-exporting-an-orthomosaic) |
 | Linework export (DXF, GeoJSON, ODL XML) | **📐 Export linework…** in the top bar | [Exporting linework](#mapping-deliverables-exporting-linework) |
 | Volume ticket | **🧾 Volume ticket…** in the top bar | [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket) |
-| Survey report | **📄 Report** in the top bar, then **Open report builder…** | [Survey report](#photo-report-steps) |
+| Survey report and inspection bundles | **📄 Report** in the top bar, then **Open report builder…** or **Import inspection bundle…** | [Survey report](#photo-report-steps) |
 | Claim package | **📦 Claim package…** in the report builder's header | [Claim package](#claim-package-steps) |
 
 <a id="photo-start-before-you-start"></a>
@@ -996,7 +1002,7 @@ Each row names a feature, where you find it, and the walkthrough that explains i
 ### Before you start
 
 - Use the desktop app. The library stores media in your local profile, so the tab is not available in the web version.
-- Install the add-on: click **Add-ons** next to Settings, click **Download installer…** for Photogrammetry, run the installer, then click **↻ Refresh**. The add-on's badge reads `Enabled · v<version>` and the Photogrammetry tab appears in the sidebar.
+- Install the add-on: open **Settings** (the gear at the top of the sidebar) and click **Open Add-ons**, click **Download installer…** for Photogrammetry, run the installer, then click **↻ Refresh**. The add-on's badge reads `Enabled · v<version>` and the Photogrammetry tab appears in the sidebar.
 - To hide the tab without removing anything, untick **Enabled** in the same screen.
 - Have the survey photos or videos at hand, and the Metashape exports you want in the report: orthomosaic and DEM GeoTIFFs, the processing report PDF, the camera XML, point clouds.
 
@@ -1049,6 +1055,8 @@ The library lists everything you imported, with its count in the header (`Librar
 13. Click a document (a processing report, a camera file, a point cloud) to see its card: size, cameras, markers, coordinate system and format when known, and **Open in default application**. A document is not a figure, but it travels in the report's bundle when you tick it as a deliverable in the report builder.
 
 The Metashape files are shared with the Thermal Studio: an orthomosaic imported here can be analysed and annotated there, and the other way round. Photos and videos you import here stay in the Photogrammetry library.
+
+If the library cannot be read, a line under the top bar reads `The library could not be read:` followed by the reason, and the list may be empty or out of date. Click **Retry** on that line to read it again. Nothing in the library is changed by a failed read.
 
 To hand a survey over as files, use the buttons in the top bar after **📂 Import folder…**: **🗺 Export orthomosaic…** writes the selected orthomosaic as a JPG with its world file and a presentation copy, **📐 Export linework…** writes the measurements of the selected picture as DXF, GeoJSON or ODL XML (also in the Thermal Studio), and **🧾 Volume ticket…** prints a numbered document for one measured volume. See [Orthomosaic export, linework files and volume tickets](#mapping-deliverables).
 
@@ -1132,6 +1140,8 @@ The right column of the Photogrammetry tab, headed `Report images (N)`, holds th
 
 A still picture is queued once: adding it again says `Already in the report.` A video can be queued once per frame, so its library row can show `In report ×2`, but the same frame cannot be added twice (`That frame is already in the report.`).
 
+The queue is saved in your profile and read when the tab opens. If it cannot be read, adding to it is refused and nothing is written, so the figures you queued earlier stay saved: the notice reads `Nothing was added: the report queue could not be read (…)`, with the reason. Add again once the reason is gone; the queue is read first and your new figure goes after the saved ones. Ticked items stay ticked after a refusal.
+
 <a id="photo-report-steps"></a>
 
 ### Steps
@@ -1143,6 +1153,7 @@ A still picture is queued once: adding it again says `Already in the report.` A 
 5. Click **Preview & edit**. In the **Edit** tab, click any text to change it in place; the **PDF** tab shows the exported file; **Refresh** re-renders after you change figures or sections.
 6. Click **Export ▼** and pick **PDF**, **Word (.docx)** or **RTF**.
 7. Click **Export Bundle** to save the whole survey as one `.odlbundle` file.
+8. To open a survey's bundle on another machine or profile, click **📄 Report ▼** → **Import inspection bundle…** and pick the file. A message reads `Bundle imported: N new asset(s), M already present, report "…"`; with linked flights it adds `, N archived flight(s) in the bundle file` (they stay in the file and are not added to your logbook). Pictures already in the library are not copied twice, and the report appears under **Saved reports** in the builder, its name ending in `(imported)`.
 
 | # | Section | What you do there |
 |---|---|---|
@@ -1178,6 +1189,8 @@ In **Core Visual Deliverables (Agisoft Metashape)**, pick the orthomosaic to pri
 
 **📏 Add measurements from pictures** adds a row for each distance, angle, area, volume, position and slope on the queued pictures, with its method and the figure that shows it; see [Measuring lengths, angles and areas: In the report](#measure-tools-in-the-report). **📦 Add materials from pictures** does the same for the take-offs; see [Material take-offs: In the report](#materials-takeoff-in-the-report). Both skip rows already added. A finding has a category, a severity (`Low severity`, `Medium severity`, `High severity`), a location, a **Documented in figure** link, an **Observation** and a **Recommendation**; an observation is a neutral note without a grade.
 
+With **Add the AI cost to the report's projected cost** ticked in Settings, a report that has a client also gets an **AI analysis** row in **Materials and Projected Cost**; see [AI usage](#ai-usage-adding-the-ai-cost-to-a-report).
+
 <a id="photo-report-ai-drafts"></a>
 
 #### AI drafts
@@ -1202,17 +1215,19 @@ Sections 1, 2, 6, 12 and 13 have a **✨ AI draft** checkbox. Tick it to fill th
 - Queue order is figure order. Rows that point at a figure renumber themselves when you reorder, but a figure number you typed into a text (a caption, an observation) does not, so check those after reordering.
 - **↻ Fill from flight logs** stays greyed out until a flight is linked.
 - Documents (PDF, XML, point clouds) cannot be figures. List them as deliverables instead; only ticked files travel in the bundle.
+- A thermal inspection's bundle needs the Thermal add-on: without it, **Import inspection bundle…** answers `Bundle import failed: The Thermal Analysis Studio needs a valid license: …` and keeps nothing of the bundle. With both add-ons it imports from this tab too, and a second line of the message names the tab its pictures and report show in, such as `12 pictures and the report show in the Thermal tab.` Its Metashape files show in both tabs.
 - **+ New blank** appears once a saved report exists. When figures are queued it asks whether to clear them too; choose Cancel to keep them for the new report.
 - Both "Add … from pictures" buttons read only the queued pictures: queue first, then import.
 
 > **Under the hood**
 >
-> An AI draft sends only the facts entered in the report (project data, flights, deliverables, measurements, the material count and projected total, findings) to the provider chosen in Settings, never the images. The bundle is a single `.odlbundle` file holding the report, its figures' assets with their annotations, the ticked deliverables, the embedded orthomosaic (even when it is not ticked) and the linked flights' full telemetry; the Thermal Studio's **Import inspection bundle…** reads it back. Every report carries the publisher line "Generated by \<publisher\> · \<workflow\>" under the title: the publisher is the company saved under Settings → **Branding**, and "Airwulf, LLC" until one is saved.
+> An AI draft sends only the facts entered in the report (project data, flights, deliverables, measurements, the material count and projected total, findings) to the provider chosen in Settings, never the images. The bundle is a single `.odlbundle` file holding the report, its figures' assets with their annotations, the ticked deliverables, the embedded orthomosaic (even when it is not ticked) and the linked flights' full telemetry; **Import inspection bundle…** in the **📄 Report ▼** menu of either studio reads it back, and a survey's bundle needs only the Photogrammetry add-on. Every report carries the publisher line "Generated by \<publisher\> · \<workflow\>" under the title: the publisher is the company saved under Settings → **Branding**, and "Airwulf, LLC" until one is saved.
 
 <a id="photo-report-see-also"></a>
 
 ### See also
 
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
 - [Measuring lengths, angles and areas](#measure-tools)
@@ -2407,6 +2422,95 @@ When **Save branding** cannot save, the notice says why:
 
 <sub>[Back to contents](#contents)</sub>
 
+<a id="ai-usage"></a>
+
+## AI usage: the usage bar, customers and projects, and the AI cost in reports
+
+
+Every time the app asks an AI provider to write something (the AI narrative in the Thermal Studio and the AI drafts in the report builders) it records the run. The AI usage bar shows what those runs used and what they cost, for the customer and project you are working on. A setting can add that cost to the report you send your client.
+
+<a id="ai-usage-before-you-start"></a>
+
+### Before you start
+
+- The desktop app with at least one AI provider key saved; see [AI provider keys](#thermal-anomalies-ai-provider-keys). Without a key there is no bar.
+- Save your customers under **Clients**; see [Saving clients and claim details for reuse](#clients). The bar lists them.
+
+<a id="ai-usage-the-ai-usage-bar"></a>
+
+### The AI usage bar
+
+The bar shows only while at least one provider has a key. You find it:
+
+- under the Thermal Studio and under the Photogrammetry Studio;
+- at the bottom of the report builder, where it is read-only (it shows the report's own customer and project).
+
+It reads like this: the customer, the project, the figures of this job (`runs`, `tokens` and an estimated cost in US dollars) and the figures of the calendar month. It updates after every AI run, after you save or remove a key, and when you come back to the window.
+
+<a id="ai-usage-picking-a-customer-and-a-project"></a>
+
+### Picking a customer and a project
+
+1. In the bar, open the customer list and pick a saved client. **No customer** is the choice when you have not picked one; the bar is amber then, as a reminder.
+2. Type the project name in the project box. Names you already used with that customer are offered.
+3. Run an AI narrative. The run is recorded for the customer and project that were picked at that moment.
+
+While a report is open, the report's own **Client** and **Project name** are used instead, and you cannot change them in the bar.
+
+<a id="ai-usage-what-is-counted"></a>
+
+### What is counted
+
+- Only the AI runs this app made on this computer, in this profile. Anything you did in a provider's own website or another program is not in it.
+- The cost is an estimate: the tokens each answer reported, priced from a price list built into the app. The list has a date, shown in the bar's tooltip. The provider's own bill is the authority; compare them now and then.
+- A run **not priced** is one whose model is not in the price list. A run **of unknown cost** is one whose answer never came back whole. Both are counted and named, never guessed into the money figure.
+- Customer and project names are compared ignoring capitals, accents and extra spaces: `Müller  Bau` and `muller bau` are one customer.
+- A run counts for what was picked when it ran. Changing the pick later does not move it.
+- The calendar month is counted in UTC, so a run made late on the last evening of a month in your time zone can fall into the next month.
+- The usage history belongs to this computer and profile. It is not part of backups or bundles.
+
+<a id="ai-usage-adding-the-ai-cost-to-a-report"></a>
+
+### Adding the AI cost to a report
+
+1. Open Settings, find **AI Thermal Analysis** and tick **Add the AI cost to the report's projected cost**. It is off until you tick it.
+2. Open a report and fill in its **Client** and, if you want it counted separately, its **Project name**.
+3. Click **Preview & edit** or export the report. In **Materials and Projected Cost** you now see a row `AI analysis (N runs, T tokens)` with its cost. In a report with prices in US dollars, a row **Projected total incl. AI analysis** follows.
+
+Good to know:
+
+- The figure is read at the moment you preview or export, so it is always current. It is not saved in the report or in a bundle.
+- A report with no client gets no AI line: it would otherwise collect every run made with **No customer**.
+- A report with a blank project name counts every run of that customer that was made without a project, also the runs of other jobs. Give each job a project name to keep them apart.
+- The AI cost is always in US dollars. In a report with another currency the line is printed in dollars and there is no combined total; a note says so.
+- If some runs have no known cost, a note says how many; they are not in the figure.
+- If the figure cannot be read, the preview or export still works and a notice says the AI cost is not in it.
+- The **Projected total** row itself does not change, and the AI drafts quote that figure.
+
+<a id="ai-usage-limits-of-this-version"></a>
+
+### Limits of this version
+
+- There is no budget, and no percent or amount left.
+- There is no table of all customers at once; pick a customer to see its figures.
+- Recorded runs cannot be moved to another customer. Pick the right customer before you run.
+- Renaming a customer or a project starts the new name at zero; the runs already recorded keep the name they were made under.
+
+> **Under the hood**
+>
+> Each AI run is one row in a table of the profile's database, with the provider's token counts, the model, the time, and the customer and project names as picked. The cost is worked out from the built-in price list each time a figure is shown. The report's figure is the total of the rows whose customer and project match the report's, over all time. It is added to a copy of the report handed to the preview and the export writers, never to the saved document.
+
+<a id="ai-usage-see-also"></a>
+
+### See also
+
+- [AI variance analysis, the AI narrative, and the provider key](#thermal-anomalies)
+- [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
+- [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
+- [Saving clients and claim details for reuse](#clients)
+
+<sub>[Back to contents](#contents)</sub>
+
 <a id="clients"></a>
 
 ## Saving clients and claim details for reuse
@@ -2524,7 +2628,7 @@ The Thermal Analysis Studio and the Photogrammetry add-on each run on a license:
 ### Before you start
 
 - You need the desktop app for Windows, installed per user from Open DroneLog's own GitHub setup (`.exe`). The all-users (MSI) install is not supported by the add-on installers.
-- Install the add-on first: click **Add-ons** in the sidebar, then **Download installer…** for the add-on, run it, and click **↻ Refresh**. Until it has a license, the add-on's tab shows a lock panel headed "… needs a license" instead of the studio.
+- Install the add-on first: open **Settings** (the gear at the top of the sidebar) and click **Open Add-ons**, then **Download installer…** for the add-on, run it, and click **↻ Refresh**. Until it has a license, the add-on's tab shows a lock panel headed "… needs a license" instead of the studio.
 - Activating a key needs an internet connection once. A computer that never goes online uses a license file instead (see [Offline computers](#addon-license-offline-computers)).
 
 <a id="addon-license-buying-a-license"></a>
@@ -2616,7 +2720,7 @@ If the row reads `Update v<version> cannot be installed on this computer yet`, t
 
 ### After an Open DroneLog upgrade
 
-The add-ons run inside an Airwulf build of Open DroneLog that their installer puts in place. If you later install a newer Open DroneLog from GitHub, its installer puts the original program back: Open DroneLog starts without the add-ons and without the **Add-ons** button.
+The add-ons run inside an Airwulf build of Open DroneLog that their installer puts in place. If you later install a newer Open DroneLog from GitHub, its installer puts the original program back: Open DroneLog starts without the add-ons and without the **Add-ons** section in Settings.
 
 1. Download the current add-on installer from the releases page above (an older one refuses to install over a newer Open DroneLog and says so).
 2. Run it. You do not need to enter the key again.

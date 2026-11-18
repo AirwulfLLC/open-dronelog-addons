@@ -11,7 +11,8 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 
 **Contents**
 
-- [What's new in 1.0.1](#whats-new-in-101)
+- [What's new in 1.0.2](#whats-new-in-102)
+- [What was new in 1.0.1](#what-was-new-in-101)
 - [Before you start](#before-you-start)
 - [Install an add-on, step by step](#install-an-add-on-step-by-step)
 - [Activate your license](#activate-your-license)
@@ -20,13 +21,24 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 - [Turn off or remove an add-on](#turn-off-or-remove-an-add-on)
 - [Troubleshooting](#troubleshooting)
 - [Help with the add-ons](#help-with-the-add-ons)
-- [Licenses and source code](#licenses-and-source-code)
+- [Licenses](#licenses)
 
 ---
 
-## What's new in 1.0.1
+## What's new in 1.0.2
 
-Version 1.0.1 of both add-ons is still built for **Open DroneLog 3.3.2**. If you already have 1.0.0, get the new version as described in [Update an add-on](#update-an-add-on).
+Version 1.0.2 of both add-ons is still built for **Open DroneLog 3.3.2**. If you already have an earlier version, get the new one as described in [Update an add-on](#update-an-add-on).
+
+- **Add-ons moved into Settings.** Click **Settings** in the sidebar, then **Open Add-ons**. The button next to Settings is gone. (In 1.0.1 and earlier the **🧩 Add-ons** button is still next to Settings: use it to update.)
+- **AI usage.** With an AI provider key saved, a usage bar under each studio shows what your AI runs used and cost, for the customer and project you are working on and for the calendar month. A setting adds that cost to a report. See [AI usage](HELP.md#ai-usage).
+- **Open DroneLog's own supporter badge and GitHub link are back in the program, and its donation banner shows while no add-on is licensed.** The supporter badge supports the original Open DroneLog project and does not unlock the add-ons. On the Thermal and Photogrammetry tabs, the GitHub icon at the bottom of the sidebar opens this page.
+- Fixes in reports, inspection bundles, the library and Settings.
+
+---
+
+## What was new in 1.0.1
+
+Version 1.0.1 brought the following. All of it is part of 1.0.2.
 
 **Thermal**
 
@@ -93,7 +105,7 @@ Do these steps once for each add-on. If you want both add-ons, install one, then
    - Photogrammetry: `OpenDroneLog-Photogrammetry-Addon_<version>_x64-setup.exe`
 3. Your browser saves it, usually in your **Downloads** folder.
 
-> You can ignore the other files in the release. `addons.json` is what Open DroneLog reads to check for updates, and the `source-….zip` is the published source code.
+> You can ignore the other files in the release. `addons.json` is what Open DroneLog reads to check for updates. `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` is the Open DroneLog program itself in the build the add-ons run in, for a new install. The `…_base-source.zip` holds source files of that program (see [Licenses](#licenses)). GitHub's own **Source code** links under a release hold only this page and the help file.
 
 ### Step 3: Close Open DroneLog
 
@@ -122,7 +134,7 @@ When the install is done, a message says the add-on is installed. Click **OK**, 
 ### Step 7: Switch the add-on on in Open DroneLog
 
 1. Start Open DroneLog.
-2. Click the **🧩 Add-ons** button (next to **Settings** in the sidebar).
+2. Click **Settings** in the sidebar, then **Open Add-ons**.
 3. Click **↻ Refresh**. The window always lists both add-ons. The one you installed now shows its version, for example **Enabled · v\<version\>**. An add-on that is not installed shows **Not installed** and a **Download installer…** button.
 4. Make sure **Enabled** is ticked.
 5. Close the Add-ons window. A new **Thermal** or **Photogrammetry** tab appears in the sidebar.
@@ -190,7 +202,7 @@ Instead of the update button, the row may show one of these lines:
 
 ## After you upgrade Open DroneLog itself
 
-If you later install a newer Open DroneLog from the original project's GitHub page, its installer puts the plain program back. Open DroneLog then starts **without** the add-on tabs and without the **🧩 Add-ons** button. Nothing is lost.
+If you later install a newer Open DroneLog from the original project's GitHub page, its installer puts the plain program back. Open DroneLog then starts **without** the add-on tabs and without the **Add-ons** section in Settings. Nothing is lost.
 
 1. Download the current add-on installer from the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases/latest). It must be built for your new Open DroneLog version; an older installer stops and tells you so.
 2. Run it (Steps 3 to 6 above). You do not need to enter your key again.
@@ -256,9 +268,10 @@ For the main Open DroneLog program (importing flight logs, maps, charts, battery
 
 ---
 
-## Licenses and source code
+## Licenses
 
 - **Open DroneLog** is free, open-source software by Arpan Ghosh, licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0). Original project: https://github.com/arpanghosh8453/open-dronelog
-- The host program that the add-on installers put in place is built from Open DroneLog. Its complete source code is attached to every add-on release as `source-<commit>.zip`, as the AGPL-3.0 requires.
+- The program that the add-on installers put in place (the Airwulf build) is built from Open DroneLog 3.3.2. The source files of that base program, as the Airwulf build changed them, are attached to the current add-on release as `OpenDroneLog-Airwulf-Build_<Open DroneLog version>_base-source.zip`.
+- The **Thermal Analysis Studio** and **Photogrammetry** add-ons are software of Airwulf, LLC and are licensed separately (see [Activate your license](#activate-your-license)). They are not part of that archive.
 - The Thermal add-on includes the DJI Thermal SDK runtime, which is DJI's software and is distributed under DJI's own terms.
 - DJI is a registered trademark of SZ DJI Technology Co., Ltd. Other product names are trademarks of their owners. These add-ons are independent and are not affiliated with or endorsed by those companies.
