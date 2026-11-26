@@ -6,12 +6,14 @@ Optional add-ons for **Open DroneLog**, the free desktop program that keeps and 
 |---|---|---|
 | **Thermal Analysis Studio** | A **Thermal** tab: a temperature for every pixel of a thermal (radiometric) drone photo, hot and cold spot detection, heat-flow modelling and inspection reports, an analysis boundary, side-by-side documents, temperature exports and claim packages | `OpenDroneLog-Thermal-Addon_<version>_x64-setup.exe` |
 | **Photogrammetry** | A **Photogrammetry** tab: one library for survey photos, videos and Agisoft Metashape outputs, with measuring tools and survey reports, orthomosaic and linework export, volume tickets and claim packages | `OpenDroneLog-Photogrammetry-Addon_<version>_x64-setup.exe` |
+| **360 Panorama Studio** | A **360 Pano** tab: the photos of one drone hover stitched into one 360-degree photo, with mark-ups drawn on the photos, a viewer to look around in, a starting view you choose, and exports as a 360 JPEG and as a web page that opens in any browser | `OpenDroneLog-Panorama-Addon_<version>_x64-setup.exe` |
 
 The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the original Open DroneLog project.
 
 **Contents**
 
-- [What's new in 1.0.2](#whats-new-in-102)
+- [What's new in 1.1.0](#whats-new-in-110)
+- [What was new in 1.0.2](#what-was-new-in-102)
 - [What was new in 1.0.1](#what-was-new-in-101)
 - [Before you start](#before-you-start)
 - [Install an add-on, step by step](#install-an-add-on-step-by-step)
@@ -25,19 +27,56 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 
 ---
 
-## What's new in 1.0.2
+## What's new in 1.1.0
 
-Version 1.0.2 of both add-ons is still built for **Open DroneLog 3.3.2**. If you already have an earlier version, get the new one as described in [Update an add-on](#update-an-add-on).
+This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** and the first version (1.0.0) of a new add-on, the **360 Panorama Studio**. All three are built for **Open DroneLog 3.4.0**. If you already have an earlier version, get the new one as described in [Update an add-on](#update-an-add-on). The update also brings your Open DroneLog program to 3.4.0.
+
+**New add-on: 360 Panorama Studio**
+
+- A **360 Pano** tab turns the photos of one drone hover into one 360-degree photo. You import the photos, the studio groups them into sets and shows how much of the sphere they cover, and **Stitch 360** joins them. See [360 Panorama Studio: getting started](HELP.md#panorama-start) and [Stitching a 360](HELP.md#panorama-stitch).
+- The photos must carry the camera angles the drone writes into them. DJI photos have them.
+- Draw on the photos to point something out: the mark-ups show on the 360. A photo that spoils the stitch can be left out with **Leave out of 360**; the choice lasts until you close the program. See [Mark up a photo](HELP.md#panorama-start-mark-up-a-photo) and [Leave photos out](HELP.md#panorama-start-leave-photos-out).
+- Look around the finished 360, and choose the view it opens at with **Set starting view**. See [Looking around a 360](HELP.md#panorama-export).
+- Save it as a 360 JPEG with **Export 360 JPEG…**, or as one web page that opens in a web browser without an internet connection with **Export HTML viewer…**. With a licensed Photogrammetry add-on, **Save view to Photogrammetry** keeps one view as a picture for a survey report. See [Export a 360 JPEG](HELP.md#panorama-export-export-a-360-jpeg), [Export an HTML viewer file](HELP.md#panorama-export-export-an-html-viewer-file) and [Save a view to the Photogrammetry library](HELP.md#panorama-export-save-a-view-to-the-photogrammetry-library).
+- Install it like the other add-ons: see [Install an add-on, step by step](#install-an-add-on-step-by-step). After you update Thermal or Photogrammetry to 1.1.0, the **🧩 Add-ons** window lists it too, with a **Download installer…** button that opens the release page.
+- Its license is not on sale yet: see the note in [Activate your license](#activate-your-license).
+
+**Open DroneLog 3.4.0**
+
+- The add-ons now run in the Airwulf build of Open DroneLog 3.4.0. From the original project, 3.4.0 brings the **Chat** tab and the **External agents** section in Settings.
+
+**AI**
+
+- **AI tools for Chat and external agents.** While an add-on is licensed, the **Chat** tab can read your add-on data: the library, thermal figures, annotations, heat flow networks, saved reports and AI usage. So can an external agent, once you turn the server on under **Settings** → **External agents** and make a connection for it. If you allow it (for Chat in **Settings** → **AI tools**, for an agent when you make its connection), they can also propose changes, such as a new picture name, a note or report text. Open DroneLog then shows every change with its value before and after, and nothing is stored until you press **Apply**. What a tool returns is sent to the AI provider or the agent you connected; the guide lists what is never given. See [AI tools](HELP.md#ai-tools).
+- **One key for Chat and the add-ons.** The AI narrative of the Thermal Studio and the `✨ AI draft` boxes of the report builders can use the Chat connection, so one key serves both. Your own Claude, OpenAI or Gemini key still works. You choose in **Settings** → **AI providers** (this section was called **AI Thermal Analysis**). See [AI provider keys](HELP.md#thermal-anomalies-ai-provider-keys).
+- **AI drafts with either license.** The `✨ AI draft` boxes now work with a Thermal or a Photogrammetry license. The AI narrative of the Thermal Studio still needs the Thermal license.
+- **Chat in the AI usage bar.** The bar now shows as soon as the Chat connection is set, and it counts each answer in the **Chat** tab too, in the month's figures under **No customer**. See [AI usage](HELP.md#ai-usage).
+
+**Customer data**
+
+- **Encrypt your saved clients with a password.** In **Settings** → **Customer data encryption** you can lock the saved client list, and the customer picked in the AI usage bar, behind a password. You enter it each time the program starts, and again after you switch profiles or log back in. Saved reports, pictures and exports are not encrypted; the guide lists what stays readable. Nobody can reset the password or recover the data, Airwulf included. See [Encrypting customer data with a password](HELP.md#customer-encryption).
+
+**The program and Settings**
+
+- **The build you run, in the sidebar.** The bottom of the sidebar now reads, for example, **Open DroneLog Airwulf 3.4.0 (build 4)**, with **Latest** or an update link beside it. See [Update an add-on](#update-an-add-on).
+- **Settings.** The **DJI API Key** moved to the left column, above **External agents**. **AI providers** and **AI tools** follow below it. Messages now show on one line at the bottom of the Settings window.
+- Fixes in profile switching, backup restore, inspection bundles and the light theme.
+
+---
+
+## What was new in 1.0.2
+
+Version 1.0.2 of Thermal and Photogrammetry brought the following. All of it is part of 1.1.0.
 
 - **Add-ons moved into Settings.** Click **Settings** in the sidebar, then **Open Add-ons**. The button next to Settings is gone. (In 1.0.1 and earlier the **🧩 Add-ons** button is still next to Settings: use it to update.)
-- **AI usage.** With an AI provider key saved, a usage bar under each studio shows what your AI runs used and cost, for the customer and project you are working on and for the calendar month. A setting adds that cost to a report. See [AI usage](HELP.md#ai-usage).
+- **AI usage.** With an AI provider key saved, a usage bar under the Thermal and Photogrammetry studios shows what your AI runs used and cost, for the customer and project you are working on and for the calendar month. A setting adds that cost to a report. See [AI usage](HELP.md#ai-usage).
 - Fixes in reports, inspection bundles, the library and Settings.
 
 ---
 
 ## What was new in 1.0.1
 
-Version 1.0.1 brought the following. All of it is part of 1.0.2.
+Version 1.0.1 brought the following. All of it is part of 1.1.0.
 
 **Thermal**
 
@@ -52,7 +91,7 @@ Version 1.0.1 brought the following. All of it is part of 1.0.2.
 - Export an orthomosaic as a JPG with its world file and a presentation copy with **🗺 Export orthomosaic…**. See [Exporting an orthomosaic](HELP.md#mapping-deliverables-exporting-an-orthomosaic).
 - Print a numbered ticket for one measured volume with **🧾 Volume ticket…**. See [Printing a volume ticket](HELP.md#mapping-deliverables-printing-a-volume-ticket).
 
-**Both add-ons**
+**Thermal and Photogrammetry**
 
 - Search the library by name, filter it, and delete multiple pictures at once with **Select all** and **Delete selected…**. See the [Thermal library](HELP.md#thermal-start-the-asset-library) and the [Photogrammetry library](HELP.md#photo-start-the-library).
 - Export the measurements and drawings of a picture as DXF, GeoJSON or ODL XML with **📐 Export linework…**. See [Exporting linework](HELP.md#mapping-deliverables-exporting-linework).
@@ -70,7 +109,7 @@ Check these five things first. Each takes a minute, and together they prevent al
 
 1. **A Windows 11 computer (64-bit).** The add-ons only work in the Windows desktop program. The Open DroneLog web app, Docker version and Android app cannot use them.
 2. **Open DroneLog installed with its "setup.exe" installer.** Open DroneLog offers two Windows installers: a *setup.exe* (installs for your Windows account only) and an *.msi* (installs for every account on the computer). The add-ons only work with the **setup.exe** install. Step 1 below shows how to get it.
-3. **The right Open DroneLog version.** Each add-on release is built for one Open DroneLog version, and its installer will not run on a newer one. The current add-ons are built for **Open DroneLog 3.3.2**. If you have a newer Open DroneLog, check the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) for a matching add-on release.
+3. **The right Open DroneLog version.** Each add-on release is built for one Open DroneLog version, and its installer will not run on a newer one. The current add-ons are built for **Open DroneLog 3.4.0**. An older Open DroneLog is fine: the add-on installer brings it to 3.4.0. If you have a newer Open DroneLog, check the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) for a matching add-on release.
 4. **No administrator password needed.** The add-ons install into your own Windows account, the same way Open DroneLog does.
 5. **A license for each add-on you want to use.** Downloading and installing the add-ons is free. A license switches their features on: **$7.99 a month or $75 a year per add-on**, cancel anytime. You can install first and buy the license later from inside the program. Activating a license needs an internet connection once; for a computer that is never online, see [Offline computers](HELP.md#addon-license-offline-computers) in the help file.
 
@@ -84,12 +123,12 @@ Check these five things first. Each takes a minute, and together they prevent al
 
 ## Install an add-on, step by step
 
-Do these steps once for each add-on. If you want both add-ons, install one, then repeat Steps 2 to 7 for the other.
+Do these steps once for each add-on. If you want more than one add-on, install one, then repeat Steps 2 to 7 for each of the others.
 
 ### Step 1: Install Open DroneLog (skip if you already have it)
 
 1. Go to the Open DroneLog releases page: https://github.com/arpanghosh8453/open-dronelog/releases
-2. Find release **3.3.2** and open its **Assets** list (click **Show all assets** if the Windows files are hidden).
+2. Find release **3.4.0** and open its **Assets** list (click **Show all assets** if the Windows files are hidden).
 3. Download the file whose name ends in **`_x64-setup.exe`**. Do **not** download the `.msi` file.
 4. Double-click the downloaded file and follow the installer.
 5. Start Open DroneLog once to make sure it opens, then close it.
@@ -102,9 +141,10 @@ Do these steps once for each add-on. If you want both add-ons, install one, then
 2. Under **Assets**, click the installer for the add-on you want:
    - Thermal: `OpenDroneLog-Thermal-Addon_<version>_x64-setup.exe`
    - Photogrammetry: `OpenDroneLog-Photogrammetry-Addon_<version>_x64-setup.exe`
+   - 360 Panorama Studio: `OpenDroneLog-Panorama-Addon_<version>_x64-setup.exe`
 3. Your browser saves it, usually in your **Downloads** folder.
 
-> You can ignore the other files in the release. `addons.json` is what Open DroneLog reads to check for updates. `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` is the Open DroneLog program itself in the build the add-ons run in, for a new install. The `…_base-source.zip` holds source files of that program (see [Licenses](#licenses)). GitHub's own **Source code** links under a release hold only this page and the help file.
+> You can ignore the other files in the release. `addons.json` is what Open DroneLog reads to check for updates. `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` is the Open DroneLog program itself in the build the add-ons run in, for a new install. The `…_base-source.zip` holds the source files of the base program, without the add-ons (see [Licenses](#licenses)). GitHub's own **Source code** links under a release hold only this page and the help file.
 
 ### Step 3: Close Open DroneLog
 
@@ -134,9 +174,9 @@ When the install is done, a message says the add-on is installed. Click **OK**, 
 
 1. Start Open DroneLog.
 2. Click **Settings** in the sidebar, then **Open Add-ons**.
-3. Click **↻ Refresh**. The window always lists both add-ons. The one you installed now shows its version, for example **Enabled · v\<version\>**. An add-on that is not installed shows **Not installed** and a **Download installer…** button.
+3. Click **↻ Refresh**. The window always lists all three add-ons. The one you installed now shows its version, for example **Enabled · v\<version\>**. An add-on that is not installed shows **Not installed** and a **Download installer…** button.
 4. Make sure **Enabled** is ticked.
-5. Close the Add-ons window. A new **Thermal** or **Photogrammetry** tab appears in the sidebar.
+5. Close the Add-ons window. A new **Thermal**, **Photogrammetry** or **360 Pano** tab appears in the sidebar.
 6. Open the new tab:
    - If the studio opens, you are done.
    - If you see a panel headed **"… needs a license"**, follow [Activate your license](#activate-your-license).
@@ -153,9 +193,11 @@ If you entered your key in the installer, Open DroneLog activates it the next ti
 
 1. Open the add-on's tab (or its row in the **🧩 Add-ons** window).
 2. Click **Buy monthly ($7.99)** or **Buy yearly ($75)**. The purchase page opens in your web browser.
-3. If you already have a key for the other add-on, paste it into the **"Already a customer?"** box so both subscriptions share one account. Otherwise leave it empty.
+3. If you already have a key for another add-on, paste it into the **"Already a customer?"** box so all your subscriptions share one account. Otherwise leave it empty.
 4. Click **Continue to payment** and pay by card.
 5. The thank-you page shows your license key. Click **Copy**, and **bookmark the page**: it is your way back to the key if you lose it.
+
+> **360 Panorama Studio:** its license is not on sale yet. Until it is, its **Buy** buttons open a page that reads **Not found**. You can install the add-on now; its tab shows the lock panel until it has a license.
 
 **To activate the key:**
 
@@ -197,6 +239,8 @@ Instead of the update button, the row may show one of these lines:
 
 **No internet on that computer?** Download the newest installer from the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) on another computer, copy it over (for example on a USB stick), and run it. You do not need to enter your key again.
 
+**The program's own version.** The bottom of the sidebar names the build you are running, for example **Open DroneLog Airwulf 3.4.0 (build 4)**. The badge beside it reads **Latest**, or **Update to Open DroneLog Airwulf \<version\> (build \<number\>)** when a newer build is published. (It reads **Checking…** while it looks, and **Check failed** when it could not look, for example without an internet connection.) Click the update badge to open the release page. With an add-on installed, update the add-on as above: the add-on update brings the newer program with it. Without an add-on, download `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` from the release page and run it.
+
 ---
 
 ## After you upgrade Open DroneLog itself
@@ -216,14 +260,14 @@ If you later install a newer Open DroneLog from the original project's GitHub pa
 **Remove an add-on completely** (either way works):
 
 - **From Open DroneLog:** in the **🧩 Add-ons** window, click **Remove** on the add-on's row and confirm.
-- **From Windows:** open **Settings → Apps → Installed apps**, find **Open DroneLog Thermal Analysis Add-on** or **Open DroneLog Photogrammetry Add-on**, and choose **Uninstall** from its **⋯** menu.
+- **From Windows:** open **Settings → Apps → Installed apps**, find **Open DroneLog Thermal Analysis Add-on**, **Open DroneLog Photogrammetry Add-on** or **Open DroneLog 360 Panorama Add-on**, and choose **Uninstall** from its **⋯** menu.
 
 What happens next:
 
 - Your imported pictures, measurements and reports stay in your Open DroneLog profile.
 - Your license stays on the computer, so a later reinstall finds it.
 - Removing an add-on does not free a license that is registered to this computer. If the license should move to another computer, click **Deactivate this PC** first (see [Activate your license](#activate-your-license)).
-- If it was the **last** add-on installed, Open DroneLog restarts with your original program put back. If another add-on is still installed, the host program stays.
+- If it was the **last** add-on installed, Open DroneLog restarts with your original program put back. That is the Open DroneLog you had when you first installed an add-on, so it can be older than 3.4.0; install the current version from the original project's page if you want it. If another add-on is still installed, the host program stays.
 - If putting the original back cannot finish, the row reads **Removing … failed**, with **Retry** and **Keep add-on** buttons.
 
 ---
@@ -261,7 +305,7 @@ When the installer stops, it says why, and it has changed nothing. Find the mess
 
 ## Help with the add-ons
 
-**[HELP.md](HELP.md)** holds every help guide built into the add-ons (the **?** buttons in the program) in one file with a table of contents: getting started, thermal analysis, the analysis boundary, side-by-side documents and temperature exports, measuring, material take-offs, reports, claim packages, orthomosaic and linework export, volume tickets, settings, branding, clients and licensing.
+**[HELP.md](HELP.md)** holds every help guide built into the add-ons (the **?** buttons in the program) in one file with a table of contents: getting started, thermal analysis, the analysis boundary, side-by-side documents and temperature exports, 360 panoramas, measuring, material take-offs, reports, claim packages, orthomosaic and linework export, volume tickets, settings, branding, AI usage, AI tools, clients, customer data encryption and licensing.
 
 For the main Open DroneLog program (importing flight logs, maps, charts, battery tracking and so on), see the original project's [user manual](https://github.com/arpanghosh8453/open-dronelog/blob/main/docs/manual.md).
 
@@ -270,7 +314,7 @@ For the main Open DroneLog program (importing flight logs, maps, charts, battery
 ## Licenses
 
 - **Open DroneLog** is free, open-source software by Arpan Ghosh, licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0). Original project: https://github.com/arpanghosh8453/open-dronelog
-- The program that the add-on installers put in place (the Airwulf build) is built from Open DroneLog 3.3.2. The source files of that base program, as the Airwulf build changed them, are attached to the current add-on release as `OpenDroneLog-Airwulf-Build_<Open DroneLog version>_base-source.zip`.
-- The **Thermal Analysis Studio** and **Photogrammetry** add-ons are software of Airwulf, LLC and are licensed separately (see [Activate your license](#activate-your-license)). They are not part of that archive.
+- The program that the add-on installers put in place (the Airwulf build) is built from Open DroneLog 3.4.0. The source files of that base program, as the Airwulf build changed them, are attached to the current add-on release as `OpenDroneLog-Airwulf-Build_<Open DroneLog version>_base-source.zip`.
+- The **Thermal Analysis Studio**, **Photogrammetry** and **360 Panorama Studio** add-ons are software of Airwulf, LLC and are licensed separately (see [Activate your license](#activate-your-license)). They are not part of that archive.
 - The Thermal add-on includes the DJI Thermal SDK runtime, which is DJI's software and is distributed under DJI's own terms.
 - DJI is a registered trademark of SZ DJI Technology Co., Ltd. Other product names are trademarks of their owners. These add-ons are independent and are not affiliated with or endorsed by those companies.

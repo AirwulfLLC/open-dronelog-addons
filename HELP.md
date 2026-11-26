@@ -1,10 +1,10 @@
 # Open DroneLog Add-ons: Help Guide
 
-This file collects every help guide built into the Open DroneLog add-ons (the **Thermal Analysis Studio** and **Photogrammetry**) in one place. Inside the program, the same guides open from the **?** buttons and the Help panel.
+This file collects every help guide built into the Open DroneLog add-ons (the **Thermal Analysis Studio**, **Photogrammetry** and the **360 Panorama Studio**) in one place. Inside the program, the same guides open from the **?** buttons and the Help panel.
 
-New to the add-ons? Install them first with the step-by-step guide in the [README](README.md), then start with [Thermal Studio: getting started](#thermal-start) or [Photogrammetry: getting started](#photo-start).
+New to the add-ons? Install them first with the step-by-step guide in the [README](README.md), then start with [Thermal Studio: getting started](#thermal-start), [Photogrammetry: getting started](#photo-start) or [360 Panorama Studio: getting started](#panorama-start).
 
-> **Version:** written for add-ons 1.0.2 on Open DroneLog 3.3.2.
+> **Version:** written for add-ons 1.1.0 on Open DroneLog 3.4.0.
 
 > **About this text:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog. Only what a single file needs is changed: headings sit one level lower, links between guides point inside this file, and every section has an anchor. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license.
 
@@ -32,6 +32,12 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 - [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
 - [Orthomosaic export, linework files and volume tickets](#mapping-deliverables)
 
+**360 Panorama Studio**
+
+- [360 Panorama Studio: getting started, importing, sets and marking up photos](#panorama-start)
+- [Stitching a 360: the Stitch panel, camera angles, size, warnings](#panorama-stitch)
+- [Looking around a 360, the starting view and the exports](#panorama-export)
+
 **Pictures: annotating and measuring**
 
 - [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
@@ -46,7 +52,9 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 - [Editing the material catalogue: presets, units, packages, waste, prices](#settings-material-presets)
 - [Branding your reports: logo, company and Part 107 number](#settings-branding)
 - [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
+- [AI tools: letting Chat and external agents read and change add-on data](#ai-tools)
 - [Saving clients and claim details for reuse](#clients)
+- [Encrypting customer data with a password](#customer-encryption)
 
 **Add-ons**
 
@@ -503,7 +511,7 @@ A FLIR picture is 640 × 480 pixels, 307,200 in all. The temperatures below are 
 
 - You are in the **Thermal** tab of the desktop app with the Thermal add-on enabled.
 - A still radiometric picture (or a vegetation index) is selected and its **Temperature Statistics** (**Index Statistics** for an index) are filled in.
-- For the narrative only: an internet connection and an API key from Claude (Anthropic), OpenAI or Google Gemini, saved as described in [AI provider keys](#thermal-anomalies-ai-provider-keys).
+- For the narrative only: an internet connection and either the Chat connection (set in the **Chat** tab under **Connection**, one key for Chat and the add-ons) or an own key from Claude (Anthropic), OpenAI or Google Gemini; see [AI provider keys](#thermal-anomalies-ai-provider-keys).
 
 <a id="thermal-anomalies-detecting-anomalies"></a>
 
@@ -528,7 +536,7 @@ A FLIR picture is 640 × 480 pixels, 307,200 in all. The temperatures below are 
 ### Writing the AI narrative
 
 1. Detect anomalies first if you want them interpreted; the narrative also works on the statistics alone.
-2. Look at the subheading `AI Narrative (Claude)` (or `OpenAI`, `Gemini`): it names the provider chosen in Settings. Without a key the section shows only "Pick an AI provider and add its API key in Settings (below the DJI API key) to generate narrative findings from the image and measured data."
+2. Look at the subheading `AI Narrative (Chat connection)` (or `Claude`, `OpenAI`, `Gemini`): it names the provider chosen in Settings. Without a key the section shows only "Pick an AI provider and add its API key in Settings (below the DJI API key) to generate narrative findings from the image and measured data.", or for the Chat connection "Set the key and model in Chat → Connection (or pick an own key in Settings, below the DJI API key) to generate narrative findings from the image and measured data."
 3. Click the purple button. It reads **Generate AI narrative (runs on image + stats)** before a detection, **Generate AI narrative of findings** after one.
 4. Wait: the button reads **Analyzing with AI… (can take a minute)**. The text appears below with a summary, findings by `#` number with their ΔT, and prioritised recommendations.
 5. Click **Copy** to put the text on the clipboard (it changes to **✓ Copied**), or **Regenerate narrative** for a new version.
@@ -538,13 +546,14 @@ A FLIR picture is 640 × 480 pixels, 307,200 in all. The temperatures below are 
 
 ### AI provider keys
 
-1. Open Settings and scroll to **AI Thermal Analysis** (below the DJI API key).
-2. Pick the **Provider**: `Claude (Anthropic)`, `OpenAI (GPT)` or `Google Gemini`. A provider that already has a key shows ` ✓`.
-3. Click **Get a key** to open the provider's key page in your browser, create a key there and copy it.
-4. Paste it into the box (the placeholder shows the key's shape: `sk-ant-...`, `sk-...` or `AIza...`) and click **Save API Key**. The toast reads "AI analysis API key saved" and the status reads "API key configured".
-5. To replace a key, paste the new one and click **Update API Key**. To remove it, click the **Personal** badge (it turns into **Remove** on hover).
+1. Open Settings and scroll to **AI providers** (in the left column, below **External agents**). The AI narrative needs the Thermal license; the AI drafts of the report builders work with a Thermal or a Photogrammetry license.
+2. Pick the **Provider**: `Chat connection (one key for Chat and the add-ons)`, `Claude (Anthropic)`, `OpenAI (GPT)` or `Google Gemini`. A provider that is ready to use shows ` ✓`.
+3. With **Chat connection** nothing is pasted here: the key and the model are the ones set in the **Chat** tab under **Connection** (OpenAI, or any OpenAI-compatible provider such as OpenRouter). Settings then reads "Uses the Chat connection: …" with the model's name. The narrative sends the picture, so pick a model that accepts images.
+4. For an own key, click **Get a key** to open the provider's key page in your browser, create a key there and copy it.
+5. Paste it into the box (the placeholder shows the key's shape: `sk-ant-...`, `sk-...` or `AIza...`) and click **Save API Key**. The toast reads "AI analysis API key saved" and the status reads "API key configured".
+6. To replace a key, paste the new one and click **Update API Key**. To remove it, click the **Personal** badge (it turns into **Remove** on hover).
 
-Keys are kept per profile and per provider: switching the provider keeps each key, and another profile needs its own. The same key powers the `✨ AI draft` checkboxes in the report builders. Once a key is saved, the AI usage bar appears under the studios and shows what each customer's AI runs cost; see [AI usage](#ai-usage).
+Keys are kept per profile and per provider: switching the provider keeps each key, and another profile needs its own. The same choice powers the `✨ AI draft` checkboxes in the report builders. A profile where no provider was ever picked uses the Chat connection as soon as it has one, unless it already has an own key: then it keeps that key until you pick **Chat connection**. Once a provider is ready, the AI usage bar appears under the studios and shows what each customer's AI runs cost; see [AI usage](#ai-usage).
 
 <a id="thermal-anomalies-example-a-street-scene-from-the-flir-adas-data"></a>
 
@@ -751,7 +760,7 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 - Your radiometric pictures are imported. For the anomaly log, run the detection first; see [AI variance analysis](#thermal-anomalies).
 - For flight data, import the DJI flight logs in the main logbook.
 - For take-offs in the report, add materials in the **🧮 Material Takeoff** strip; see [Material take-offs](#materials-takeoff).
-- For AI drafts, add a provider key in Settings → **AI Thermal Analysis**. Everything else works without it.
+- For AI drafts, choose the Chat connection or add a provider key in Settings → **AI providers**. Drafting works with a Thermal or a Photogrammetry license. Everything else works without it.
 
 <a id="thermal-report-steps"></a>
 
@@ -799,7 +808,7 @@ Four sections carry a **✨ AI draft** checkbox in their heading: Header Data (t
 3. Read and edit the draft. It is your report.
 4. Click **↻** next to the box to write a new draft, or untick the box to get your own text back.
 
-Without a key the box is greyed out, and its tooltip reads `Configure an AI API key in Settings (AI Thermal Analysis) to enable AI drafting`. **Save** waits while a draft is being written.
+Without a key the box is greyed out, and its tooltip reads `Configure an AI API key in Settings (AI providers) to enable AI drafting`. **Save** waits while a draft is being written.
 
 <a id="thermal-report-preview-export-and-bundles"></a>
 
@@ -1121,7 +1130,7 @@ The Photogrammetry Survey Report builder turns a survey into a client-ready docu
 - The pictures you want as figures are annotated and queued (see "The figure queue").
 - For flight data, the DJI flight logs are imported in the main logbook.
 - For measurements and materials, they are drawn on the queued pictures. See [Measuring lengths, angles and areas](#measure-tools) and [Material take-offs](#materials-takeoff).
-- For AI drafts, a provider key is set in Settings → **AI Thermal Analysis**. That section shows only while the Thermal add-on is enabled.
+- For AI drafts, the Chat connection or a provider key is chosen in Settings → **AI providers**. Drafting works with a Thermal or a Photogrammetry license; the AI narrative of the Thermal Studio needs the Thermal license.
 
 <a id="photo-report-the-figure-queue"></a>
 
@@ -1549,6 +1558,396 @@ The ticket is one page, two at most. It prints your letterhead, the title `Volum
 
 ---
 
+# 360 Panorama Studio
+
+<a id="panorama-start"></a>
+
+## 360 Panorama Studio: getting started, importing, sets and marking up photos
+
+
+The 360 Pano tab turns the photos of one drone hover into one 360-degree photo. You import the photos, the studio groups them into sets, and you can draw on each photo. Then you stitch a set into a 360 (see [Stitching a 360](#panorama-stitch)) and look around it or export it (see [Looking around a 360 and exporting it](#panorama-export)). This topic covers setting up, importing, the library and the mark-up tools.
+
+<a id="panorama-start-what-this-studio-does"></a>
+
+### What this studio does
+
+Each row names a feature, where you find it, and the walkthrough that explains it.
+
+| Feature | Where | Walkthrough |
+|---|---|---|
+| Import photos | **+ Import photos** or **📂 Import folder…** in the top bar, or drop files on the window | [Steps](#panorama-start-steps) |
+| Sets and the library | The left column, with the tabs `Photos (N)` and `360s (N)` | [The library](#panorama-start-the-library) |
+| Draw on a photo | The toolbar above an open photo | [Mark up a photo](#panorama-start-mark-up-a-photo) |
+| Leave a photo out of a stitch | **Leave out of 360** in the same toolbar | [Leave photos out](#panorama-start-leave-photos-out) |
+| Stitch a set | The right column, headed `Stitch 360` | [Stitching a 360](#panorama-stitch-steps) |
+| Look around a 360, starting view, exports | Above an open 360 | [Looking around a 360](#panorama-export-steps) |
+
+<a id="panorama-start-before-you-start"></a>
+
+### Before you start
+
+- Use the desktop app. The library keeps the photos in your local profile, so the tab is not available in the web version.
+- Install the add-on: open **Settings** (the gear at the top of the sidebar) and click **Open Add-ons**. Click **Download installer…** for the 360 Panorama Studio, run the installer, then click **↻ Refresh**. The 360 Pano tab appears in the sidebar.
+- The add-on needs a license. Until it has one, the tab shows a lock panel instead of the studio. See [Buying, activating and renewing an add-on license](#addon-license).
+- Have the photos of a 360 capture at hand: the jpg or png files the drone took while it hovered in one place and turned. The studio needs the camera angles the drone writes into each photo. DJI photos have them.
+
+<a id="panorama-start-steps"></a>
+
+### Steps
+
+1. Open the 360 Pano tab. The top bar shows the 🌐 360 Panorama Studio title. The library is on the left, the photo or the 360 in the middle and the Stitch panel on the right.
+2. Click **+ Import photos** and pick the photos. Or drag them onto the window: the overlay reads `Drop jpg or png photos to import`.
+3. Wait while the button reads `Importing 3 of 24…`. The photos appear in the library, grouped into sets, and the first new photo opens. A line at the top reads `Imported 24, skipped 0 already in the library, 0 failed.`
+4. Click a photo in the library. It opens in the middle with the mark-up toolbar above it.
+5. Draw on it if you want to point something out (see "Mark up a photo" below). What you draw is saved with the photo.
+6. Look at the Stitch panel on the right. It works on the set of the photo you opened. Continue with [Stitching a 360](#panorama-stitch).
+
+To import a whole camera folder, click **📂 Import folder…** and pick the folder. The studio looks at the photos (jpg, jpeg and png) and the videos in the folder and in its subfolders, up to three levels deep, and asks `Import 120 files? …` first. Only the photos are imported. When it is done, a line reads `Imported 100, skipped 2 already in the library, 0 failed.` and, when the folder held videos, `18 other files ignored.` under it. The count is for videos only: other kinds of files are not looked at and not counted. A folder with more than 5,000 files is refused: pick a subfolder instead.
+
+The studio imports jpg and png photos only. A file of another type that you pick or drop is refused with a line such as `DJI_0001.MP4: the 360 studio imports jpg and png photos`.
+
+A photo that is already in the program's library cannot be imported again. This includes a photo you imported into the Thermal or Photogrammetry tab: it stays there and does not show in the 360 Pano tab. The line after the import counts such photos, for example `Imported 22, skipped 2 already in the library, 0 failed.`
+
+<a id="panorama-start-the-library"></a>
+
+### The library
+
+The library has two tabs: `Photos (N)` lists the photos, grouped into sets, and `360s (N)` lists the finished 360s.
+
+1. Read the set headers. Each one reads like `24 photos · 3 Oct 2026, 14:22:01`: the number of photos and the time of the first photo.
+2. Click a header to fold the set (▶) or open it again (▼). The set of the open photo always stays open.
+3. Read the rows. A photo shows 📷 and its name. A photo you left out of the stitch is dimmed and has the tag `left out`.
+4. Click the `360s (N)` tab to see the finished 360s, newest first. A row shows 🌐, the name and the size, for example `16384 × 8192`.
+5. Read the line under the photo or the 360: its name, **✏️** to rename it, **🗑 Delete**, `Photo` or `360`, the size, the camera, the position (📍) and the capture time.
+6. To rename, click **✏️**, type the name and press Enter. Esc cancels.
+7. To delete one photo, click **🗑 Delete** under it and confirm. The photo file and its mark-ups are removed. A 360 stitched from it keeps its picture and loses the mark-ups of this photo.
+8. To delete several photos, tick their checkboxes in the `Photos (N)` tab, or tick **Select all**. Then click **Delete selected…** and confirm. The question says how many of them are photos of a finished 360, for example `Delete 3 photos from the library? Their files and mark-ups are removed. 1 is a source of a finished 360: its mark-ups from it will disappear.`
+9. To delete a 360, click **🗑 Delete** on its row in the `360s (N)` tab and confirm. The 360 file is removed; its photos stay.
+
+A set is the photos of one hover. The studio sorts the photos by capture time. A new set starts when a photo was taken more than 60 seconds after the one before it, or more than 8 metres from the first photo of the set. You do not make sets yourself.
+
+Nothing can be deleted while an import or a stitch is running. The line then reads `Nothing was deleted: an import or a stitch is running.`
+
+<a id="panorama-start-mark-up-a-photo"></a>
+
+### Mark up a photo
+
+1. Open a photo. The toolbar shows the tools **Select**, **Zoom**, **Arrow**, **Line**, **Curve**, **Circle**, **Box**, **Draw**, **Text**, **Outline** and **Erase**.
+2. Pick a colour from the swatches, and press **Dashed** if you want dashed lines.
+3. Draw. **Outline** draws a closed shape: click the corners, then click the first corner, double-click or press Enter to finish. Backspace removes the last corner.
+4. Read the counter at the right end of the toolbar, for example `3 annotations · saved with the photo and shown on the 360`.
+5. Press **↩ Undo** to remove the last mark-up, or **✕ Clear** to remove them all (the app asks `Remove all annotations on this photo?` first).
+
+Zooming, panning and the other tools work as in the other studios. See [Viewing and annotating pictures](#annotate).
+
+Your mark-ups stay editable after you stitch. A finished 360 shows the mark-ups of its photos as they are now, so you do not need to stitch again after a change.
+
+You cannot draw on the 360 itself. Draw on its photos.
+
+The measuring tools and notes of the other studios are not offered here. A 360 joins many photos taken in different directions, so it has no single scale for lengths and areas.
+
+<a id="panorama-start-leave-photos-out"></a>
+
+### Leave photos out
+
+Sometimes one photo spoils a stitch, for example a photo with a bird in it, or one taken while the drone was still moving.
+
+1. Open the photo.
+2. Press **Leave out of 360** in the toolbar. The button stays lit, and the photo's row is dimmed with the tag `left out`.
+3. Read the Stitch panel. It now reads `1 photo left out by you.` and stitches without that photo.
+4. To take the photo back, press **Leave out of 360** again. Or click **Put back** in the Stitch panel: it puts back every left-out photo of the set.
+
+The choice is kept until you close the program. It is not saved with the photo. While a stitch runs, **Leave out of 360** is greyed out.
+
+<a id="panorama-start-example-a-360-over-a-farm"></a>
+
+### Example: a 360 over a farm
+
+You flew a DJI drone to 60 m over a farm, let it hover and took 26 photos while it turned: three rows around and some straight down.
+
+1. Click **📂 Import folder…** and pick the card's photo folder. Confirm the question. The line reads `Imported 26, skipped 0 already in the library, 0 failed.`
+2. The `Photos (26)` tab shows one set, `26 photos · 3 Oct 2026, 14:22:01`.
+3. Open the photo that shows the barn. Pick red and draw a **Box** around a damaged roof panel. Pick **Text**, click beside it, type `roof panel`, press Enter.
+4. One photo shows the drone's landing gear. Open it and press **Leave out of 360**. The Stitch panel reads `1 photo left out by you.`
+5. Stitch the set (see [Stitching a 360](#panorama-stitch)). The box and the label appear on the 360 where the barn is.
+
+<a id="panorama-start-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Import the photos of one capture together. A set is made from capture time and position, so photos of two hovers less than a minute apart can land in one set if the drone did not move more than 8 m.
+- A photo that was already imported in another tab does not come into the 360 library. A photo is kept in one tab only, so import the photos of a 360 capture here first.
+- Mark a spot on one photo only. The 360 shows the mark-ups of every photo, so a spot you mark on two overlapping photos shows twice.
+- A left-out photo is back in the stitch after you restart the program. Check the Stitch panel before you stitch again.
+
+> **Under the hood**
+>
+> Imported photos are copied into the profile's data folder and kept in the program's one picture library; the 360 Pano tab lists only the photos imported here and the 360s stitched here. A photo is recognised by its content, so the same file is never stored twice, whatever tab imported it. Sets are rebuilt from capture time and position every time the library is read: a gap of more than 60 s, or more than 8 m from the first photo of the set that has a position, starts a new set. Mark-ups are stored per photo in the photo's own pixels.
+
+<a id="panorama-start-see-also"></a>
+
+### See also
+
+- [Stitching a 360: the Stitch panel, camera angles, size, warnings](#panorama-stitch)
+- [Looking around a 360, the starting view and the exports](#panorama-export)
+- [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
+- [Buying, activating and renewing an add-on license, and updating add-ons](#addon-license)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="panorama-stitch"></a>
+
+## Stitching a 360: the Stitch panel, camera angles, size, warnings
+
+
+The Stitch panel on the right of the 360 Pano tab joins the photos of one set into one 360-degree photo. Before you stitch, it shows how much of the sphere the photos cover and which photos it cannot use. While it stitches, it shows the progress. Afterwards it reports how well the photos fitted together.
+
+<a id="panorama-stitch-before-you-start"></a>
+
+### Before you start
+
+- The photos of a 360 capture are imported. See [360 Panorama Studio: getting started](#panorama-start).
+- Open a photo of the set you want to stitch, or a 360 made from that set. Without one, the panel reads `Select a photo to stitch its set.`
+- Each photo must carry the camera angles the drone writes into it (where the camera pointed). DJI photos have them.
+
+<a id="panorama-stitch-steps"></a>
+
+### Steps
+
+1. Open a photo of the set. The panel, headed `Stitch 360`, reads `Reading the set…` for a moment.
+2. Look at the coverage map. The box is the whole sphere laid flat: left to right is all the way around, top is straight up, bottom is straight down, and the dashed line is the horizon. Each blue shape is one photo, placed by its camera angles. Under the box, a line such as `Covers 78.4 % of the sphere` gives the share the photos cover.
+3. Read the lines under the map: the number of photos (`26 photos`, or `26 photos, 24 usable`), `Camera angles: from the photos`, and one line for each photo the studio cannot use, for example `DJI_0412.JPG: no camera angles`. The table below says what each reason means.
+4. Pick the **Output size**, for example `8192 × 4096`. The list offers only the sizes your photos have enough detail for; `4096 × 2048` is always there. The panel starts at `8192 × 4096` when it is offered.
+5. Leave **Fill uncovered sky** ticked to fill the parts of the sphere that no photo covers, or untick it to leave them black.
+6. Click **Stitch 360**. A bar fills and a line names the step, for example `Matching overlaps: 40 of 120`. The steps are `Reading photos`, `Matching overlaps`, `Solving camera angles`, `Blending`, `Filling gaps` (only when the fill is ticked) and `Saving`.
+7. Wait until a line at the top reads `360 ready: 360_20261003-142201.jpg`. The new 360 is listed in the `360s (N)` tab and under `360s of this set` in the panel. It opens by itself if you did not open or change anything while it was stitching.
+8. Read the result under `Last stitch` (see the next section).
+
+To stop a stitch, click **Cancel**. The line `Stitch cancelled.` appears and nothing is saved.
+
+The first usable photo of the set, by capture time, gives the 360 its name and its centre: the name is `360_<date>-<time>.jpg` with the capture time of that photo, and the centre faces the way that photo faced. A photo you left out does not count. When that photo carries no capture time, the time of the stitch is used in the name. Every stitch makes a new 360; the earlier ones stay in the library.
+
+<a id="panorama-stitch-why-a-photo-is-not-used"></a>
+
+### Why a photo is not used
+
+| Line | What it means |
+|---|---|
+| `no camera angles` | The photo carries no record of where the camera pointed, or the record is incomplete. |
+| `no focal length` | The photo does not say which lens focal length it was taken with. |
+| `rotated photo` | The photo is marked as turned (portrait or upside down). |
+| `digital zoom` | The photo was taken with digital zoom. |
+| `different size` | The photo has another picture size than most photos of the set. |
+| `different focal length` | The photo was taken with another lens or zoom than the others. |
+| `unreadable picture` | The file could not be read. |
+
+Such a photo stays in the library. The other photos are stitched without it.
+
+The photos of a 360 must all come from one camera at one setting. When a set mixes two lenses, for example wide and zoom pictures, the studio keeps the most common picture size. Of those photos it takes the middle value of the focal lengths and leaves out every photo whose focal length differs from it by more than 1 %, for example photos taken with zoom.
+
+A line such as `2 photo(s) cannot be used.` counts the photos of this table. The photos you left out yourself are counted in their own line, `1 photo left out by you.`
+
+<a id="panorama-stitch-when-stitch-360-is-greyed-out"></a>
+
+### When Stitch 360 is greyed out
+
+Point at **Stitch 360** to see why.
+
+- `Fewer than 2 photos can be used.` A 360 needs at least 2 usable photos. The panel also reads `At least 2 usable photos are needed to stitch a 360.`
+- `Fewer than 2 photos are included.` The set has only one photo, or you left out all but one. Click **Put back** to take the left-out photos back.
+- `This set has 230 photos; a 360 takes at most 200. Leave 30 out.` A 360 is made from at most 200 photos. Leave photos out with **Leave out of 360** until 200 or fewer are included. See [Leave photos out](#panorama-start-leave-photos-out).
+- `The set could not be read.` The reason is shown in red above. Click **Retry**.
+- `An import or another stitch is running.` Only one stitch runs at a time, and not while photos are being imported.
+
+While photos are being deleted, **Stitch 360** can still be clicked. The panel then answers `An import, a delete or another stitch is running.`
+
+When you open a photo of another set while a stitch runs, the panel reads `A stitch of another set is running.` with its progress and **Cancel**. Imports and deletes are refused until the stitch is done.
+
+<a id="panorama-stitch-reading-the-result"></a>
+
+### Reading the result
+
+Under `Last stitch` the panel shows three lines and any warnings, for example:
+
+- `41.3 s, match error 0.8 px`: how long the stitch took, and how far apart, on average in pixels, the same points of two overlapping photos still lie after the stitch. A smaller number means the photos fit together better.
+- `24 photos matched, 0 unmatched`: a photo is matched when the studio found the same details in it and a neighbouring photo. An unmatched photo is placed by its camera angles alone, so it fits less well.
+- `Covers 78.4 % of the sphere`: the share of the sphere that photos cover, before any fill.
+
+| Warning | What it means | What to do |
+|---|---|---|
+| `3 photo(s) could not be matched to a neighbour and are placed by their recorded camera angles.` | Those photos share too little detail with their neighbours, for example plain sky or water. | Look at the seams around them in the 360. Leave a badly placed photo out and stitch again. |
+| `No overlapping photos could be matched: every photo is placed by its recorded camera angles alone.` | No pair of photos could be matched. | Look at the seams in the 360. Switch on **Photo outlines** to see where each photo lies. |
+| `2 photo(s) cannot be used.` | Photos of the table above were not used. | See the table above. |
+
+The same warnings are listed under the 360 when you open it.
+
+<a id="panorama-stitch-example-a-360-over-a-farm"></a>
+
+### Example: a 360 over a farm
+
+You stitch the 26 photos of a hover at 60 m, taken with a 24 mm-equivalent camera at 4000 × 3000 pixels. You left out one photo.
+
+1. The panel reads `1 photo left out by you.` and `25 photos`. The coverage map shows the three rows and the straight-down photos, with a gap at the top.
+2. **Output size** offers all four sizes, up to `16384 × 8192`. You keep `8192 × 4096`.
+3. You keep **Fill uncovered sky** ticked and click **Stitch 360**.
+4. The bar runs through `Reading photos`, `Matching overlaps`, `Solving camera angles`, `Blending`, `Filling gaps` and `Saving`.
+5. The line reads `360 ready: 360_20261003-142201.jpg` and the 360 opens.
+
+<a id="panorama-stitch-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- The sky above the top row of photos is not a photograph. With **Fill uncovered sky** it is a smooth extension of the colours nearby.
+- Seams can show where the drone drifted between photos, most of all on objects close to the drone. Moving objects (cars, people, animals, clouds) and plain areas such as water or clear sky can also show seams.
+- A bigger **Output size** needs more memory. If the stitch stops with `There is not enough memory for a canvas this wide; choose a smaller size.`, pick a smaller size.
+- Do not switch to another profile while a stitch runs. The stitch then ends with `Nothing was stored: the profile was switched while the 360 was stitched.`
+- You can switch to another tab while a stitch runs; it goes on.
+
+> **Under the hood**
+>
+> The studio starts from each photo's recorded gimbal angles, finds the same details in overlapping photos, and then adjusts every photo's direction, the focal length and the lens distortion so that matching points meet. The match error is the root mean square of what remains, in photo pixels. Photos are blended across their overlaps so that brightness steps fade out. The sizes offered depend on the focal length: a size is offered when its width is at most 1.1 times the photos' resolution all the way around (4096 is always offered). A 360 is made from 2 to 200 photos of one size and one focal length (within 1 %).
+
+<a id="panorama-stitch-see-also"></a>
+
+### See also
+
+- [360 Panorama Studio: getting started, importing, sets and marking up photos](#panorama-start)
+- [Looking around a 360, the starting view and the exports](#panorama-export)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="panorama-export"></a>
+
+## Looking around a 360, the starting view and the exports
+
+
+A finished 360 opens in a viewer in the middle of the 360 Pano tab. You look around it, show or hide the mark-ups and the outlines of its photos, and choose the view it opens at. You can save it as a 360 JPEG, as an HTML viewer file that opens in any web browser, or save one view as a picture in the Photogrammetry library.
+
+<a id="panorama-export-before-you-start"></a>
+
+### Before you start
+
+- A set is stitched. See [Stitching a 360](#panorama-stitch).
+- Open the 360: click it in the `360s (N)` tab of the library, or under `360s of this set` in the Stitch panel. The viewer reads `Loading the 360…` for a moment.
+
+<a id="panorama-export-steps"></a>
+
+### Steps
+
+1. Drag in the picture to look around: left and right, up and down.
+2. Turn the mouse wheel to zoom in or out. On a touch screen, pinch.
+3. Or click the picture once and use the arrow keys.
+4. Double-click, or click **Reset view**, to go back to the view the 360 opens at.
+5. Press **Mark-ups** to show or hide the mark-ups of the photos. They are shown at first.
+6. Press **Photo outlines** to show or hide the border of each photo. They are hidden at first.
+7. Read the line under the picture, for example `8192 × 4096 · 25 photos · coverage 78 % · match error 0.80 px`, and the warnings of the stitch under it.
+
+The mark-ups come from the photos as they are now. When you change a mark-up on a photo, the 360 shows the change; you do not stitch again. When a photo of the 360 is deleted, its mark-ups and its outline disappear from the 360. If the mark-ups of a photo cannot be read, a line reads `Mark-ups of 1 photo(s) could not be read.`
+
+If the computer cannot show the 360 view, the viewer reads `This view needs WebGL2, which is not available here; the flat picture is shown instead.` **Set starting view** is not offered then.
+
+<a id="panorama-export-the-starting-view"></a>
+
+### The starting view
+
+A 360 opens facing the centre of the picture, level, at a medium zoom. The centre is the direction the first usable photo of the set faced. You can choose another starting view.
+
+1. Turn and zoom the view until it shows what a viewer should see first.
+2. Click **Set starting view**. The line `Starting view saved.` appears.
+3. From now on the 360 opens at this view, and **Reset view** and a double-click go back to it.
+4. To go back to the centre, click **Clear starting view** (it is there only while a starting view is set). The line reads `Starting view cleared.`
+
+This program's viewer and the HTML viewer file always start at the starting view, with its zoom. The exported 360 JPEG carries the direction of the starting view, in whole degrees, but not the zoom. Whether another program opens the JPEG at that direction is that program's choice.
+
+<a id="panorama-export-export-a-360-jpeg"></a>
+
+### Export a 360 JPEG
+
+1. Click **Export 360 JPEG…**. A window headed `Export 360 JPEG` names the 360 and its size.
+2. Tick **Include mark-ups** to draw the mark-ups into the picture. Untick it for the clean picture. When the photos have no mark-ups, the box is greyed out and the window reads `There are no mark-ups on the source photos.`
+3. Tick **Include location** to write the 360's position into the file (see below). The box is ticked at first, and it is shown only when the 360 has a valid position.
+4. Click **Export…** and choose the folder and the name. The name ends in `.jpg`.
+5. Wait while the button reads `Exporting…`. A line at the top reads `360 exported:` and the path.
+
+The file is the full-size 360 as one 2:1 picture. It carries the information that tells 360-photo viewers to show it as a 360.
+
+With **Include location**, the file carries the latitude and the longitude of the 360 and the compass direction of the centre of the picture, as a drone photo carries them. The position is the one of the first usable photo of the set. No height is written. The 360 in the library is not changed; only the exported file carries the location. The HTML viewer file and the saved view never carry a location.
+
+<a id="panorama-export-export-an-html-viewer-file"></a>
+
+### Export an HTML viewer file
+
+1. Click **Export HTML viewer…**. A window headed `Export HTML viewer` opens.
+2. Tick or untick **Include mark-ups** and **Include photo outlines**.
+3. Type a **Title** for the page, up to 120 characters. It starts as the 360's name.
+4. Tick **Rotate slowly** if the page should turn the view by itself.
+5. Click **Export…** and choose the folder and the name. The name ends in `.html`. A line at the top reads `HTML viewer exported:` and the path.
+
+The file is one web page with the 360 inside it. Send it or copy it; it opens in a web browser without an internet connection. The page shows:
+
+- the title at the top;
+- two switches, **Mark-ups** and **Photo outlines**. A switch is greyed out when the file holds none: without **Include photo outlines**, **Photo outlines** is greyed out. With it, the outlines are in the file and start hidden; the visitor switches them on;
+- a **Full screen** button, where the browser offers full screen (it then reads `Exit full screen`);
+- the 360, which opens at the starting view and is moved like the viewer in the program;
+- a line at the bottom: `Generated by`, your company name from the branding settings, and `· 360 Panorama Studio`. Without a company name it names Airwulf, LLC. See [Branding your reports](#settings-branding).
+
+A browser without WebGL2 shows the flat picture with a line that says so, and no switches.
+
+With **Rotate slowly** the view turns by itself while nobody touches it. A drag, a click, the wheel, a key or a touch stops it, and it starts again 8 seconds after the last one. A visitor whose computer or phone is set to reduce motion sees no rotation.
+
+<a id="panorama-export-save-a-view-to-the-photogrammetry-library"></a>
+
+### Save a view to the Photogrammetry library
+
+**Save view to Photogrammetry** is there only while the Photogrammetry add-on is installed, switched on and licensed.
+
+1. Turn the view to what you want to keep, with the mark-ups and outlines you want switched on.
+2. Click **Save view to Photogrammetry**. The view is saved as a flat 2400 × 1600 picture.
+3. A line reads, for example, `View saved to the Photogrammetry library: 360_20261003-142201_view_1.jpg`. The picture is in the Photogrammetry tab, where you can annotate it and add it to a report.
+
+Each saved view gets the next free number: `_view_1`, `_view_2` and so on. If the Photogrammetry library is busy, the line reads `The Photogrammetry library is busy; try again.` If the same view was saved before, it reads `This view is already in the Photogrammetry library.` and nothing new is saved.
+
+<a id="panorama-export-example-sending-a-360-of-a-farm-to-a-client"></a>
+
+### Example: sending a 360 of a farm to a client
+
+1. Open `360_20261003-142201.jpg` and turn the view to the barn. Click **Set starting view**.
+2. Click **Export HTML viewer…**, type the title `North barn, 3 Oct 2026`, tick **Rotate slowly** and click **Export…**. Save it as `North barn.html`.
+3. Click **Export 360 JPEG…**, keep **Include mark-ups** and **Include location** ticked, and click **Export…**.
+4. With the Photogrammetry add-on, click **Save view to Photogrammetry** to keep the barn view for a survey report.
+
+The client opens `North barn.html` in a browser. The page starts at the barn and turns slowly until they drag the view.
+
+<a id="panorama-export-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Set the starting view before you export. A file exported earlier keeps the view it was exported with.
+- If a mark-up is missing from the export, check that its photo is still in the library: a deleted photo takes its mark-ups with it.
+- When the mark-ups of a photo could not be read, **Include mark-ups** is greyed out and the window reads `Mark-ups of 1 photo could not be read: export without them, or close and try again.`
+- Mark-ups you changed a moment ago may not be saved yet. The window then reads `Mark-ups of 1 photo are not saved yet; they are exported as they stand.`
+- If the export window reads `A file with this name exists; choose another name.`, export again with another name.
+- A saved view has the sharpness of the viewer, not of the full-size 360.
+- A 360 that shows `This 360's record cannot be read by this version.` has no viewer and no exports. You can still rename or delete it.
+
+> **Under the hood**
+>
+> The viewer shows a copy of the 360 at most 8192 pixels wide; the 360 JPEG export is the stored full-size picture. With mark-ups, each photo's mark-ups are drawn on that photo first and then laid over the 360 the way the photo itself was, so they sit exactly where they were drawn. The HTML viewer file holds the 360 copy, the mark-ups and the viewer in one page that loads nothing from the internet. The starting view is stored as a turn from the picture's centre, a tilt and a zoom; the JPEG gets the turn as a compass heading and the tilt, both rounded to whole degrees.
+
+<a id="panorama-export-see-also"></a>
+
+### See also
+
+- [Stitching a 360: the Stitch panel, camera angles, size, warnings](#panorama-stitch)
+- [360 Panorama Studio: getting started, importing, sets and marking up photos](#panorama-start)
+- [Branding your reports: logo, company and Part 107 number](#settings-branding)
+- [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
+
+<sub>[Back to contents](#contents)</sub>
+
+
+---
+
 # Pictures: annotating and measuring
 
 <a id="annotate"></a>
@@ -1562,7 +1961,7 @@ The viewer in the Thermal Studio and in the Photogrammetry tab shows the picture
 
 ### Before you start
 
-- The Thermal or Photogrammetry add-on is installed, and its tab is open.
+- The Thermal, Photogrammetry or 360 Panorama Studio add-on is installed, and its tab is open (the 360 studio's tab is **360 Pano**). The 360 studio offers only the drawing tools, colours, **┄ Dashed**, **↩ Undo** and **✕ Clear**: no measuring tools and no **📝 Note**. See [360 Panorama Studio](#panorama-start-mark-up-a-photo).
 - At least one photo, radiometric picture, orthomosaic or video is in the library. See [Thermal Studio: getting started](#thermal-start) or [Photogrammetry: getting started](#photo-start).
 - Click the picture in the library. The toolbar, the viewer and an info strip appear.
 
@@ -2278,7 +2677,7 @@ The table lists the presets under category headings; the shipped catalogue has 5
 | Waste | Such as `10 %` |
 | Price per order unit | Such as `$38.50 / bundle`, or `—` |
 
-1. Open **Settings**, find **Material take-off presets** in the left column and click **Material take-off presets…**. The catalogue opens in its own window.
+1. Open **Settings**, find **Material take-off presets** in the right column and click **Material take-off presets…**. The catalogue opens in its own window.
 2. Set **Currency** above the table: three letters, such as `USD`, `EUR` or `CAD`. Press Enter or leave the box to apply it; Esc puts it back.
 3. Narrow the table with the **Category** dropdown at the top of the window or by typing part of a name in **Search materials**. The filter only changes what the table shows: **+ Add a material**, **Edit**, **Delete** and **Reset to the shipped presets** still work on the whole catalogue, and a line under the table says how many presets show.
 4. Click **+ Add a material** for a new preset, or **Edit** on a row to change one. A form opens above the table and the row is highlighted.
@@ -2339,7 +2738,7 @@ On the 2,000 ft² plan area at 6:12 (2,236.07 ft² of roof): + 15 % = 2,571.48 f
 ## Branding your reports: logo, company and Part 107 number
 
 
-Branding puts your company on every report the Thermal and Photogrammetry add-ons produce: your logo and company name at the top of the first page, your name and FAA Part 107 certificate number, your contact details, and your company as the publisher under the title. You enter it once in Settings. New reports also start with your name, certificate and contact already filled in.
+Branding puts your company on every report the Thermal and Photogrammetry add-ons produce: your logo and company name at the top of the first page, your name and FAA Part 107 certificate number, your contact details, and your company as the publisher under the title. You enter it once in Settings. New reports also start with your name, certificate and contact already filled in. The company name also appears in the footer of the 360 Panorama Studio's HTML viewer file.
 
 <a id="settings-branding-before-you-start"></a>
 
@@ -2427,20 +2826,20 @@ When **Save branding** cannot save, the notice says why:
 ## AI usage: the usage bar, customers and projects, and the AI cost in reports
 
 
-Every time the app asks an AI provider to write something (the AI narrative in the Thermal Studio and the AI drafts in the report builders) it records the run. The AI usage bar shows what those runs used and what they cost, for the customer and project you are working on. A setting can add that cost to the report you send your client.
+Every time the app asks an AI provider to write something (the AI narrative in the Thermal Studio, the AI drafts in the report builders and each answer in the **Chat** tab) it records the run. The AI usage bar shows what those runs used and what they cost, for the customer and project you are working on. A setting can add that cost to the report you send your client.
 
 <a id="ai-usage-before-you-start"></a>
 
 ### Before you start
 
-- The desktop app with at least one AI provider key saved; see [AI provider keys](#thermal-anomalies-ai-provider-keys). Without a key there is no bar.
+- The desktop app with the Chat connection set or at least one own AI provider key saved; see [AI provider keys](#thermal-anomalies-ai-provider-keys). Without either there is no bar.
 - Save your customers under **Clients**; see [Saving clients and claim details for reuse](#clients). The bar lists them.
 
 <a id="ai-usage-the-ai-usage-bar"></a>
 
 ### The AI usage bar
 
-The bar shows only while at least one provider has a key. You find it:
+The bar shows only while the Chat connection is set or at least one provider has a key. You find it:
 
 - under the Thermal Studio and under the Photogrammetry Studio;
 - at the bottom of the report builder, where it is read-only (it shows the report's own customer and project).
@@ -2462,7 +2861,8 @@ While a report is open, the report's own **Client** and **Project name** are use
 ### What is counted
 
 - Only the AI runs this app made on this computer, in this profile. Anything you did in a provider's own website or another program is not in it.
-- The cost is an estimate: the tokens each answer reported, priced from a price list built into the app. The list has a date, shown in the bar's tooltip. The provider's own bill is the authority; compare them now and then.
+- The cost is an estimate: the tokens each answer reported, priced from a price list built into the app. The list has a date, shown in the bar's tooltip. A run through the Chat connection is priced the way the **Chat** tab prices it (the cost the provider reported, the rates you entered in **Connection**, or the Chat's own OpenAI list) and keeps that price. The provider's own bill is the authority; compare them now and then.
+- Each answer in the **Chat** tab counts in the month, under **No customer**: a chat is never added to a customer's report. An answer you stop after its text began to appear counts as a run of unknown cost; one stopped before any text appeared is not counted.
 - A run **not priced** is one whose model is not in the price list. A run **of unknown cost** is one whose answer never came back whole. Both are counted and named, never guessed into the money figure.
 - Customer and project names are compared ignoring capitals, accents and extra spaces: `Müller  Bau` and `muller bau` are one customer.
 - A run counts for what was picked when it ran. Changing the pick later does not move it.
@@ -2473,7 +2873,7 @@ While a report is open, the report's own **Client** and **Project name** are use
 
 ### Adding the AI cost to a report
 
-1. Open Settings, find **AI Thermal Analysis** and tick **Add the AI cost to the report's projected cost**. It is off until you tick it.
+1. Open Settings, find **AI providers** and tick **Add the AI cost to the report's projected cost**. It is off until you tick it.
 2. Open a report and fill in its **Client** and, if you want it counted separately, its **Project name**.
 3. Click **Preview & edit** or export the report. In **Materials and Projected Cost** you now see a row `AI analysis (N runs, T tokens)` with its cost. In a report with prices in US dollars, a row **Projected total incl. AI analysis** follows.
 
@@ -2508,6 +2908,92 @@ Good to know:
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
 - [Saving clients and claim details for reuse](#clients)
+
+<sub>[Back to contents](#contents)</sub>
+
+<a id="ai-tools"></a>
+
+## AI tools: letting Chat and external agents read and change add-on data
+
+
+The add-on tools let the **Chat** tab and, if you turn it on, an external agent such as Codex or Claude Code work with your add-on data. **What leaves your computer:** with Chat, everything a tool returns is sent to the AI provider you connected; with an external agent it goes to that agent and to the model provider behind it. On top of the flight tools, the add-on tools add picture names, notes, labels, report text, thermal figures and picture positions. Turn nothing on, and connect nothing, that you would not want those services to see.
+
+<a id="ai-tools-before-you-start"></a>
+
+### Before you start
+
+- The desktop app, with at least one add-on license that is valid (Thermal, Photogrammetry or 360 Pano). Without a license no add-on tool is offered.
+- For Chat: the Chat connection set up in the **Chat** tab.
+- For an external agent: the local MCP server turned on in Settings, under **External agents**.
+
+<a id="ai-tools-what-the-tools-can-do"></a>
+
+### What the tools can do
+
+**Reading** needs only a license. The tools you can ask about are:
+
+- the shared library and one library item;
+- thermal figures of a picture;
+- a picture's annotations and its heat flow network;
+- the saved reports, as a list and one at a time;
+- the AI usage of a month.
+
+Some things are never given to a tool: file paths, picture bytes, temperature matrices, your keys and licenses, your saved client contact details and the claim details of a report. A client name is given only while customer data encryption is off, or on and unlocked. Measured lengths, areas and volumes are not available: only the drawn shapes and the values you typed are. Thermal figures are computed at the moment you ask, from the file and from the boundary that is saved; temperatures you typed into the studio but did not save are not seen.
+
+**Changing** is off until you switch it on:
+
+- for Chat, with the **AI tools** checkbox in Settings;
+- for an external agent, with the scope you give its connection when you make it.
+
+With that, a tool can *propose* renaming a picture or changing its notes, annotation text, geometry, new annotations, take-off waste and price, report text (including photogrammetry figure captions), a 360's starting view, capture tags, heat flow network edits, and pairing, and it can propose removing annotations and take-offs. A tool proposes at most 25 changes per call.
+
+<a id="ai-tools-steps"></a>
+
+### Steps
+
+1. Open **Settings** and find **AI tools**. Tick **Let Chat propose changes to add-on data (you confirm each change)** if you want Chat to be able to propose changes. It is off until you tick it.
+2. For an external agent, open **External agents**, turn the server on, and tick **Allow this connection to propose changes to add-on data** before you press **Generate token**. A connection's scope cannot be changed later; revoke it and make a new one. A connection that has the scope shows a badge in the list.
+3. Ask Chat, or your agent, for the change in your own words.
+4. A dialog opens in Open DroneLog. It names who is asking and shows every change with the full value before and after. For drawings, it also shows the picture with the old and the new shapes.
+5. Press **Apply** to store the changes, or **Don't apply** to refuse them. Focus starts on **Don't apply**; Escape counts as refusing. If you do nothing, the request expires and nothing changes.
+6. After **Apply**, the studios show the new values. In Chat a **Changes applied** table lists what was stored.
+
+<a id="ai-tools-example-renaming-a-picture"></a>
+
+### Example: renaming a picture
+
+You ask Chat to rename `DJI_0042.JPG` to `North wall 1`. The dialog shows one row: the picture, the field **name**, the old name and the new one. You press **Apply**, the library shows `North wall 1`, and Chat reports that the change was applied.
+
+<a id="ai-tools-what-the-dialog-checks"></a>
+
+### What the dialog checks
+
+- Nothing is written before you press **Apply**, and only the changes shown are written.
+- If the data changed since the request was made (you edited it in the meantime), the whole request is refused and nothing is stored. Ask again.
+- If you have an unsaved edit, an unfinished drawing or a running AI draft in the picture or report concerned, the request is refused, nothing is stored, and the dialog says why. Finish or save that first, then ask again.
+- A removal shows what else it affects and says **Removing cannot be fully undone here.** The dialog states what a record of the change can bring back.
+
+<a id="ai-tools-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Chat can always read your add-on data while an add-on is licensed. The checkbox only decides whether it may *propose* changes.
+- A tool never changes anything on its own: if no dialog appeared, nothing was changed.
+- Only one dialog shows at a time; the others wait. A request that waits too long expires.
+- To stop an agent, revoke its connection under **External agents**.
+- Text in your pictures, notes and reports is data for the AI, never instructions; still, read each dialog before you press **Apply**.
+
+> **Under the hood**
+>
+> Every proposal is checked against your license when the tool is listed and again when it runs. The dialog is the only way a change is stored: the model and the agent can only ask, and they cannot press **Apply**. The change is written in one step and is refused whole if any value differs from what the dialog showed.
+
+<a id="ai-tools-see-also"></a>
+
+### See also
+
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
+- [Encrypting customer data with a password](#customer-encryption)
+- [Buying, activating and renewing an add-on license, and updating add-ons](#addon-license)
 
 <sub>[Back to contents](#contents)</sub>
 
@@ -2611,6 +3097,117 @@ A value that starts with `=`, `+`, `-`, `@`, an apostrophe, a tab or a line brea
 
 <sub>[Back to contents](#contents)</sub>
 
+<a id="customer-encryption"></a>
+
+## Encrypting customer data with a password
+
+
+Lock the saved client list, and the customer you picked in the AI usage bar, behind a password. Once it is on, nobody who opens the program or copies the profile's database file can read them without the password. You enter it once each time the program starts.
+
+<a id="customer-encryption-before-you-start"></a>
+
+### Before you start
+
+- The desktop app, with the Thermal, Photogrammetry or 360 Pano add-on enabled. The switch is in **Settings**, in the section **Customer data encryption**, and it covers all of them: they share one client list. The 360 Pano studio uses no clients, so it shows no lock bar.
+- Choose a password you will not lose. **Nobody can reset it or recover the data, Airwulf included.**
+
+<a id="customer-encryption-what-is-and-is-not-encrypted"></a>
+
+### What is and is not encrypted
+
+| Encrypted | Not encrypted |
+|---|---|
+| The saved client list | Client details inside saved reports |
+| The customer picked in the AI usage bar | The AI usage log (it keeps the customer name of every AI run) |
+| Both, in this profile's database and in backups made from now on | Pictures, and everything you export: reports, claim packages, bundles and the clients CSV |
+
+Earlier backups and the database file may still hold older unencrypted copies of the client list.
+
+<a id="customer-encryption-switching-it-on"></a>
+
+### Switching it on
+
+1. Open **Settings** and find **Customer data encryption**.
+2. Type the password in **Password** and again in **Repeat the password**. It needs at least 8 characters; a line under the fields says `Use at least 8 characters.` or `The passwords do not match.` until they are right.
+3. Tick `I understand that a forgotten password means this data is lost`.
+4. Click **Encrypt customer data**. The message `Customer data is now encrypted.` shows, and the section now reads `Encrypted. Unlocked until you close the app, log out or switch profiles.`
+
+<a id="customer-encryption-unlocking-at-each-start"></a>
+
+### Unlocking at each start
+
+1. After the program starts, the client list is locked. Above the Thermal and Photogrammetry studios an amber bar says `Customer data is encrypted and locked: saved clients are not available.` Type the password there and click **Unlock**, or press Enter.
+2. The Clients screen shows `Saved clients are encrypted and locked.` with the same password field. The client pickers in the report builder and in the side-by-side, volume ticket and orthomosaic dialogs say `Saved clients are locked. Enter the password to pick one.` and carry their own password field, so you do not have to close the dialog. You can unlock from any of these, or from the section in Settings.
+3. A wrong password shows `That password is not correct.` and nothing changes.
+4. The data stays unlocked until you close the program, switch profiles, or log out of the profile and back in: it then locks again.
+
+<a id="customer-encryption-switching-it-off"></a>
+
+### Switching it off
+
+1. Unlock the data first. In **Customer data encryption** click **Turn off encryption**.
+2. Type the password in the field that appears and click **Turn off**, then confirm. The message `Encryption is off. The customer data is stored unencrypted.` shows. Click **Cancel** instead to close the field without turning anything off.
+
+<a id="customer-encryption-a-forgotten-password"></a>
+
+### A forgotten password
+
+There is no way back to the data. What you can do is start again:
+
+1. Open **Customer data encryption** while the data is locked. Under `Forgot the password?` click **Erase the encrypted customer data** and confirm.
+2. The encrypted client list and the encrypted picked customer are deleted for good, and the encryption is off. You can switch it on again with a new password.
+
+<a id="customer-encryption-a-value-that-cannot-be-decrypted"></a>
+
+### A value that cannot be decrypted
+
+If the list or the picked customer was encrypted with a password other than the current one (for example after you restored a backup), unlock the data first: the section then lists it, for example `The saved client list cannot be decrypted with the current password.` The Clients screen says the same and points here. Click **Discard** beside the line and confirm to remove that value. It cannot be undone, and it never removes data the current password opens.
+
+While such a value is stored, **Turn off encryption** and **Encrypt customer data** are refused with a message that asks you to discard it first.
+
+<a id="customer-encryption-a-damaged-encryption-record"></a>
+
+### A damaged encryption record
+
+If the encryption record of the profile is damaged, the section says `The encryption record of this profile is damaged, so the encrypted customer data cannot be opened.` with **Retry** and **Erase the encrypted customer data**. Erasing works as in the forgotten-password case above: the encrypted client list and the picked customer are deleted for good.
+
+<a id="customer-encryption-backups"></a>
+
+### Backups
+
+A backup made while encryption is on holds the data encrypted. A restored backup needs the password that was in force when it was made. Backups made before you switched it on stay unencrypted; restoring one brings its unencrypted client list back. If the data is unlocked, the program encrypts it again straight after the restore (if that fails, the restore message says `The restored saved clients could not be encrypted yet; unlock the customer data again to encrypt them`); if it is locked, at the next unlock.
+
+A backup encrypted with another password than the current one leaves your saved clients as they are: they are not replaced by the backup's, so no list is lost, and the restore message ends with `Saved clients were kept as they were: the backup's were encrypted with another password`. To get the backup's list, turn encryption off and restore again (if a value that cannot be decrypted is listed, discard it first, or turning encryption off is refused); the backup's list then needs the backup's password.
+
+<a id="customer-encryption-ai-runs-made-while-locked"></a>
+
+### AI runs made while locked
+
+While the data is locked the AI usage bar reads `Customer data is locked: AI runs are recorded without a customer`. Runs still work; each is recorded with no customer, so it does not count toward any customer's figures. Unlock first if a run belongs to a customer.
+
+If the picked customer was encrypted with another password, the bar instead reads `The picked customer cannot be decrypted with the current password: AI runs are recorded without a customer. Discard it in Settings, Customer data encryption.` Use **Discard** there, as described above.
+
+<a id="customer-encryption-tips-and-common-mistakes"></a>
+
+### Tips and common mistakes
+
+- Keep the password in a password manager or somewhere safe. The program never stores it.
+- An older version of the program reports an encrypted client list as unreadable. Do not click its **Replace the unreadable data** button: install the current version instead.
+- Changing the password means turning encryption off and on again.
+
+> **Under the hood**
+>
+> The values are encrypted with AES-256-GCM. The key is derived from the password with Argon2id (64 MiB of memory, 3 passes), separately for each profile, and is kept in memory only while the data is unlocked. The password itself is never stored.
+
+<a id="customer-encryption-see-also"></a>
+
+### See also
+
+- [Saving clients and claim details for reuse](#clients)
+- [AI usage: the usage bar, customers and projects, and the AI cost in reports](#ai-usage)
+
+<sub>[Back to contents](#contents)</sub>
+
 
 ---
 
@@ -2621,7 +3218,7 @@ A value that starts with `=`, `+`, `-`, `@`, an apostrophe, a tab or a line brea
 ## Buying, activating and renewing an add-on license, and updating add-ons
 
 
-The Thermal Analysis Studio and the Photogrammetry add-on each run on a license: a subscription per add-on at $7.99 a month or $75 a year, which you can cancel at any time. The add-on itself is free to download and install; the license switches its functions on.
+The Thermal Analysis Studio, the Photogrammetry add-on and the 360 Panorama Studio each run on a license: a subscription per add-on at $7.99 a month or $75 a year, which you can cancel at any time. The add-on itself is free to download and install; the license switches its functions on.
 
 <a id="addon-license-before-you-start"></a>
 
@@ -2636,7 +3233,7 @@ The Thermal Analysis Studio and the Photogrammetry add-on each run on a license:
 ### Buying a license
 
 1. On the lock panel, or in the add-on's row of the **🧩 Add-ons** window, click **Buy monthly ($7.99)** or **Buy yearly ($75)**. The purchase page opens in your browser.
-2. If you already have a key for the other add-on, paste it into the "Already a customer?" field. Both subscriptions then stay on one account and one customer portal. The field is optional.
+2. If you already have a key for another add-on, paste it into the "Already a customer?" field. All your subscriptions then stay on one account and one customer portal. The field is optional.
 3. Click "Continue to payment" and pay by card.
 4. The thank-you page shows your license key with a "Copy" button, and a "Download license file" button. Copy the key, and bookmark the page: it is the way back to your key if you lose it.
 
@@ -2767,5 +3364,6 @@ A roofing inspector buys a yearly Thermal Analysis Studio license for $75 and co
 
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
+- [360 Panorama Studio: getting started, importing, sets and marking up photos](#panorama-start)
 
 <sub>[Back to contents](#contents)</sub>
