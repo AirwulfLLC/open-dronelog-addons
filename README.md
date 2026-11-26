@@ -34,8 +34,8 @@ This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** 
 **New add-on: 360 Panorama Studio**
 
 - A **360 Pano** tab turns the photos of one drone hover into one 360-degree photo. You import the photos, the studio groups them into sets and shows how much of the sphere they cover, and **Stitch 360** joins them. See [360 Panorama Studio: getting started](HELP.md#panorama-start) and [Stitching a 360](HELP.md#panorama-stitch).
-- The photos must carry the camera angles the drone writes into them. DJI photos have them.
-- Draw on the photos to point something out: the mark-ups show on the 360. A photo that spoils the stitch can be left out with **Leave out of 360**; the choice lasts until you close the program. See [Mark up a photo](HELP.md#panorama-start-mark-up-a-photo) and [Leave photos out](HELP.md#panorama-start-leave-photos-out).
+- The photos use the camera angles the drone writes into them. DJI photos have them (check your software to be sure).
+- Draw on the photos to point something out: the mark-ups show on the 360. A photo that does not render correctly when stitched can be left out with **Leave out of 360**; the choice lasts until you close the program. See [Mark up a photo](HELP.md#panorama-start-mark-up-a-photo) and [Leave photos out](HELP.md#panorama-start-leave-photos-out).
 - Look around the finished 360, and choose the view it opens at with **Set starting view**. See [Looking around a 360](HELP.md#panorama-export).
 - Save it as a 360 JPEG with **Export 360 JPEG…**, or as one web page that opens in a web browser without an internet connection with **Export HTML viewer…**. With a licensed Photogrammetry add-on, **Save view to Photogrammetry** keeps one view as a picture for a survey report. See [Export a 360 JPEG](HELP.md#panorama-export-export-a-360-jpeg), [Export an HTML viewer file](HELP.md#panorama-export-export-an-html-viewer-file) and [Save a view to the Photogrammetry library](HELP.md#panorama-export-save-a-view-to-the-photogrammetry-library).
 - Install it like the other add-ons: see [Install an add-on, step by step](#install-an-add-on-step-by-step). After you update Thermal or Photogrammetry to 1.1.0, the **🧩 Add-ons** window lists it too, with a **Download installer…** button that opens the release page.
@@ -49,7 +49,7 @@ This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** 
 
 - **AI tools for Chat and external agents.** While an add-on is licensed, the **Chat** tab can read your add-on data: the library, thermal figures, annotations, heat flow networks, saved reports and AI usage. So can an external agent, once you turn the server on under **Settings** → **External agents** and make a connection for it. If you allow it (for Chat in **Settings** → **AI tools**, for an agent when you make its connection), they can also propose changes, such as a new picture name, a note or report text. Open DroneLog then shows every change with its value before and after, and nothing is stored until you press **Apply**. What a tool returns is sent to the AI provider or the agent you connected; the guide lists what is never given. See [AI tools](HELP.md#ai-tools).
 - **One key for Chat and the add-ons.** The AI narrative of the Thermal Studio and the `✨ AI draft` boxes of the report builders can use the Chat connection, so one key serves both. Your own Claude, OpenAI or Gemini key still works. You choose in **Settings** → **AI providers** (this section was called **AI Thermal Analysis**). See [AI provider keys](HELP.md#thermal-anomalies-ai-provider-keys).
-- **AI drafts with either license.** The `✨ AI draft` boxes now work with a Thermal or a Photogrammetry license. The AI narrative of the Thermal Studio still needs the Thermal license.
+- **AI drafts with either license.** The `✨ AI draft` boxes now work with a Thermal or a Photogrammetry license. The AI thermal analysis narrative of the Thermal Studio still needs the Thermal license.
 - **Chat in the AI usage bar.** The bar now shows as soon as the Chat connection is set, and it counts each answer in the **Chat** tab too, in the month's figures under **No customer**. See [AI usage](HELP.md#ai-usage).
 
 **Customer data**
@@ -59,7 +59,7 @@ This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** 
 **The program and Settings**
 
 - **The build you run, in the sidebar.** The bottom of the sidebar now reads, for example, **Open DroneLog Airwulf 3.4.0 (build 4)**, with **Latest** or an update link beside it. See [Update an add-on](#update-an-add-on).
-- **Settings.** The **DJI API Key** moved to the left column, above **External agents**. **AI providers** and **AI tools** follow below it. Messages now show on one line at the bottom of the Settings window.
+- **Settings.** UI updates for easier AI management. Messages now show on one line at the bottom of the Settings window.
 - Fixes in profile switching, backup restore, inspection bundles and the light theme.
 
 ---
