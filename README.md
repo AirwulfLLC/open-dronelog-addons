@@ -12,7 +12,8 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 
 **Contents**
 
-- [What's new in 1.1.0](#whats-new-in-110)
+- [What's new in 1.1.1](#whats-new-in-111)
+- [What was new in 1.1.0](#what-was-new-in-110)
 - [What was new in 1.0.2](#what-was-new-in-102)
 - [What was new in 1.0.1](#what-was-new-in-101)
 - [Before you start](#before-you-start)
@@ -27,9 +28,33 @@ The add-ons are made by Airwulf, LLC. They are not part of, or endorsed by, the 
 
 ---
 
-## What's new in 1.1.0
+## What's new in 1.1.1
 
-This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** and the first version (1.0.0) of a new add-on, the **360 Panorama Studio**. All three are built for **Open DroneLog 3.4.0**. If you already have an earlier version, get the new one as described in [Update an add-on](#update-an-add-on). The update also brings your Open DroneLog program to 3.4.0.
+This release brings **Thermal Analysis Studio 1.1.1**, **Photogrammetry 1.1.1** and **360 Panorama Studio 1.0.1**. All three are built for **Open DroneLog 3.4.0**. If you already have an earlier version, get the new one as described in [Update an add-on](#update-an-add-on). The update also brings your Open DroneLog program to build 5.
+
+**Measuring and take-offs (Thermal and Photogrammetry)**
+
+- **Scale and Material Takeoff open as windows.** **🧭 Scale** and **🧮 Material Takeoff** now open as windows over the picture, not as strips above it. Drag a window by its title bar and resize it at its bottom-right corner. Once you have moved or resized it, it opens at that place and size again. See [Giving a picture a scale](HELP.md#measure-scale-steps) and [Material take-offs](HELP.md#materials-takeoff-steps).
+- **A total for each picture.** One line adds up the picture's areas and volumes that have a value, for example `Picture total: 2 areas 1240 m² ± 12 m²`. It shows under the picture and in both windows. Areas that overlap are counted twice. See [The Scale window rows](HELP.md#measure-tools-the-scale-window-rows).
+- **Copy a setting to other areas.** **⇉ others…** copies an area's height above the reference plane, its volume setting or its take-off to the areas you tick. See [The Scale window rows](HELP.md#measure-tools-the-scale-window-rows), [Volume inside an area](HELP.md#measure-elevation-volume-inside-an-area) and [Material take-offs](HELP.md#materials-takeoff-steps).
+- **A default roof pitch.** A roofing material with no pitch chosen is no longer skipped. It is worked out at 6:12, and a note says so. The default is a guess: choose the real pitch. See [Material take-offs](HELP.md#materials-takeoff-steps).
+- **Totals in reports.** Reports now add up areas. The measurements table gets a total area line, the materials table gets one for the rows that came from an area, and a Thermal report's measurements line adds the sum when a picture has two or more areas. Perimeters are listed only when you tick **Include perimeters**. See [In the report](HELP.md#measure-tools-in-the-report) and [Take-offs in the report](HELP.md#materials-takeoff-in-the-report).
+
+**360 Panorama Studio**
+
+- Version 1.0.1 has one fix: a photo whose data gives an impossible focal length can no longer slow a stitch down.
+
+**The program**
+
+- **Build 5.** The bottom of the sidebar now reads **Open DroneLog Airwulf 3.4.0 (build 5)**.
+- **Backups.** A backup that fails leaves no partial file behind.
+- Fixes in backup and restore, profile passwords, the flight list, weather, bulk delete and the import of CSV logs saved by Excel.
+
+---
+
+## What was new in 1.1.0
+
+Version 1.1.0 of Thermal and Photogrammetry brought the following, together with the first version (1.0.0) of a new add-on, the **360 Panorama Studio**. All of it is part of 1.1.1.
 
 **New add-on: 360 Panorama Studio**
 
@@ -66,7 +91,7 @@ This release brings **Thermal Analysis Studio 1.1.0**, **Photogrammetry 1.1.0** 
 
 ## What was new in 1.0.2
 
-Version 1.0.2 of Thermal and Photogrammetry brought the following. All of it is part of 1.1.0.
+Version 1.0.2 of Thermal and Photogrammetry brought the following. All of it is part of 1.1.1.
 
 - **Add-ons moved into Settings.** Click **Settings** in the sidebar, then **Open Add-ons**. The button next to Settings is gone. (In 1.0.1 and earlier the **🧩 Add-ons** button is still next to Settings: use it to update.)
 - **AI usage.** With an AI provider key saved, a usage bar under the Thermal and Photogrammetry studios shows what your AI runs used and cost, for the customer and project you are working on and for the calendar month. A setting adds that cost to a report. See [AI usage](HELP.md#ai-usage).
@@ -76,7 +101,7 @@ Version 1.0.2 of Thermal and Photogrammetry brought the following. All of it is 
 
 ## What was new in 1.0.1
 
-Version 1.0.1 brought the following. All of it is part of 1.1.0.
+Version 1.0.1 brought the following. All of it is part of 1.1.1.
 
 **Thermal**
 
@@ -239,7 +264,7 @@ Instead of the update button, the row may show one of these lines:
 
 **No internet on that computer?** Download the newest installer from the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) on another computer, copy it over (for example on a USB stick), and run it. You do not need to enter your key again.
 
-**The program's own version.** The bottom of the sidebar names the build you are running, for example **Open DroneLog Airwulf 3.4.0 (build 4)**. The badge beside it reads **Latest**, or **Update to Open DroneLog Airwulf \<version\> (build \<number\>)** when a newer build is published. (It reads **Checking…** while it looks, and **Check failed** when it could not look, for example without an internet connection.) Click the update badge to open the release page. With an add-on installed, update the add-on as above: the add-on update brings the newer program with it. Without an add-on, download `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` from the release page and run it.
+**The program's own version.** The bottom of the sidebar names the build you are running, for example **Open DroneLog Airwulf 3.4.0 (build 5)**. The badge beside it reads **Latest**, or **Update to Open DroneLog Airwulf \<version\> (build \<number\>)** when a newer build is published. (It reads **Checking…** while it looks, and **Check failed** when it could not look, for example without an internet connection.) Click the update badge to open the release page. With an add-on installed, update the add-on as above: the add-on update brings the newer program with it. Without an add-on, download `OpenDroneLog-Airwulf-Build_…_x64-setup.exe` from the release page and run it.
 
 ---
 
@@ -267,7 +292,7 @@ What happens next:
 - Your imported pictures, measurements and reports stay in your Open DroneLog profile.
 - Your license stays on the computer, so a later reinstall finds it.
 - Removing an add-on does not free a license that is registered to this computer. If the license should move to another computer, click **Deactivate this PC** first (see [Activate your license](#activate-your-license)).
-- If it was the **last** add-on installed, Open DroneLog restarts with your original program put back. That is the Open DroneLog you had when you first installed an add-on, so it can be older than 3.4.0; install the current version from the original project's page if you want it. If another add-on is still installed, the host program stays.
+- If it was the **last** add-on installed, Open DroneLog restarts with your original program put back. That is the Open DroneLog you had when you first installed an add-on, so it can be older than 3.4.0; install the current version from the original project's page if you want it. If another add-on is still installed, the host program stays. If the saved original is missing or damaged, the program is left as it is.
 - If putting the original back cannot finish, the row reads **Removing … failed**, with **Retry** and **Keep add-on** buttons.
 
 ---

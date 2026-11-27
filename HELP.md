@@ -4,7 +4,7 @@ This file collects every help guide built into the Open DroneLog add-ons (the **
 
 New to the add-ons? Install them first with the step-by-step guide in the [README](README.md), then start with [Thermal Studio: getting started](#thermal-start), [Photogrammetry: getting started](#photo-start) or [360 Panorama Studio: getting started](#panorama-start).
 
-> **Version:** written for add-ons 1.1.0 on Open DroneLog 3.4.0.
+> **Version:** written for add-ons 1.1.1 on Open DroneLog 3.4.0.
 
 > **About this text:** these guides are copied word for word from the in-app help of the Airwulf build of Open DroneLog. Only what a single file needs is changed: headings sit one level lower, links between guides point inside this file, and every section has an anchor. The Airwulf build is based on [Open DroneLog](https://github.com/arpanghosh8453/open-dronelog) by Arpan Ghosh, which is licensed under the [GNU Affero General Public License v3.0](https://github.com/arpanghosh8453/open-dronelog/blob/main/LICENSE) (AGPL-3.0), and this help text is distributed under the same license.
 
@@ -41,7 +41,7 @@ For the main Open DroneLog program (flight logs, maps, charts, batteries), see t
 **Pictures: annotating and measuring**
 
 - [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Measuring lengths, angles and areas](#measure-tools)
 - [Positions, ground control points and georeferenced orthomosaics](#measure-geo)
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
@@ -118,7 +118,7 @@ Each row names a feature, where you find it, and the walkthrough that explains i
   - **FLIR · Skydio · Autel built in** (blue): FLIR-format R-JPEGs (Teledyne FLIR, Skydio X10, Autel 640R), Autel 640T TIFFs and temperature CSVs are read without any SDK.
 5. Look at the layout:
   - Left: the library, headed `Assets (N)`, with the search box and **Filters** above the rows.
-  - Centre, top: the toolbar with the annotation tools, **📝 Note**, and the **Measure** group with **🧭 Scale**, **🧮 Material Takeoff**, **Spot**, **ΔT** and **⛶ Boundary**. Under it the Scale strip opens when you click **🧭 Scale**, and the Material Takeoff strip when you click **🧮 Material Takeoff** (under the Scale strip when both are open).
+  - Centre, top: the toolbar with the annotation tools, **📝 Note**, and the **Measure** group with **🧭 Scale**, **🧮 Material Takeoff**, **Spot**, **ΔT** and **⛶ Boundary**. **🧭 Scale** and **🧮 Material Takeoff** each open a window over the picture, near its top-left corner, a little below the zoom buttons; drag it by its title bar and resize it at its bottom-right corner (see [Giving a picture a scale](#measure-scale-steps)).
   - Centre: the viewer with the picture, the zoom strip (**Fit**), the cursor readout and the min and max markers. Under it the info strip and, for a thermal picture, the **Visual twin** row.
   - Right: the **Analysis** panel with its sections (statistics, spot readings, palette, isotherm, measurement parameters, variance analysis, heat flow).
   - Top right: **+ Import photos / videos**, **📂 Import folder…**, **🌡 Radiometric file…**, **⇄ Pair pictures**, **📄 Side-by-side…**, **🌡 Export temperatures…**, **📐 Export linework…** and **📄 Report**.
@@ -759,7 +759,7 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 - The Thermal add-on is enabled and the Thermal Studio is open. See [Thermal Studio: getting started](#thermal-start).
 - Your radiometric pictures are imported. For the anomaly log, run the detection first; see [AI variance analysis](#thermal-anomalies).
 - For flight data, import the DJI flight logs in the main logbook.
-- For take-offs in the report, add materials in the **🧮 Material Takeoff** strip; see [Material take-offs](#materials-takeoff).
+- For take-offs in the report, add materials in the **🧮 Material Takeoff** window; see [Material take-offs](#materials-takeoff).
 - For AI drafts, choose the Chat connection or add a provider key in Settings → **AI providers**. Drafting works with a Thermal or a Photogrammetry license. Everything else works without it.
 
 <a id="thermal-report-steps"></a>
@@ -793,7 +793,7 @@ The Thermal Inspection Report builder turns your pictures, anomalies, flights an
 | 10 | Follow-Up & Re-inspection | Verification scans and the re-inspection interval. |
 | 11 | Limitations, Definitions & Disclaimer | Prefilled standard text; edit it, or put it back with **↺ Standard text**. |
 
-In section 5, a pair whose thermal picture carries spots or ΔT marks prints a two-column table, **Reading** and **Value**, with the parameters line under it. Two checkboxes in the section control the pictures: **Colour bar under thermal pictures** adds a temperature scale under each thermal figure (on for new reports), and **Apply the current parameters (e, d, r, h, ambient) to every picture** decides whether the figures and readings use the parameters from the Analysis panel or each file's own. See [Side-by-side documents and temperature exports](#thermal-deliverables-spot-readings).
+In section 5, a pair whose thermal picture carries spots or ΔT marks prints a two-column table, **Reading** and **Value**, with the parameters line under it. Three checkboxes in the section control the pictures: **Colour bar under thermal pictures** adds a temperature scale under each thermal figure (on for new reports), **Apply the current parameters (e, d, r, h, ambient) to every picture** decides whether the figures and readings use the parameters from the Analysis panel or each file's own, and **Include perimeters** prints each area's perimeter in the measurement lines under the pictures (off by default, also in reports made before this version: a report that printed perimeters prints them again only once the box is ticked). With two or more areas that have a value on a picture, its line also gives their sum, for example `total area 1000 m² ± 9 m² (2 areas)`, or `(2 of 3 areas)` when one has none. See [Side-by-side documents and temperature exports](#thermal-deliverables-spot-readings).
 
 The materials section works as described in [Material take-offs: In the report](#materials-takeoff-in-the-report). Its From column names the pair and the picture, such as `Pair 2 (thermal)` or `Pair 2 (visual)`, because the two pictures of a pair are separate figures.
 
@@ -998,7 +998,7 @@ Each row names a feature, where you find it, and the walkthrough that explains i
 | Metashape deliverables (orthomosaics, elevation models, reports, point clouds) | Imported like photos and listed under the **Metashape** tab; a document opens as a card with **Open in default application** | [What is recognised](#photo-start-steps), [In the report](#photo-report-deliverables) |
 | Scale and measurements | **🧭 Scale** and the tools of the toolbar's **Measure** group | [Giving a picture a scale](#measure-scale-steps), [Measuring](#measure-tools-measure) |
 | Positions and ground control points | **GCP** (🎯) and **Position** (⌖) in the **Measure** group | [GCP](#measure-geo-gcp), [Position](#measure-geo-position) |
-| Elevation models, slopes and volumes | An elevation-model GeoTIFF that pairs with the orthomosaic; **Slope** (⟋) and the areas in the Scale strip | [Pair the elevation model](#measure-elevation-pair-the-elevation-model), [Volume inside an area](#measure-elevation-volume-inside-an-area) |
+| Elevation models, slopes and volumes | An elevation-model GeoTIFF that pairs with the orthomosaic; **Slope** (⟋) and the areas in the **🧭 Scale** window | [Pair the elevation model](#measure-elevation-pair-the-elevation-model), [Volume inside an area](#measure-elevation-volume-inside-an-area) |
 | Material take-offs | **🧮 Material Takeoff** after **🧭 Scale** in the toolbar, then **+ Material…** on a measurement or area row | [Take-offs](#materials-takeoff-steps) |
 | Orthomosaic export (JPG with world file) | **🗺 Export orthomosaic…** in the top bar | [Exporting an orthomosaic](#mapping-deliverables-exporting-an-orthomosaic) |
 | Linework export (DXF, GeoJSON, ODL XML) | **📐 Export linework…** in the top bar | [Exporting linework](#mapping-deliverables-exporting-linework) |
@@ -1085,7 +1085,7 @@ You flew a warehouse roof and processed it in Metashape.
 2. Click **Metashape** to see only those three, then **All** again.
 3. Rename `DJI_0412.JPG` to `North parapet crack`, so the report prints a useful name. The extension is kept: the row reads `North parapet crack.JPG`.
 4. Tick the three photos that show the damage and the orthomosaic. The button now reads `+ Add to report (4)`; click it.
-5. Open the orthomosaic in the viewer. The DSM overlaps it in the same coordinate system and its name says DSM, so it pairs automatically and the Scale strip can measure slopes and volumes.
+5. Open the orthomosaic in the viewer. The DSM overlaps it in the same coordinate system and its name says DSM, so it pairs automatically and the **🧭 Scale** window can measure slopes and volumes.
 
 <a id="photo-start-tips-and-common-mistakes"></a>
 
@@ -1107,7 +1107,7 @@ You flew a warehouse roof and processed it in Metashape.
 
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
 - [Viewing and annotating pictures: zoom, pan, shortcuts, tools, colours, notes, video frames](#annotate)
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
 - [Delivering a claim package: originals, portal copies, custody sheet](#claim-package)
@@ -1196,7 +1196,7 @@ In **Core Visual Deliverables (Agisoft Metashape)**, pick the orthomosaic to pri
 
 #### Measurements, materials and findings
 
-**📏 Add measurements from pictures** adds a row for each distance, angle, area, volume, position and slope on the queued pictures, with its method and the figure that shows it; see [Measuring lengths, angles and areas: In the report](#measure-tools-in-the-report). **📦 Add materials from pictures** does the same for the take-offs; see [Material take-offs: In the report](#materials-takeoff-in-the-report). Both skip rows already added. A finding has a category, a severity (`Low severity`, `Medium severity`, `High severity`), a location, a **Documented in figure** link, an **Observation** and a **Recommendation**; an observation is a neutral note without a grade.
+**📏 Add measurements from pictures** adds a row for each distance, angle, area, volume, position and slope on the queued pictures, with its method and the figure that shows it; see [Measuring lengths, angles and areas: In the report](#measure-tools-in-the-report). **📦 Add materials from pictures** does the same for the take-offs; see [Material take-offs: In the report](#materials-takeoff-in-the-report). Both skip rows already added. An area's perimeter gets a row of its own only with **Include perimeters** ticked before you press the button; perimeter rows already in the table stay when you clear it. Above the measurements a line sums the area rows, for example `Total area 1000 m² over 2 area rows`, and under the materials a line sums their plan areas, each area once, for example `Total plan area 600 m² of 1 measured area (plan area, not roof surface)`; overlapping areas are counted twice in both. A finding has a category, a severity (`Low severity`, `Medium severity`, `High severity`), a location, a **Documented in figure** link, an **Observation** and a **Recommendation**; an observation is a neutral note without a grade.
 
 With **Add the AI cost to the report's projected cost** ticked in Settings, a report that has a client also gets an **AI analysis** row in **Materials and Projected Cost**; see [AI usage](#ai-usage-adding-the-ai-cost-to-a-report).
 
@@ -1290,7 +1290,7 @@ The imaging rows of the thermal report start from the library's twins (see [Pair
 
 ### Naming
 
-Each picture is named from its camera pitch and heading, read from the file, or from your correction in the Scale strip when you made one.
+Each picture is named from its camera pitch and heading, read from the file, or from your correction in the 🧭 Scale window when you made one.
 
 | Pitch | Name |
 |---|---|
@@ -1352,7 +1352,7 @@ In the Photogrammetry library the **Wide** and **Zoom** chips filter by the file
 - [Photogrammetry survey reports: the figure queue, sections, flights, deliverables, export](#photo-report)
 - [Thermal inspection reports, AI drafts and inspection bundles](#thermal-report)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Saving clients and claim details for reuse](#clients)
 - [Side-by-side documents and temperature exports](#thermal-deliverables)
 - [Branding your reports: logo, company and Part 107 number](#settings-branding)
@@ -2073,7 +2073,7 @@ When you add the photo to the report, the figure shows the box, the arrow and th
 
 ### See also
 
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Measuring lengths, angles and areas](#measure-tools)
 - [Heat flow network: nodes, conductors, solving](#thermal-network)
 - [Thermal Studio: getting started, importing, the library](#thermal-start)
@@ -2085,10 +2085,10 @@ When you add the photo to the report, the figure shows the box, the arrow and th
 
 <a id="measure-scale"></a>
 
-## Giving a picture a scale: references, altitude and pitch, the Scale strip, units
+## Giving a picture a scale: references, altitude and pitch, the Scale window, units
 
 
-A measurement is only as good as the picture's scale: how much ground one pixel covers. This topic shows where the app finds a scale, how to give a picture one with a reference of known length, how to correct the altitude and pitch, and how to read the **🧭 Scale** strip that lists every source and its limits.
+A measurement is only as good as the picture's scale: how much ground one pixel covers. This topic shows where the app finds a scale, how to give a picture one with a reference of known length, how to correct the altitude and pitch, and how to read the **🧭 Scale** window that lists every source and its limits.
 
 <a id="measure-scale-before-you-start"></a>
 
@@ -2106,8 +2106,8 @@ The app uses the first source that applies:
 
 1. An orthomosaic's georeferencing: a Metashape GeoTIFF knows its pixel size. References drawn on it only cross-check it.
 2. References and ground control points: lines over things of known length, or two GCPs with coordinates. With the focal length known they fix the camera's height above the surface, so the camera's tilt is accounted for across the picture; without it they give one flat scale.
-3. The camera's altitude and lens: the focal length, the altitude above the surface and the pitch from the file. The strip calls this metadata only.
-4. No scale: measurements read `no scale`, and the strip says what is missing.
+3. The camera's altitude and lens: the focal length, the altitude above the surface and the pitch from the file. The window calls this metadata only.
+4. No scale: measurements read `no scale`, and the window says what is missing.
 
 GCPs are covered in [Positions, ground control points and georeferenced orthomosaics](#measure-geo).
 
@@ -2119,7 +2119,7 @@ GCPs are covered in [Positions, ground control points and georeferenced orthomos
 2. Zoom in, then click both ends of the object of known length, or drag between them. A box opens at the middle of the line, with the placeholder `length, e.g. 2.5 m, 250 cm, 8 ft 2 in [± 0.02]` (imperial: `length, e.g. 8 ft 2 in, 8.5 ft, 250 cm [± 1 in]`).
 3. Type the length and press Enter: `2.5 m`, `250 cm` or `8 ft 2 in`. A bare number is metres, or feet under imperial units. Add a tolerance after `±`: `2.5 ± 0.02` (a bare tolerance takes the length's unit). The tool switches to **📏 Measure**.
 4. If the box shows `Not understood. …`, correct the text and press Enter. Esc, or an empty box, discards the reference.
-5. Press **🧭 Scale**. The strip opens under the toolbar.
+5. Press **🧭 Scale**. A window opens over the picture, near its top-left corner, a little below the zoom buttons. Drag it by its title bar, resize it at its bottom-right corner, and close it with its **✕** or the toolbar button. Once you have moved or resized it, it opens at that place and size again, in both studios; a window you never moved opens at that default place each time. While the focus is in a window, the picture's keyboard shortcuts do nothing; click the picture to get them back.
 6. Read the **Scale** line: where the scale comes from, for example `1 reference + camera geometry (focal 3000 px, pitch −45.0°): 42.43 m ± 0.30 m above the reference plane`. Warnings follow in red (error), amber (caution) or blue (note).
 7. Read **Ground sample distance at the centre**, for example `2.00 × 2.83 cm/px (across × along)` on a tilted picture, and **Camera focal length**.
 8. If the file's altitude is wrong for this surface, type the camera's height above it in **Altitude above the surface (m)**, and its uncertainty after **±**. The note says `used only without references`: a reference always wins.
@@ -2127,7 +2127,7 @@ GCPs are covered in [Positions, ground control points and georeferenced orthomos
 10. Check the **References** list: a name box (placeholder `Reference 1`), the length, `tolerance not given (exact)` when you typed none, the length in pixels and, with two or more, the deviation from the fit (for example `+1.7 % from the fit`). **✕** removes one.
 11. Read the footer: what no ± includes (lens distortion, ground slope and relief, camera roll, pitch error for positions, DEM correlation and interpolation across ridges).
 
-With a single reference the strip adds `Single sample, no cross-check: a second reference or two GCPs would show how well they agree.`
+With a single reference the window adds `Single sample, no cross-check: a second reference or two GCPs would show how well they agree.`
 
 <a id="measure-scale-example-a-tilted-inspection-photo"></a>
 
@@ -2135,7 +2135,7 @@ With a single reference the strip adds `Single sample, no cross-check: a second 
 
 A 4000 × 3000 px photo is taken at −45° pitch, focal length 3000 px, 50 m above the yard by the file (the scale specification's vectors).
 
-1. From the camera data the strip reads `Camera metadata (…): focal 3000 px, pitch −45.0°, 50.0 m ± 1.0 m above the surface`, with the note `Scale from the camera metadata only (focal length and altitude); add a reference to check it.` The ground sample distance is `2.36 × 3.33 cm/px (across × along)`: 50 m ÷ (3000 px × sin 45°) = 2.36 cm across, 50 m ÷ (3000 px × sin² 45°) = 3.33 cm along.
+1. From the camera data the window reads `Camera metadata (…): focal 3000 px, pitch −45.0°, 50.0 m ± 1.0 m above the surface`, with the note `Scale from the camera metadata only (focal length and altitude); add a reference to check it.` The ground sample distance is `2.36 × 3.33 cm/px (across × along)`: 50 m ÷ (3000 px × sin 45°) = 2.36 cm across, 50 m ÷ (3000 px × sin² 45°) = 3.33 cm along.
 2. You draw a **📐 Reference** 200 px long over a 3 m trailer bed near the bottom of the picture and type `3 m`.
 3. The scale line becomes `1 reference + camera geometry (focal 3000 px, pitch −45.0°): 42.43 m ± 0.30 m above the reference plane`. A blue note says the references put the camera at 42.4 m, the flight data at 50.0 m. DJI's altitude counts from the take-off point: if the reference is right, the yard lies about 7.6 m above the take-off point.
 4. A 200 px **📏 Measure** line near the top now reads `6.00 m ± 0.06 m`, with a note that it is far from the references: on a tilted picture the far ground looks smaller.
@@ -2188,7 +2188,7 @@ Values are stored in metres.
 ## Measuring lengths, angles and areas
 
 
-Once a picture has a scale, three tools measure on it: **📏 Measure** for distances, **∠ Angle** for angles and roof pitches, and **⬠ Area** for plan areas and perimeters. Each value is labelled with its uncertainty, listed in the **🧭 Scale** strip and copied into the report in one click.
+Once a picture has a scale, three tools measure on it: **📏 Measure** for distances, **∠ Angle** for angles and roof pitches, and **⬠ Area** for plan areas and perimeters. Each value is labelled with its uncertainty, listed in the **🧭 Scale** window and copied into the report in one click.
 
 <a id="measure-tools-before-you-start"></a>
 
@@ -2213,7 +2213,7 @@ Once a picture has a scale, three tools measure on it: **📏 Measure** for dist
 1. Press **∠ Angle**.
 2. Click the end of the first ray, then the vertex, then the end of the second ray.
 3. Read the label: the angle as drawn in the picture, for example `∠1: 153.4°`.
-4. For a roof pitch, draw one ray along a level eave (within 5° of the picture's horizontal) and the other along the rafter. The strip adds, for example, `roof pitch 6.0:12 ± 0.1`.
+4. For a roof pitch, draw one ray along a level eave (within 5° of the picture's horizontal) and the other along the rafter. The **🧭 Scale** window adds, for example, `roof pitch 6.0:12 ± 0.1`.
 
 <a id="measure-tools-area"></a>
 
@@ -2226,19 +2226,22 @@ Once a picture has a scale, three tools measure on it: **📏 Measure** for dist
    - Circle: click the centre, then a point on the rim, or drag from the centre.
 3. Read the label: the plan area with its ±, for example `A1: 4.00 m² ± 0.05 m²`. From one hectare (or one acre) it reads in ha or ac.
 
-<a id="measure-tools-the-scale-strip-rows"></a>
+<a id="measure-tools-the-scale-window-rows"></a>
 
-### The Scale strip rows
+### The Scale window rows
 
-Press **🧭 Scale**. Each tool has its list: **Measurements** (M1, M2…), **Angles** (∠1…) and **Areas** (A1…).
+Press **🧭 Scale**: a window opens over the picture (see [Giving a picture a scale](#measure-scale-steps)). While you hold the mouse button down on the picture (a drag or a pan), the windows let the pointer through, so a line or an outline can end under a window. A click, such as a polygon corner or a two-click measure, lands on the window: move the window first. Each tool has its list: **Measurements** (M1, M2…), **Angles** (∠1…) and **Areas** (A1…).
 
 - Name: type one in the row's first box (placeholder `name`). It replaces the tag on the picture (`ridge: 10.00 m ± 0.06 m`); in the report the tag stays and the name is added, for example `M1 10.00 m ± 0.06 m (ridge)`.
 - Value: a length with ± (or `no scale`, or `n/a`), an angle `in the picture`, or an area with `perimeter …` and, for those shapes, `rectangle 14.00 m × 10.00 m` or `circle, diameter 48.00 m ± 0.28 m` (on a camera picture `rectangle in the picture (a trapezoid on the ground)` or `circle in the picture (an oval on the ground)`).
 - **height above the reference plane (m)**: type how far a feature lies above the surface the scale was set on (negative below). It needs a camera picture with a focal length; on an orthomosaic a note says it is ignored, and on a flat scale an amber notice reads `A height above the reference plane needs the camera focal length; it is not used.`
+- **⇉ others…** after the height (shown when the picture has another area) copies it to other areas; **Cancel** closes the panel without copying: tick them (**All**, **None**) and click **Apply**. A line reads, for example, `Height applied: changed A2 and A3; A4 already had it.` and the focus goes back to **⇉ others…**. When nothing changes, nothing is saved and the line says so, for example `Height applied: A2 and A3 already had it.` The button is off while the area has no height: there is nothing to copy. There is no undo, so check the ticks first.
 - Detail lines: the ± broken down, for example `± 0.062 m = marking 0.007 m · scale 0.061 m` (plus `focal …` when known). An angle adds the angle `on the ground` and the roof pitch; a measurement adds its bearing and height difference when a position source or elevation model gives them.
 - **✕** removes the row and its drawing.
 
-Below the areas a note reads `Plan area on the reference plane. …` An area is always seen from straight above; materials with a roof pitch multiply it by √(1 + (x/12)²) in the **🧮 Material Takeoff** strip (see [Material take-offs](#materials-takeoff)). Volumes are covered in [Elevation models](#measure-elevation).
+Below the areas a note reads `Plan area on the reference plane. …` An area is always seen from straight above; materials with a roof pitch multiply it by √(1 + (x/12)²) in the **🧮 Material Takeoff** window (see [Material take-offs](#materials-takeoff)). Volumes are covered in [Elevation models](#measure-elevation).
+
+Under the note the picture total adds up the areas that have a value, for example `Picture total: 1 area 4.00 m² ± 0.05 m²`. Solids and elevation-model volumes follow as groups of their own, and `(1 without a value)` or `(1 still being read)` says what is not yet in the sum. Areas that overlap are counted twice. The same line shows under the picture and in the **🧮 Material Takeoff** window, and it changes when you finish an area. Under the picture it appears when the first area gets a value, so the picture shifts by one line (and back when the last one goes).
 
 <a id="measure-tools-example-a-flat-roof-survey-picture"></a>
 
@@ -2248,26 +2251,27 @@ A picture looking straight down on a flat roof, with no focal length in its file
 
 1. **📏 Measure** across a parapet, 2000 px long: `M1: 10.00 m ± 0.06 m` (imperial `32 ft 10 in ± 2 in`), detail `± 0.062 m = marking 0.007 m · scale 0.061 m`: the reference's own ±, scaled up five times with the length.
 2. **⬠ Area**, polygon, around a skylight curb of 400 × 400 px: `A1: 4.00 m² ± 0.05 m²` (`43.1 ft² ± 0.5 ft²`), perimeter `8.00 m ± 0.05 m`.
-3. On a second photo, square-on to the gable end of the stair housing, **∠ Angle** with one ray along the eave reads `∠1: 153.4°`, and the strip `roof pitch 6.0:12 ± 0.1`: the acute angle is 180° − 153.4° = 26.6°, and 12 × tan 26.6° = 6.0.
+3. On a second photo, square-on to the gable end of the stair housing, **∠ Angle** with one ray along the eave reads `∠1: 153.4°`, and the window `roof pitch 6.0:12 ± 0.1`: the acute angle is 180° − 153.4° = 26.6°, and 12 × tan 26.6° = 6.0.
 
 <a id="measure-tools-in-the-report"></a>
 
 ### In the report
 
-The Photogrammetry report builder copies what you drew into its **Advanced Analysis & Measurements** section. The Thermal report prints, under each imaging pair, one measurements line per picture of the pair.
+The Photogrammetry report builder copies what you drew into its **Advanced Analysis & Measurements** section. The Thermal report prints, under each imaging pair, one measurements line per picture of the pair. With two or more areas that have a value the line adds their sum, for example `total area 1000 m² ± 9 m² (2 areas)`, or `(2 of 3 areas)` when one has none; perimeters are in it only with **Include perimeters** ticked in section 5.
 
 1. Queue the pictures as figures in the Photogrammetry tab (**+ Add to report**).
 2. Open **📄 Report ▼** → **Open report builder…** and go to **Advanced Analysis & Measurements**.
-3. Press **📏 Add measurements from pictures**. One row appears per distance, angle, area (with its perimeter), position and slope on the queued pictures, plus height-difference and elevation rows when an elevation model is paired, and a volume row per solid or cut, fill and net rows per elevation-model volume.
+3. Press **📏 Add measurements from pictures**. One row appears per distance, angle, area, position and slope on the queued pictures, plus height-difference and elevation rows when an elevation model is paired, and a volume row per solid or cut, fill and net rows per elevation-model volume. Tick **Include perimeters** first to get a row for each area's perimeter too; the box is off by default, also in reports made before this version.
 4. Check each row:
    - **Type**: `Length / distance`, `Area`, `Angle`, `Volume`, `Slope / pitch`, `Position`, `Height / elevation` or `Other`.
-   - **Feature**: your name, or `Measurement 1`, `Area 1`…; a perimeter has its own row.
+   - **Feature**: your name, or `Measurement 1`, `Area 1`…; with **Include perimeters** ticked, a perimeter has its own row, such as `Area 1 perimeter`. Perimeter rows already in the table stay when you clear the box: remove them with **✕**.
    - **Value** and **Unit**: in Settings → Units, rounded to two decimals.
    - **Method / tolerance / remarks**: most rows start with `In-image:` (a position row starts with the position itself), name the scale source and end with the ±, for example `± 0.062 m (1 sigma)`.
    - **Shown in figure**: the figure it is drawn on.
 5. Read the notice: how many rows were added and what was skipped, for example `2 measurement(s) have no scale yet and were skipped.` Rows already there (same figure, type and feature) are not added again: press the button after adding measurements; to refresh a changed value, delete its row first.
-6. Rows made under the other unit system show **Convert rows to ft** (or **Convert rows to m**). It converts the value, the unit and the ± in the method text.
-7. **+ Add measurement** adds a row by hand, for a tape measurement on site.
+6. Read the line above the table, for example `Total area 1000 m² over 2 area rows`. It adds the **Area** rows that have a value and an area unit, converted to your units and added up before the sum is rounded once; others are counted as `1 area row without a value or an area unit (not in the total)`. Overlapping areas are counted twice. The export prints it as `Total area` under the table.
+7. Rows made under the other unit system show **Convert rows to ft** (or **Convert rows to m**). It converts the value, the unit and the ± in the method text.
+8. **+ Add measurement** adds a row by hand, for a tape measurement on site.
 
 <a id="measure-tools-tips-and-common-mistakes"></a>
 
@@ -2282,13 +2286,15 @@ The Photogrammetry report builder copies what you drew into its **Advanced Analy
 >
 > A length is the scale parameter times the unit ground distance between the ends. An area projects every corner the same way and uses the shoelace formula. The ± is one standard uncertainty combining the marking (±1 px per coordinate, by numerical partial derivatives), the scale (twice its relative σ for an area) and the focal length when its uncertainty is known. A rectangle or circle takes its marking from its two clicks; a circle is stored as a 256-corner polygon.
 >
+> A picture total's ± combines the areas' marking parts by root-sum-square (each click is independent) and adds their scale parts and their focal parts (one scale for the whole picture). The focal part's sum is an upper bound, so the total's ± can be a little too large. When an area's ± is unknown, the total reads `≈`.
+>
 > The picture angle uses the six click coordinates only; the ground angle is scale-free. The roof pitch is x = 12 × tan β, β being the acute angle between the rays. Not included: lens distortion, ground slope and relief, camera roll, a consistent click bias.
 
 <a id="measure-tools-see-also"></a>
 
 ### See also
 
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Positions, ground control points and georeferenced orthomosaics](#measure-geo)
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
@@ -2339,9 +2345,9 @@ The **⌖ Position** tool reads the latitude and longitude (or easting and north
 4. For a point above the ground (a roof corner), type its **height above the reference plane**.
 5. The detail line breaks the ± down and, with an elevation model, adds the elevation.
 
-<a id="measure-geo-the-scale-strip-s-position-block"></a>
+<a id="measure-geo-the-scale-window-s-position-block"></a>
 
-### The Scale strip's Position block
+### The Scale window's Position block
 
 The block starts with **Position:** and the source, for example `Fit to 2 GCPs with latitude/longitude (similarity, rotation and scale; no check)`, `Orthomosaic georeferencing: WGS 84 / UTM zone 16N (EPSG:32616), pixel 0.025 m` or `Camera GPS position and heading (…)`.
 
@@ -2400,7 +2406,7 @@ By comparison, on a DJI photo looking straight down from 60 m, with no GCPs, a p
 
 ### See also
 
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Measuring lengths, angles and areas](#measure-tools)
 - [Elevation models: pairing a DEM, slopes, cut and fill volumes, solids](#measure-elevation)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
@@ -2436,7 +2442,7 @@ A Metashape elevation model (DEM or DSM) adds the third dimension to an orthomos
 5. Type its accuracy in **DEM accuracy per sample (m)** if you know it (blank = 0.05 m; the note suggests `about 1–2 × the DEM pixel for a controlled survey; worse on vegetation and edges`).
 6. The line below gives the vertical unit, the vertical datum and the DEM pixel size.
 
-When a one-band raster matches but its name says nothing, a blue note reads, for example, `1 one-band raster matches this orthomosaic; pick the elevation model (DEM) in the Scale strip.`
+When a one-band raster matches but its name says nothing, a blue note reads, for example, `1 one-band raster matches this orthomosaic; pick the elevation model (DEM) in the 🧭 Scale window.`
 
 <a id="measure-elevation-slope"></a>
 
@@ -2452,7 +2458,7 @@ When a one-band raster matches but its name says nothing, a blue note reads, for
 ### Volume inside an area
 
 1. Draw an outline with **⬠ Area** around the pile, the pit or the slab (see [Measuring lengths, angles and areas](#measure-tools)). Trace it on bare ground at the toe of a pile.
-2. In the strip, under the area's row, open the **Volume** select:
+2. In the **🧭 Scale** window, under the area's row, open the **Volume** select:
    - `None`: no volume (the default);
    - `Automatic`: from the elevation model when the picture has one, else a solid (once that is known it reads `Automatic: from the elevation model` or `Automatic: a solid`);
    - `From the elevation model`: cut and fill against a base surface;
@@ -2470,6 +2476,10 @@ When a one-band raster matches but its name says nothing, a blue note reads, for
 
 The result is one volume with its ±; the detail line repeats the factor, the height `(typed, exact)` and the ± breakdown.
 
+To give other areas the same volume setting, click **⇉ others…** on the area's volume line, tick the areas (**All**, **None**) and click **Apply**. Each ticked area gets the whole setting: the method, the base, a typed base elevation, the solid and its height. The button is off while the area has no volume setting (`None`): there is nothing to copy. A line reads, for example, `Volume applied: changed A2 and A3.` There is no undo, so check the ticks first. A typed base elevation is copied as it is, so check that it suits each area.
+
+The picture total, under the picture and in both windows, sums the volumes after the areas. Solids are one group; elevation-model volumes add cut, fill and net, each on its own, so a pit does not cancel a pile in the cut. An area whose volume is still being read shows as `(1 still being read)`, one without a value as `(1 without a value)`. Areas that overlap are counted twice.
+
 To hand a volume over, print it with **🧾 Volume ticket…** in the Photogrammetry library: a numbered PDF, Word or RTF ticket with cut, fill and net and their ±, the base, the sources, a figure of the outline and, with a material, the tonnage. See [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket).
 
 <a id="measure-elevation-example-a-stockpile-and-a-pit"></a>
@@ -2479,11 +2489,12 @@ To hand a volume over, print it with **🧾 Volume ticket…** in the Photogramm
 The synthetic test pair `pile_ortho.tif` and `pile_DSM.tif` (0.1 m and 0.2 m pixels) has a mound of exactly 1000π ≈ 3,142 m³ and a pit of 10 m × 6 m × 2 m = 120 m³.
 
 1. Draw a circle **⬠ Area** around the mound, 24 m in radius. Set **Volume** to `From the elevation model` with the plane base.
-2. The strip reads `cut 3142 m³ ± 63 m³ · fill 0 m³ · net 3142 m³ ± 90 m³`, and the label `A1: 1809 m² ± 21 m² · 3142 m³ ± 90 m³` (imperial `A1: 19476 ft² ± 230 ft² · 4109 yd³ ± 118 yd³`). The area is π × 24² ≈ 1,810 m².
+2. The window reads `cut 3142 m³ ± 63 m³ · fill 0 m³ · net 3142 m³ ± 90 m³`, and the label `A1: 1809 m² ± 21 m² · 3142 m³ ± 90 m³` (imperial `A1: 19476 ft² ± 230 ft² · 4109 yd³ ± 118 yd³`). The area is π × 24² ≈ 1,810 m².
 3. The net ± is the area times the DEM accuracy: 1,809 m² × 0.05 m ≈ 90 m³. The cut ± uses only the 1,257 m² that lie above the base: 1,257 × 0.05 ≈ 63 m³.
-4. Switch the base to `Mean elevation of the outline`. Net stays 3142 m³, but the ± grows to 677 m³ and a warning says the outline is not level: on sloping ground use the plane.
-5. Draw a rectangle over the pit. With the plane base its label reads `A2: 140 m² ± 2 m² · −120 m³ ± 7 m³`.
-6. On a picture with no elevation model, a small gravel heap outlined as 4.00 m² and set to a cone 3 m high reads `4.00 m³ ± 0.05 m³`: ⅓ × 4 m² × 3 m = 4 m³.
+4. With only the mound drawn, the picture total reads `Picture total: 1 area 1809 m² ± 21 m² · 1 elevation-model volume: cut 3142 m³ ± 63 m³ · fill 0 m³ · net 3142 m³ ± 90 m³`.
+5. Switch the base to `Mean elevation of the outline`. Net stays 3142 m³, but the ± grows to 677 m³ and a warning says the outline is not level: on sloping ground use the plane.
+6. Draw a rectangle over the pit. With the plane base its label reads `A2: 140 m² ± 2 m² · −120 m³ ± 7 m³`.
+7. On a picture with no elevation model, a small gravel heap outlined as 4.00 m² and set to a cone 3 m high reads `4.00 m³ ± 0.05 m³`: ⅓ × 4 m² × 3 m = 4 m³.
 
 A slope on the matching ramp test pair, 10 m of run and 5 m of rise, reads `26.6° ± 0.3° · 6.0:12 ± 0.1 · grade 50.0 % · run 10.00 m ± 0.14 m · rise +5.00 m ± 0.10 m · slope length 11.18 m ± 0.16 m`: atan(5 ÷ 10) = 26.6°, 12 × 5 ÷ 10 = 6.0, √(10² + 5²) = 11.18 m.
 
@@ -2528,7 +2539,7 @@ For the 120 m³ pit, pick `Fill (below the base)`. See [Material take-offs](#mat
 
 - [Measuring lengths, angles and areas](#measure-tools)
 - [Positions, ground control points and georeferenced orthomosaics](#measure-geo)
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
 - [Photogrammetry: getting started, importing, the library and Metashape deliverables](#photo-start)
 - [Thermal Studio: getting started](#thermal-start)
@@ -2541,7 +2552,7 @@ For the 120 m³ pit, pick `Fill (below the base)`. See [Material take-offs](#mat
 ## Material take-offs: from a measurement to an order, waste, prices
 
 
-A take-off turns a measurement on a picture into an order: how many bundles of shingles, fascia boards or tons of stone to buy. You pick a material under a measurement or an area in the **🧮 Material Takeoff** strip; the app adds the waste allowance, rounds up to whole units and, with a price, works out the cost. The same rows go into the report.
+A take-off turns a measurement on a picture into an order: how many bundles of shingles, fascia boards or tons of stone to buy. You pick a material under a measurement or an area in the **🧮 Material Takeoff** window; the app adds the waste allowance, rounds up to whole units and, with a price, works out the cost. The same rows go into the report.
 
 <a id="materials-takeoff-before-you-start"></a>
 
@@ -2550,22 +2561,24 @@ A take-off turns a measurement on a picture into an order: how many bundles of s
 - A picture with a scale. Without one the row reads `no scale`. See [Giving a picture a scale](#measure-scale).
 - A **📏 Measure** line (materials sold by length) or an **⬠ Area** (by area, roof surface, perimeter or volume). See [Measuring lengths, angles and areas](#measure-tools).
 - For a volume material: an area with a volume, a solid or a cut and fill. See [Elevation models](#measure-elevation).
-- For roofing: a pitch from a **⟋ Slope** or an **∠ Angle** with a level ray, or one you type.
+- For roofing: a pitch from a **⟋ Slope** or an **∠ Angle** with a level ray, or one you type, or the default 6:12.
 
 <a id="materials-takeoff-steps"></a>
 
 ### Steps
 
-1. Click **🧮 Material Takeoff** in the toolbar, right after **🧭 Scale**. The strip opens above the picture (under the Scale strip when that is open); every measurement (`M1`…) and area (`A1`…) has a **Materials** line. While the picture is being read the strip says `Reading the picture…`; a picture without a scale and without measurements or areas says `This picture has no scale yet: set it in 🧭 Scale.` (with measurements or areas, each row reads `no scale`); a scaled picture without measurements or areas says `Draw a 📏 Measure line or an ⬠ Area, then add its materials here.`
+1. Click **🧮 Material Takeoff** in the toolbar, right after **🧭 Scale**. A window opens over the picture, near its top-left corner, a little below the zoom buttons and a little lower and to the right of the 🧭 Scale window. Drag it by its title bar, resize it at its bottom-right corner, and close it with its **✕** or the toolbar button. Once you have moved or resized it, it opens at that place and size again, in both studios; a window you never moved opens at that default place each time. In the window every measurement (`M1`…) and area (`A1`…) has a **Materials** line. While the picture is being read the window says `Reading the picture…`; a picture without a scale and without measurements or areas says `This picture has no scale yet: set it in 🧭 Scale.` (with measurements or areas, each row reads `no scale`); a scaled picture without measurements or areas says `Draw a 📏 Measure line or an ⬠ Area, then add its materials here.`
 2. Open **+ Material…** on that row. Materials are grouped by category: `Roofing`, `Exterior walls, fencing and decking`, `Concrete`, `Masonry`, `Pavement`, `Landscape and drainage`, `Bulk materials`, `Other`.
 3. Pick a material, for example `Asphalt shingles — by roof surface`. The list offers only what the row can give (see the table below). A line appears with the material's fields and, under them, the take-off sentence.
 4. Change **waste** if the job needs another allowance. Blank means the preset's percentage, shown greyed in the box.
-5. For roofing, choose the **pitch**: a slope such as `S1: 6.0:12 (elevation model)`, an angle such as `∠1: 6.0:12 (in the picture)`, or `Typed`. With `Typed`, enter the rise in **x** (`6` for 6:12).
+5. For roofing, choose the **pitch**: a slope such as `S1: 6.0:12 (elevation model)`, an angle such as `∠1: 6.0:12 (in the picture)`, or `Typed`. With `Typed`, enter the rise in **x** (`6` for 6:12). A blank **x** (it shows a greyed `6`) uses the default 6:12: the sentence reads `(pitch 6.0:12, default)` and a blue note reads, for example, `Asphalt shingles: No pitch chosen: worked out at the default 6.0:12. Choose a slope or an angle, or type x.` The default is a guess, so the roof surface reads with `≈` and the count of units has no ± (the plan area keeps its ±).
 6. For a volume material on an elevation-model volume, choose `The larger of cut and fill` (the default), `Cut (above the base)`, `Fill (below the base)` or `Net (cut minus fill)`.
 7. Type a **price** per order unit (per bundle, per ton). Blank means the preset's price; the shipped presets have none. The sentence then ends with the cost, such as `× $38.50 = $2,849.00`.
-8. Read the block's footer once a take-off is priced. It reads like `Projected cost: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)` (illustrative figures; the worked example below gives real ones). Once a take-off is priced, a line above the strip's notes adds up every take-off of the picture, for example `Projected cost for this picture: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)`.
-9. If **↻ use the catalogue's values** appears, the catalogue's preset has changed since you added the material. Click it to take the new values; the waste, pitch and price you typed stay.
-10. Remove a take-off with **✕** at the end of its line.
+8. Read the block's footer once a take-off is priced. It reads like `Projected cost: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)` (illustrative figures; the worked example below gives real ones). Once a take-off is priced, a line above the window's notes adds up every take-off of the picture, for example `Projected cost for this picture: $4,120.50 for 3 materials (of which waste $269.50; 1 without a price)`.
+9. Read the picture total, above that line: the sum of the picture's areas and volumes, for example `Picture total: 2 areas 1240 m² ± 12 m²` (illustrative figures). It shows also before anything is priced, and it is the same line as under the picture and in the 🧭 Scale window. Areas that overlap are counted twice. See [Measuring lengths, angles and areas](#measure-tools-the-scale-window-rows).
+10. To copy a take-off of an area to other areas, click **⇉ others…** on its line (it shows only on an area's line, when the picture has another area; **Cancel** closes the panel without copying). Tick the areas (**All**, **None**), tick the fields to copy (`waste`, `pitch` for roofing, `volume part` for a volume material on an elevation-model volume, `price`), and click **Apply** (the focus goes back to **⇉ others…**). An area without the material gets a new line with only the ticked fields: an unticked waste or price uses the material's own value, and an unticked pitch stays blank, so that roof reads at the default 6:12 with its note until you choose its pitch. On an area that has the material, every line of that material keeps its place and takes the ticked fields. A line reads, for example, `Crushed stone applied: added to A2 and A3; skipped A4: it has no volume.` When nothing changes, nothing is saved and the line says so. There is no undo, so check the ticks first.
+11. If **↻ use the catalogue's values** appears, the catalogue's preset has changed since you added the material. Click it to take the new values; the waste, pitch and price you typed stay.
+12. Remove a take-off with **✕** at the end of its line.
 
 | Row | A material can be taken from |
 |---|---|
@@ -2580,12 +2593,13 @@ A take-off turns a measurement on a picture into an order: how many bundles of s
 Both report builders have a **Materials and Projected Cost** section. The photogrammetry report reads the queued pictures; the thermal report reads the pictures of its imaging pairs.
 
 1. Open **📄 Report ▼** → **Open report builder…** and scroll to **Materials and Projected Cost**.
-2. Click **📦 Add materials from pictures**. A row appears for each take-off, with its price. Take-offs without a quantity are skipped, and rows already in the report are not added again.
+2. Click **📦 Add materials from pictures**. A row appears for each take-off, with its price. Rows already in the report are not added again. Take-offs without a quantity are skipped, and the notice names each one with its reason (five at most), for example `1 material take-off(s) have no quantity yet and were skipped: Figure 1 A1 Asphalt shingles: No roof pitch: S1 has no elevation. Finish them in 🧮 Material Takeoff on those pictures.` Rows worked out at the default pitch add `N take-off(s) use the default pitch 6:12 (not measured): type the real pitch in 🧮 Material Takeoff, then remove the row here (✕) and add materials again.`, and their **Basis** reads `(pitch 6.0:12, default)`. An import never changes the order, the basis or the price of a row already in the report (it only fills in a missing waste figure or area): after you type the real pitch, remove the row with **✕** and click **📦 Add materials from pictures** again. Until you do, each import reminds you with `N row(s) added earlier still use the default pitch 6:12, and their take-off now has a pitch: remove those rows (✕) and add materials again.`
 3. Check each row: **Material**, **From**, **Order**, **Unit**, **Waste %**, **Waste units**, the unit price, the **Basis** sentence and a **Note** (supplier, quote number). **Cost** shows under it `of which waste $…` whenever the row has a cost and its waste units are known, even when that is $0.00.
 4. Set the **Currency** (`USD`, `EUR`, `CAD`…). While no row has a price, the report takes the catalogue's currency.
 5. Read the total line, for example `Projected total $2,849.00 for 1 priced row · of which waste $231.00`. Rows without a price or an order count are counted after it (`· N row(s) without a price or an order count (not in the total)`) and left out of the total.
-6. Add a row by hand with **+ Add material**, or remove one with **✕**.
-7. Click **Preview & edit**. The table has the columns Material, From, Basis, Order, Unit price, Cost and Waste. From starts with `Figure 2` (photogrammetry) or `Pair 2 (thermal)` (thermal). Below the rows come `Projected total` and, when waste costs something, `Waste allowance (in the total)`, then a note that prices were entered by the inspector and the total is a projection.
+6. When a row came from an area, read the area line under it, for example `Total plan area 600 m² of 1 measured area (plan area, not roof surface)`. It prints whole units from 100 up, at most one decimal below 100 and two in ha or ac (`12.0` prints as `12`). Each area counts once, however many rows it gives; when its rows disagree (the outline was redrawn between two imports) the first row's value is kept. Overlapping areas are counted twice. Rows added before this line existed show no area: press **📦 Add materials from pictures** again to fill them in (only what is missing is filled; nothing else of the row changes).
+7. Add a row by hand with **+ Add material**, or remove one with **✕**.
+8. Click **Preview & edit**. The table has the columns Material, From, Basis, Order, Unit price, Cost and Waste. From starts with `Figure 2` (photogrammetry) or `Pair 2 (thermal)` (thermal). Below the rows come `Projected total` and, when waste costs something, `Waste allowance (in the total)`, then a note that prices were entered by the inspector and the total is a projection. When the rows carry areas, `Total plan area` follows, for example `600 m² (1 measured area)`, with a note that a pitched roof's surface is larger and is in the Basis of its rows.
 
 <a id="materials-takeoff-example-a-6-12-shingle-roof"></a>
 
@@ -2619,12 +2633,12 @@ Stone is sold by weight: 132 m³ (with waste) × 1,600 kg/m³ = 211,200 kg, ÷ 9
 - Catalogue edits do not change take-offs already on pictures. Use **↻ use the catalogue's values** line by line.
 - The currency relabels prices; it never converts them.
 - Re-running **📦 Add materials from pictures** is safe: rows already added are skipped.
-- A notice such as `Asphalt shingles: No roof pitch: type x in x:12.` means the roof line needs a slope, an angle or a typed x.
+- A roof line without a pitch is not skipped: it is worked out at the default 6:12 with the note `Asphalt shingles: No pitch chosen: worked out at the default 6.0:12. Choose a slope or an angle, or type x.` The default is a guess: choose the real pitch. A notice such as `Asphalt shingles: No roof pitch: S1 has no elevation.` means the slope or angle it names needs fixing.
 - A volume ticket (**🧾 Volume ticket…**) prints the tonnage of one volume from a material's density: the measured part × the density, with its ±, and no waste. It preselects the material and part of the area's volume take-off, so its mass is the take-off's before waste: the 120 m³ fill at 1,600 kg/m³ is 192 t on the ticket, while the take-off orders 233 tons with 10 % waste. See [Printing a volume ticket](#mapping-deliverables-printing-a-volume-ticket).
 
 > **Under the hood**
 >
-> The count is the quantity (× √(1 + (x/12)²) for roofing), plus the waste percentage, divided by what one unit covers, rounded up. With a package the rounding is done in packages from the exact count: 24.6 × 3 = 73.8, so 74 bundles, not 25 squares × 3 = 75. By weight: volume × density, then weight ÷ the weight of one unit. Waste units are the order minus the order at 0 %. Prices are per order unit, and each cost is rounded to the cent as printed, so the strip, the builder and the export agree.
+> The count is the quantity (× √(1 + (x/12)²) for roofing), plus the waste percentage, divided by what one unit covers, rounded up. With a package the rounding is done in packages from the exact count: 24.6 × 3 = 73.8, so 74 bundles, not 25 squares × 3 = 75. By weight: volume × density, then weight ÷ the weight of one unit. Waste units are the order minus the order at 0 %. Prices are per order unit, and each cost is rounded to the cent as printed, so the window, the builder and the export agree.
 >
 > Presets are rules of thumb: check them against the product. Values are stored in metric and shown in your units. Each take-off keeps a copy of its preset, so a picture reads the same anywhere.
 
@@ -2651,7 +2665,7 @@ Stone is sold by weight: 132 m³ (with waste) × 1,600 kg/m³ = 211,200 kg, ÷ 9
 ## Editing the material catalogue: presets, units, packages, waste, prices
 
 
-The material catalogue is the list the **+ Material…** chooser offers in the **🧮 Material Takeoff** strip. Each preset says how a material is measured, what it is sold as, what one unit covers, how it is packed, the usual waste and, if you want, a price. You edit it in Settings, so the take-offs match your suppliers and your prices.
+The material catalogue is the list the **+ Material…** chooser offers in the **🧮 Material Takeoff** window. Each preset says how a material is measured, what it is sold as, what one unit covers, how it is packed, the usual waste and, if you want, a price. You edit it in Settings, so the take-offs match your suppliers and your prices.
 
 <a id="settings-material-presets-before-you-start"></a>
 
@@ -2689,7 +2703,7 @@ The table lists the presets under category headings; the shipped catalogue has 5
 10. Choose **Waste**: `0 % — exact count (panels, posts, fixtures)`, `5 % — simple gable roof, straight runs`, `10 % — standard`, `15 % — hips and valleys, many cuts`, `20 % — complex roof, patterns, diagonal layouts`, or `Other…`, which adds a small box followed by `%` (named `Waste (custom)` for screen readers) for your own figure.
 11. Under **Package (optional)**, pick `No package` or a package: `bundle / bundles`, `box / boxes`, `carton / cartons`, `case / cases`, `bag / bags`, `roll / rolls`, `pallet / pallets`, `pail / pails`, or `Other…`, which adds two boxes showing `bundle` and `bundles` as placeholders (`Package (one)` and `Package (many)`) for your own words. Next to the package a count box (placeholder `3`, followed by `per unit`; named `Packages per unit`) fills from the convention: 3 bundles or 0.5 box per square. Otherwise it stays blank and the form asks for it.
 12. Type the price in **Price per** (the order unit and currency follow, such as `Price per bundle (USD)`). Leave it blank for `not priced`.
-13. Add a **Note (shown on hover in the strip)**, then click **Save**. `Material presets saved.` confirms it. **Cancel** closes the form. Esc closes the form first, and a second Esc closes the window.
+13. Add a **Note (shown on hover in the 🧮 Material Takeoff window)**, then click **Save**. `Material presets saved.` confirms it. **Cancel** closes the form. Esc closes the form first, and a second Esc closes the window.
 14. Click **Delete** on a row to remove a preset. It goes at once, with no question.
 15. Click **Reset to the shipped presets** to start over. The app asks first; your own presets and edits are removed, the currency stays.
 
@@ -2713,7 +2727,7 @@ On the 2,000 ft² plan area at 6:12 (2,236.07 ft² of roof): + 15 % = 2,571.48 f
 
 - Prices are per order unit: per bundle when there is a package, not per square.
 - Changing **Sold as** or **Package** re-derives the packages-per-unit count. A package with the same name as the new unit is dropped (sold by the bundle, nothing comes inside it).
-- Editing a preset changes only new take-offs. Old ones keep their copy until you click **↻ use the catalogue's values** in the strip.
+- Editing a preset changes only new take-offs. Old ones keep their copy until you click **↻ use the catalogue's values** in the 🧮 Material Takeoff window.
 - Changing the currency relabels the prices; it does not convert them.
 - If the red notice says the stored presets could not be read, click **Try again**. Until then the shipped list shows and nothing can be saved.
 
@@ -2728,7 +2742,7 @@ On the 2,000 ft² plan area at 6:12 (2,236.07 ft² of roof): + 15 % = 2,571.48 f
 ### See also
 
 - [Material take-offs: from a measurement to an order, waste, prices](#materials-takeoff)
-- [Giving a picture a scale: references, altitude and pitch, the Scale strip, units](#measure-scale)
+- [Giving a picture a scale: references, altitude and pitch, the Scale window, units](#measure-scale)
 - [Measuring lengths, angles and areas](#measure-tools)
 
 <sub>[Back to contents](#contents)</sub>
