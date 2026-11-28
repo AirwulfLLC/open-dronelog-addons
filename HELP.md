@@ -3232,7 +3232,7 @@ If the picked customer was encrypted with another password, the bar instead read
 ## Buying, activating and renewing an add-on license, and updating add-ons
 
 
-The Thermal Analysis Studio, the Photogrammetry add-on and the 360 Panorama Studio each run on a license: a subscription per add-on at $7.99 a month or $75 a year, which you can cancel at any time. The add-on itself is free to download and install; the license switches its functions on.
+The Thermal Analysis Studio, the Photogrammetry add-on and the 360 Panorama Studio each run on a license: a subscription per add-on, which you can cancel at any time. Thermal and Photogrammetry cost $7.99 a month or $75 a year each; the 360 Panorama Studio costs $4.99 a month or $50 a year (in this version its Buy buttons still read $7.99 and $75; the purchase page shows the real price before you pay). The add-on itself is free to download and install; the license switches its functions on.
 
 <a id="addon-license-before-you-start"></a>
 

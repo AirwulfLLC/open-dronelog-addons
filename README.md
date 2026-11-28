@@ -64,7 +64,7 @@ Version 1.1.0 of Thermal and Photogrammetry brought the following, together with
 - Look around the finished 360, and choose the view it opens at with **Set starting view**. See [Looking around a 360](HELP.md#panorama-export).
 - Save it as a 360 JPEG with **Export 360 JPEG…**, or as one web page that opens in a web browser without an internet connection with **Export HTML viewer…**. With a licensed Photogrammetry add-on, **Save view to Photogrammetry** keeps one view as a picture for a survey report. See [Export a 360 JPEG](HELP.md#panorama-export-export-a-360-jpeg), [Export an HTML viewer file](HELP.md#panorama-export-export-an-html-viewer-file) and [Save a view to the Photogrammetry library](HELP.md#panorama-export-save-a-view-to-the-photogrammetry-library).
 - Install it like the other add-ons: see [Install an add-on, step by step](#install-an-add-on-step-by-step). After you update Thermal or Photogrammetry to 1.1.0, the **🧩 Add-ons** window lists it too, with a **Download installer…** button that opens the release page.
-- Its license is not on sale yet: see the note in [Activate your license](#activate-your-license).
+- Its license costs $4.99 a month or $50 a year: see [Activate your license](#activate-your-license).
 
 **Open DroneLog 3.4.0**
 
@@ -136,7 +136,7 @@ Check these five things first. Each takes a minute, and together they prevent al
 2. **Open DroneLog installed with its "setup.exe" installer.** Open DroneLog offers two Windows installers: a *setup.exe* (installs for your Windows account only) and an *.msi* (installs for every account on the computer). The add-ons only work with the **setup.exe** install. Step 1 below shows how to get it.
 3. **The right Open DroneLog version.** Each add-on release is built for one Open DroneLog version, and its installer will not run on a newer one. The current add-ons are built for **Open DroneLog 3.4.0**. An older Open DroneLog is fine: the add-on installer brings it to 3.4.0. If you have a newer Open DroneLog, check the [Releases page](https://github.com/AirwulfLLC/open-dronelog-addons/releases) for a matching add-on release.
 4. **No administrator password needed.** The add-ons install into your own Windows account, the same way Open DroneLog does.
-5. **A license for each add-on you want to use.** Downloading and installing the add-ons is free. A license switches their features on: **$7.99 a month or $75 a year per add-on**, cancel anytime. You can install first and buy the license later from inside the program. Activating a license needs an internet connection once; for a computer that is never online, see [Offline computers](HELP.md#addon-license-offline-computers) in the help file.
+5. **A license for each add-on you want to use.** Downloading and installing the add-ons is free. A license switches their features on: **$7.99 a month or $75 a year for Thermal or Photogrammetry, $4.99 a month or $50 a year for 360 Panorama Studio**, cancel anytime. You can install first and buy the license later from inside the program. Activating a license needs an internet connection once; for a computer that is never online, see [Offline computers](HELP.md#addon-license-offline-computers) in the help file.
 
 > **Words used in this guide**
 > - **Installer**: the `.exe` file you download and double-click to add a program to Windows.
@@ -222,7 +222,7 @@ If you entered your key in the installer, Open DroneLog activates it the next ti
 4. Click **Continue to payment** and pay by card.
 5. The thank-you page shows your license key. Click **Copy**, and **bookmark the page**: it is your way back to the key if you lose it.
 
-> **360 Panorama Studio:** its license is not on sale yet. Until it is, its **Buy** buttons open a page that reads **Not found**. You can install the add-on now; its tab shows the lock panel until it has a license.
+> **360 Panorama Studio:** its license costs $4.99 a month or $50 a year. In this version its **Buy** buttons still read $7.99 and $75; the purchase page shows the real price before you pay.
 
 **To activate the key:**
 
